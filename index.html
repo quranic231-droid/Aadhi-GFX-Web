@@ -1,300 +1,504 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>AADHI GFX TOOL - Unlock 120 FPS & Lag Fix for BGMI</title>
-    <meta name="description" content="Download Official Aadhi GFX Tool. Best floating GFX for BGMI to fix lag, unlock 120 FPS, iPad View, and Magic Bullet. Safe & Anti-Ban for Android.">
-    <meta name="keywords" content="BGMI GFX Tool, Aadhi GFX, Lag Fix, 120 FPS Config, iPad View, Floating GFX, Magic Bullet, No Ban">
-    <meta name="author" content="Aadhi Aadil">
-    
-    <meta property="og:title" content="AADHI GFX TOOL - Max Performance">
-    <meta property="og:description" content="Unlock 120 FPS, iPad View & Zero Lag in BGMI. Download the best Floating GFX Tool now!">
-    <meta property="og:image" content="https://quranic231-droid.github.io/BGMI-GFX-Tool-120FPS-Aadhi/icon.png"> <link rel="icon" type="image/png" href="icon.png"> <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "AADHI GFX TOOL",
-      "operatingSystem": "ANDROID",
-      "applicationCategory": "GameApplication",
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.9",
-        "ratingCount": "3250"
-      },
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "description": "Unlock 120 FPS, iPad View and fix lag in BGMI with Aadhi GFX Tool. Safe and Secure.",
-      "softwareVersion": "1.0",
-      "fileFormat": "application/vnd.android.package-archive"
-    }
-    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AADHI AADIL</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
+    <!-- ================= SECTION: GLOBAL CSS ================= -->
     <style>
-        /* --- CORE VARIABLES --- */
-        :root {
-            --primary: #00ff88;
-            --secondary: #00d2ff;
-            --bg-dark: #050505;
-            --card-bg: rgba(20, 20, 20, 0.85);
-            --text-color: #ffffff;
-        }
-
-        /* --- GLOBAL STYLES --- */
-        body {
-            margin: 0; padding: 0;
-            background-color: var(--bg-dark);
-            color: var(--text-color);
-            font-family: 'Poppins', sans-serif;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
-
-        /* --- BACKGROUND ANIMATION --- */
-        .bg-grid {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: linear-gradient(rgba(0, 255, 136, 0.05) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(0, 255, 136, 0.05) 1px, transparent 1px);
-            background-size: 40px 40px;
-            z-index: -1;
-            transform: perspective(800px) rotateX(25deg) scale(1.2);
-            opacity: 0.4;
-            animation: gridMove 20s linear infinite;
-        }
-        @keyframes gridMove { from { transform: perspective(800px) rotateX(25deg) scale(1.2) translateY(0); } to { transform: perspective(800px) rotateX(25deg) scale(1.2) translateY(40px); } }
-
-        /* --- NAVBAR --- */
-        nav {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 30px;
-            background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(15px);
-            position: sticky; top: 0; z-index: 100;
-            border-bottom: 1px solid rgba(0, 255, 136, 0.15);
-        }
-        .logo {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.8rem; font-weight: 700;
-            color: white; letter-spacing: 2px;
-            text-shadow: 0 0 10px rgba(0,255,136,0.3);
-        }
-        .logo span { color: var(--primary); }
-
-        /* --- HERO SECTION --- */
-        .hero {
-            min-height: 90vh;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            text-align: center; padding: 20px;
-            position: relative;
-        }
-        .hero h1 {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 4.5rem; line-height: 1; margin-bottom: 15px;
-            background: linear-gradient(to right, #fff, var(--primary), var(--secondary));
-            -webkit-background-clip: text; color: transparent;
-            text-transform: uppercase;
-            animation: textGlow 3s infinite alternate;
-        }
-        .hero p {
-            font-size: 1.3rem; color: #ccc; max-width: 650px; margin-bottom: 40px;
-            line-height: 1.6;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #07090F; color: #E2E8F0; padding-top: 70px; padding-bottom: 80px; }
         
-        /* DOWNLOAD BUTTON */
-        .btn-download {
-            padding: 20px 55px;
-            font-size: 1.3rem; font-weight: bold; letter-spacing: 1px;
-            background: var(--primary); color: #000;
-            border: none; border-radius: 50px;
-            cursor: pointer; text-decoration: none;
-            display: inline-flex; align-items: center; gap: 12px;
-            box-shadow: 0 0 25px rgba(0, 255, 136, 0.4);
-            transition: all 0.3s ease;
-            position: relative; overflow: hidden;
-            animation: pulseBtn 2s infinite;
-        }
-        .btn-download:hover { 
-            transform: translateY(-3px) scale(1.02); 
-            background: #fff; 
-            box-shadow: 0 0 40px rgba(0, 255, 136, 0.8);
-        }
+        /* HEADER CSS */
+        .header { position: fixed; top: 0; left: 0; right: 0; height: 70px; background: rgba(7,9,15,0.92); backdrop-filter: blur(12px); display: flex; align-items: center; justify-content: space-between; padding: 0 20px; z-index: 100; border-bottom: 1px solid rgba(239,68,68,0.3); }
+        .header .icon-btn { width: 44px; height: 44px; border-radius: 14px; background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.25); color: #FCA5A5; display: flex; align-items: center; justify-content: center; font-size: 20px; cursor: pointer; }
+        .header .title { font-size: 22px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; background: linear-gradient(135deg, #F87171, #EF4444); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* --- FEATURES SECTION --- */
-        .section-title {
-            text-align: center; font-family: 'Rajdhani', sans-serif;
-            font-size: 2.8rem; margin-top: 80px; margin-bottom: 40px;
-            color: white; text-shadow: 0 0 15px rgba(255,255,255,0.1);
-        }
-        .features-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px; max-width: 1200px; margin: 0 auto; padding: 20px;
-        }
-        .feature-card {
-            background: var(--card-bg);
-            padding: 35px; border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.05);
-            text-align: center; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative; overflow: hidden;
-        }
-        .feature-card::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            transform: scaleX(0); transform-origin: left; transition: 0.4s;
-        }
-        .feature-card:hover::before { transform: scaleX(1); }
-        .feature-card:hover {
-            transform: translateY(-10px);
-            border-color: rgba(0, 255, 136, 0.3);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-        }
-        .feature-card i { 
-            font-size: 3rem; 
-            background: linear-gradient(to bottom, var(--primary), var(--secondary));
-            -webkit-background-clip: text; color: transparent;
-            margin-bottom: 20px; display: inline-block;
-        }
-        .feature-card h3 { 
-            color: white; margin-bottom: 12px; font-size: 1.4rem;
-        }
-        .feature-card p { color: #999; font-size: 0.95rem; line-height: 1.5; }
+        /* NAV CSS */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 72px; background: rgba(7,9,15,0.92); backdrop-filter: blur(12px); border-top: 1px solid rgba(239,68,68,0.2); display: flex; align-items: center; justify-content: space-around; z-index: 100; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; color: #6B7280; font-size: 12px; font-weight: 600; cursor: pointer; padding: 6px 12px; border-radius: 12px; }
+        .nav-item i { font-size: 22px; margin-bottom: 2px; }
+        .nav-item.active { color: #F87171; text-shadow: 0 0 20px rgba(239,68,68,0.5); }
 
-        /* --- SOCIAL MEDIA SECTION --- */
-        .social-section {
-            text-align: center; padding: 80px 20px;
-            background: linear-gradient(to top, #000 20%, transparent);
-            margin-top: 50px;
-        }
-        .social-icons {
-            display: flex; justify-content: center; gap: 25px; flex-wrap: wrap; margin-top: 30px;
-        }
-        .social-btn {
-            width: 65px; height: 65px;
-            border-radius: 15px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 2rem; color: white; text-decoration: none;
-            transition: 0.3s; position: relative;
-            background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        .yt:hover { background: #FF0000; box-shadow: 0 0 20px rgba(255,0,0,0.6); border-color: #FF0000; transform: translateY(-5px); }
-        .tg:hover { background: #0088cc; box-shadow: 0 0 20px rgba(0,136,204,0.6); border-color: #0088cc; transform: translateY(-5px); }
-        .ig:hover { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); box-shadow: 0 0 20px rgba(214,41,118,0.6); border-color: #dc2743; transform: translateY(-5px); }
-        
-        /* --- FOOTER --- */
-        footer {
-            text-align: center; padding: 40px;
-            border-top: 1px solid #1a1a1a;
-            color: #555; font-size: 0.9rem;
-            background: #020202;
-        }
-        .dev-tag {
-            color: var(--primary); font-weight: 700; letter-spacing: 1.5px;
-            text-transform: uppercase; margin-top: 12px; display: inline-block;
-            padding: 5px 15px; border-radius: 20px;
-            background: rgba(0, 255, 136, 0.05);
-            border: 1px solid rgba(0, 255, 136, 0.1);
-        }
+        .page { display: none; padding: 16px 20px 80px 20px; animation: fadeUp 0.3s ease; }
+        .page.active { display: block; }
+        @keyframes fadeUp { 0% { opacity: 0.5; transform: translateY(12px); } 100% { opacity: 1; transform: translateY(0); } }
 
-        /* --- ANIMATIONS --- */
-        @keyframes textGlow { from { text-shadow: 0 0 10px rgba(0,255,136,0.2); } to { text-shadow: 0 0 25px rgba(0,210,255,0.6); } }
-        @keyframes pulseBtn { 0% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(0, 255, 136, 0); } 100% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0); } }
-        
-        /* MOBILE TWEAKS */
-        @media (max-width: 600px) {
-            .hero h1 { font-size: 3rem; }
-            .btn-download { width: 80%; justify-content: center; padding: 18px 0; }
-            .features-grid { grid-template-columns: 1fr; padding: 10px; }
-            .section-title { font-size: 2.2rem; }
-        }
+        /* CARD CSS */
+        .card { background: rgba(17,24,39,0.8); backdrop-filter: blur(4px); border-radius: 24px; border: 1px solid rgba(239,68,68,0.5); box-shadow: 0 8px 32px rgba(0,0,0,0.5); padding: 18px 20px; margin-bottom: 18px; }
+        .section-title { font-size: 14px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: #EF4444; margin: 22px 0 10px 0; display: flex; align-items: center; gap: 10px; }
+
+        /* TIMER CSS */
+        .timer-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; margin-top: 8px; }
+        .timer-box { background: rgba(30,41,59,0.6); border-radius: 16px; padding: 10px 0; text-align: center; border: 1px solid rgba(239,68,68,0.15); }
+        .timer-box .number { font-size: 28px; font-weight: 800; color: #F87171; line-height: 1.2; }
+        .timer-box .label { font-size: 10px; color: #94A3B8; letter-spacing: 1px; text-transform: uppercase; }
+
+        /* BGMI CARD CSS */
+        .game-card { display: flex; align-items: center; gap: 14px; }
+        .game-icon { width: 56px; height: 56px; border-radius: 16px; background: linear-gradient(135deg, #EF4444, #B91C1C); display: flex; align-items: center; justify-content: center; font-size: 28px; color: white; flex-shrink: 0; }
+        .game-info { flex: 1; }
+        .game-info .title { font-size: 18px; font-weight: 700; }
+        .game-info .version { font-size: 13px; color: #94A3B8; }
+        .game-info .pkg { font-size: 11px; color: #64748B; font-family: monospace; }
+        .live-badge { border: 1px solid #EF4444; color: #F87171; padding: 4px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; text-transform: uppercase; }
+
+        /* VIDEO BANNER CSS */
+        .video-banner { width: 100%; border-radius: 20px; overflow: hidden; margin-bottom: 18px; background: #000; border: 1px solid rgba(239,68,68,0.5); }
+        .video-banner video { width: 100%; height: 200px; object-fit: cover; display: block; }
+
+        /* FEATURE ROW CSS */
+        .feature-row { display: flex; align-items: center; gap: 14px; padding: 10px 0; border-bottom: 1px solid rgba(239,68,68,0.1); }
+        .feature-row:last-child { border-bottom: none; }
+        .feature-icon { width: 40px; height: 40px; border-radius: 14px; background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.15); display: flex; align-items: center; justify-content: center; font-size: 18px; color: #F87171; flex-shrink: 0; }
+        .feature-info { flex: 1; }
+        .feature-info .name { font-size: 15px; font-weight: 600; color: #F1F5F9; }
+        .feature-info .desc { font-size: 12px; color: #94A3B8; }
+
+        /* TOGGLE CSS */
+        .toggle { width: 48px; height: 28px; background: #334155; border-radius: 14px; position: relative; cursor: pointer; transition: 0.25s; flex-shrink: 0; border: 1px solid rgba(239,68,68,0.2); }
+        .toggle.active { background: linear-gradient(135deg, #EF4444, #B91C1C); border-color: #EF4444; box-shadow: 0 0 20px rgba(239,68,68,0.3); }
+        .toggle .knob { width: 22px; height: 22px; background: white; border-radius: 50%; position: absolute; top: 2px; left: 2px; transition: 0.25s; }
+        .toggle.active .knob { left: 22px; }
+
+        /* SETTINGS CSS */
+        .settings-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(239,68,68,0.1); }
+        .settings-row:last-child { border-bottom: none; }
+        .settings-row .label { font-size: 15px; font-weight: 500; color: #E2E8F0; }
+        .settings-row .value { font-size: 14px; color: #94A3B8; }
+
+        /* BUTTONS CSS */
+        .btn-gold { background: linear-gradient(45deg, #FFD700, #FF5733); color: #0A0E17; font-weight: bold; padding: 14px 0; text-align: center; border-radius: 16px; font-size: 18px; cursor: pointer; margin-top: 10px; border: none; width: 100%; transition: 0.2s; }
+        .btn-gold:active { transform: scale(0.96); }
+
+        /* TOAST CSS */
+        .toast-msg { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); background: rgba(17,24,39,0.9); backdrop-filter: blur(8px); border: 1px solid rgba(239,68,68,0.3); border-radius: 40px; padding: 10px 24px; color: #E2E8F0; font-size: 14px; font-weight: 500; box-shadow: 0 4px 30px rgba(0,0,0,0.6); opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 999; white-space: nowrap; max-width: 90%; }
+        .toast-msg.show { opacity: 1; }
+
+        /* DOWNLOAD OVERLAY CSS */
+        .download-overlay { position: fixed; bottom: -300px; left: 16px; right: 16px; background: #1A2332; border-radius: 20px; border: 1px solid rgba(239,68,68,0.4); padding: 16px; z-index: 1000; transition: bottom 0.4s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 -5px 30px rgba(0,0,0,0.8); }
+        .download-overlay.show { bottom: 80px; }
+        .dl-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .dl-header .title { font-size: 14px; font-weight: 700; color: #F87171; display: flex; align-items: center; gap: 8px; }
+        .dl-header .title i { animation: spin 1s linear infinite; }
+        .dl-header .close-btn { background: transparent; border: none; color: #94A3B8; font-size: 20px; padding: 4px; }
+        .dl-progress-wrap { display: flex; justify-content: space-between; font-size: 12px; color: #94A3B8; margin-bottom: 6px; }
+        .dl-progress-wrap .percent { color: #F87171; font-weight: 700; }
+        .dl-progress-bar-bg { width: 100%; height: 8px; background: #0D1117; border-radius: 10px; overflow: hidden; margin-bottom: 10px; }
+        .dl-progress-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #EF4444, #F87171); border-radius: 10px; transition: width 0.3s; }
+        .dl-info-row { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: #94A3B8; margin-bottom: 12px; }
+        .dl-actions { display: flex; gap: 10px; }
+        .dl-actions button { flex: 1; padding: 10px 0; border-radius: 10px; border: none; font-size: 13px; font-weight: 700; cursor: pointer; }
+        .dl-actions .btn-hide { background: #1E293B; color: #E2E8F0; }
+        .dl-actions .btn-cancel { background: rgba(239,68,68,0.2); color: #EF4444; border: 1px solid rgba(239,68,68,0.3); }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* ===== PREMIUM DNS UI CSS (NEW) ===== */
+        .dns-main-card { background: linear-gradient(145deg, #1A2332 0%, #0D1117 100%); border-radius: 28px; border: 1px solid rgba(239, 68, 68, 0.4); padding: 24px 20px; text-align: center; position: relative; overflow: hidden; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6); transition: all 0.3s ease; }
+        .dns-main-card.protected { border-color: rgba(52, 211, 153, 0.5); box-shadow: 0 0 40px rgba(52, 211, 153, 0.1); }
+        .dns-glow { position: absolute; top: -50px; left: 50%; transform: translateX(-50%); width: 200px; height: 200px; background: radial-gradient(circle, rgba(239,68,68,0.2) 0%, transparent 70%); border-radius: 50%; transition: background 0.3s; }
+        .dns-main-card.protected .dns-glow { background: radial-gradient(circle, rgba(52,211,153,0.2) 0%, transparent 70%); }
+        .dns-shield-icon { width: 80px; height: 80px; margin: 0 auto 16px; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 36px; color: #EF4444; position: relative; z-index: 1; transition: all 0.3s; }
+        .dns-main-card.protected .dns-shield-icon { background: rgba(52, 211, 153, 0.15); border-color: rgba(52, 211, 153, 0.5); color: #34D399; animation: shieldPulse 2s infinite; }
+        @keyframes shieldPulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.4); } 50% { box-shadow: 0 0 0 15px rgba(52, 211, 153, 0.0); } }
+        .dns-status { font-size: 24px; font-weight: 800; letter-spacing: 1px; color: #EF4444; margin-bottom: 6px; position: relative; z-index: 1; text-shadow: 0 0 20px rgba(239, 68, 68, 0.4); }
+        .dns-main-card.protected .dns-status { color: #34D399; text-shadow: 0 0 20px rgba(52, 211, 153, 0.4); }
+        .dns-sub-status { font-size: 13px; color: #94A3B8; margin-bottom: 24px; position: relative; z-index: 1; }
+        .tap-protect { width: 100%; padding: 16px; background: rgba(239, 68, 68, 0.15); border: 1.5px solid #EF4444; border-radius: 60px; font-size: 16px; font-weight: 800; color: #EF4444; cursor: pointer; margin-bottom: 20px; position: relative; z-index: 1; transition: all 0.25s; }
+        .tap-protect.active { background: rgba(52, 211, 153, 0.15); border-color: #34D399; color: #34D399; }
+        .server-details-card { background: rgba(7, 9, 15, 0.6); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 16px; padding: 12px 16px; text-align: left; position: relative; z-index: 1; margin-bottom: 12px; }
+        .server-row { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        .server-row:last-child { border-bottom: none; }
+        .server-icon { width: 36px; height: 36px; border-radius: 10px; background: rgba(139, 92, 246, 0.1); display: flex; align-items: center; justify-content: center; color: #A78BFA; font-size: 16px; }
+        .server-info { flex: 1; }
+        .server-label { font-size: 10px; color: #64748B; letter-spacing: 1px; text-transform: uppercase; }
+        .server-value { font-size: 14px; color: #E2E8F0; font-weight: 600; }
+        .dns-disclaimer { font-size: 11px; color: #475569; margin-top: 8px; position: relative; z-index: 1; }
     </style>
 </head>
 <body>
 
-    <div class="bg-grid"></div>
+    <!-- ================= SECTION: HEADER ================= -->
+    <header class="header">
+        <div class="icon-btn"><i class="fas fa-cog"></i></div>
+        <div class="title">AADHI AADIL</div>
+        <div class="icon-btn"><i class="fas fa-moon"></i></div>
+    </header>
 
-    <nav>
-        <div class="logo">AADHI <span>GFX</span></div>
-        <div style="font-size: 0.85rem; color: #aaa; border: 1px solid #333; padding: 3px 8px; border-radius: 5px;">V 1.0</div>
+    <!-- ================= SECTION: TOAST MESSAGE ================= -->
+    <div id="toast" class="toast-msg">Ready</div>
+
+    <!-- ================= SECTION: HOME PAGE ================= -->
+    <div id="page-home" class="page active">
+        
+        <!-- SECTION: TIMER CARD -->
+        <div class="card">
+            <div style="text-align:center; font-size:13px; color:#94A3B8; letter-spacing:1px; margin-bottom:10px;">⏳ EXPIRY TIME</div>
+            <div class="timer-grid" id="timerGrid">
+                <div class="timer-box"><span class="number" id="days">00</span><div class="label">DAYS</div></div>
+                <div class="timer-box"><span class="number" id="hours">00</span><div class="label">HOURS</div></div>
+                <div class="timer-box"><span class="number" id="mins">00</span><div class="label">MINS</div></div>
+                <div class="timer-box"><span class="number" id="secs">00</span><div class="label">SECS</div></div>
+            </div>
+        </div>
+
+        <!-- SECTION: BGMI CARD -->
+        <div class="card">
+            <div class="game-card">
+                <div class="game-icon"><i class="fas fa-gamepad"></i></div>
+                <div class="game-info">
+                    <div class="title">BGMI</div>
+                    <div class="version">Version: 4.5</div>
+                    <div class="pkg" id="gamePkg">com.pubg.imobile</div>
+                </div>
+                <div class="live-badge">LIVE</div>
+            </div>
+        </div>
+
+        <!-- SECTION: ONLINE VIDEO BANNER -->
+        <div class="video-banner">
+            <video id="bannerVideo" controls autoplay muted loop playsinline>
+                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <!-- SECTION: TOCHAN OBB -->
+        <div class="section-title"><i class="fas fa-rocket"></i> TOCHAN OBB</div>
+        <div class="card">
+            <div class="feature-row">
+                <div class="feature-icon"><i class="fas fa-folder"></i></div>
+                <div class="feature-info"><div class="name">Original OBB</div><div class="desc">Tap to activate</div></div>
+                <div class="toggle" data-key="obb_orig" onclick="handleToggle(this, 'restoreObb')"><div class="knob"></div></div>
+            </div>
+            <div class="feature-row">
+                <div class="feature-icon"><i class="fas fa-fire"></i></div>
+                <div class="feature-info"><div class="name">Jalwa OBB</div><div class="desc">Tap to activate</div></div>
+                <div class="toggle" data-key="obb_jalwa" onclick="handleToggle(this, 'downloadObb', 'magic_obb_url')"><div class="knob"></div></div>
+            </div>
+        </div>
+
+        <!-- SECTION: POWER & COLORS -->
+        <div class="section-title"><i class="fas fa-palette"></i> POWER & COLORS</div>
+        <div class="card">
+            <div class="feature-row">
+                <div class="feature-icon"><i class="fas fa-sliders-h"></i></div>
+                <div class="feature-info"><div class="name">Customizable V1</div><div class="desc">Tap to activate</div></div>
+                <div class="toggle" data-key="power1" onclick="handleToggle(this, 'downloadPak', 'pak1_url')"><div class="knob"></div></div>
+            </div>
+            <div class="feature-row">
+                <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+                <div class="feature-info"><div class="name">Customizable Features</div><div class="desc">No Lag</div></div>
+                <div class="toggle" data-key="power2" onclick="handleToggle(this, 'downloadPak', 'pak2_url')"><div class="knob"></div></div>
+            </div>
+            <div class="feature-row">
+                <div class="feature-icon"><i class="fas fa-crown"></i></div>
+                <div class="feature-info"><div class="name">Choco Edition</div><div class="desc">× Pbc Lua</div></div>
+                <div class="toggle" data-key="choco" onclick="handleToggle(this, 'downloadPak', 'pak3_url')"><div class="knob"></div></div>
+            </div>
+        </div>
+
+        <!-- SECTION: ANTIRESET -->
+        <div class="section-title"><i class="fas fa-sync-alt"></i> ANTIRESET</div>
+        <div class="card">
+            <div class="feature-row">
+                <div class="feature-icon"><i class="fas fa-crosshairs"></i></div>
+                <div class="feature-info"><div class="name">Only Headshot</div><div class="desc">Tap to activate</div></div>
+                <div class="toggle" data-key="headshot1" onclick="handleToggle(this, 'downloadPak', 'pak4_url')"><div class="knob"></div></div>
+            </div>
+            <div class="feature-row">
+                <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                <div class="feature-info"><div class="name">Antina + Headshot</div><div class="desc">Tap to activate</div></div>
+                <div class="toggle" data-key="antina1" onclick="handleToggle(this, 'downloadPak', 'pak5_url')"><div class="knob"></div></div>
+            </div>
+            <div class="feature-row">
+                <div class="feature-icon"><i class="fas fa-bullseye"></i></div>
+                <div class="feature-info"><div class="name">Aimbot + Antina + Headshot</div><div class="desc">+ Xeffect + Sc</div></div>
+                <div class="toggle" data-key="aimbot1" onclick="handleToggle(this, 'downloadPak', 'pak6_url')"><div class="knob"></div></div>
+            </div>
+        </div>
+
+        <!-- SECTION: SAFE FEATURES -->
+        <div class="section-title"><i class="fas fa-shield-virus"></i> SAFE FEATURES</div>
+        <div class="card">
+            <div class="feature-row">
+                <div class="feature-icon"><i class="fas fa-crosshairs"></i></div>
+                <div class="feature-info"><div class="name">Low Aimbot + Antina</div><div class="desc">Last backup</div></div>
+                <div class="toggle" data-key="safe1" onclick="handleToggle(this, 'downloadPak', 'pak9_url')"><div class="knob"></div></div>
+            </div>
+            <div class="feature-row">
+                <div class="feature-icon"><i class="fas fa-bullseye"></i></div>
+                <div class="feature-info"><div class="name">Medium Aimbot + Antina</div><div class="desc">Last backup</div></div>
+                <div class="toggle" data-key="safe2" onclick="handleToggle(this, 'downloadPak', 'pak10_url')"><div class="knob"></div></div>
+            </div>
+        </div>
+
+        <!-- SECTION: ESP / VISUAL (NEW OPTIONS) -->
+        <div class="section-title"><i class="fas fa-ghost"></i> ESP / VISUAL (ANTI RESET)</div>
+        <div class="card">
+            <div class="feature-row">
+                <div class="feature-icon"><i class="fas fa-eye"></i></div>
+                <div class="feature-info"><div class="name">ESP V1</div><div class="desc">Antireset Pak</div></div>
+                <div class="toggle" data-key="esp1" onclick="handleToggle(this, 'downloadPak', 'pak11_url')"><div class="knob"></div></div>
+            </div>
+            <div class="feature-row">
+                <div class="feature-icon"><i class="fas fa-eye"></i></div>
+                <div class="feature-info"><div class="name">ESP V2</div><div class="desc">Antireset Pak</div></div>
+                <div class="toggle" data-key="esp2" onclick="handleToggle(this, 'downloadPak', 'pak12_url')"><div class="knob"></div></div>
+            </div>
+            <!-- 5 New Options -->
+            <div class="feature-row">
+                <div class="feature-icon"><i class="fas fa-eye"></i></div>
+                <div class="feature-info"><div class="name">ESP V3</div><div class="desc">Antireset Pak</div></div>
+                <div class="toggle" data-key="esp3" onclick="handleToggle(this, 'downloadPak', 'pak13_url')"><div class="knob"></div></div>
+            </div>
+            <div class="feature-row">
+                <div class="feature-icon"><i class="fas fa-eye"></i></div>
+                <div class="feature-info"><div class="name">ESP V4</div><div class="desc">Antireset Pak</div></div>
+                <div class="toggle" data-key="esp4" onclick="handleToggle(this, 'downloadPak', 'pak14_url')"><div class="knob"></div></div>
+            </div>
+            <div class="feature-row">
+                <div class="feature-icon"><i class="fas fa-eye"></i></div>
+                <div class="feature-info"><div class="name">ESP V5</div><div class="desc">Antireset Pak</div></div>
+                <div class="toggle" data-key="esp5" onclick="handleToggle(this, 'downloadPak', 'pak15_url')"><div class="knob"></div></div>
+            </div>
+            <div class="feature-row">
+                <div class="feature-icon"><i class="fas fa-eye"></i></div>
+                <div class="feature-info"><div class="name">ESP V6</div><div class="desc">Antireset Pak</div></div>
+                <div class="toggle" data-key="esp6" onclick="handleToggle(this, 'downloadPak', 'pak16_url')"><div class="knob"></div></div>
+            </div>
+            <div class="feature-row">
+                <div class="feature-icon"><i class="fas fa-eye"></i></div>
+                <div class="feature-info"><div class="name">ESP V7</div><div class="desc">Antireset Pak</div></div>
+                <div class="toggle" data-key="esp7" onclick="handleToggle(this, 'downloadPak', 'pak17_url')"><div class="knob"></div></div>
+            </div>
+        </div>
+
+        <!-- SECTION: RUN GAME BUTTON -->
+        <div style="margin:24px 0 12px 0;">
+            <div class="btn-gold" onclick="runGame()">
+                <i class="fas fa-play" style="margin-right:10px;"></i> RUN GAME
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= SECTION: DNS PAGE (UPDATED) ================= -->
+    <div id="page-dns" class="page">
+        <div class="dns-main-card" id="dnsMainCard">
+            <div class="dns-glow"></div>
+            <div class="dns-shield-icon" id="dnsIcon">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <div class="dns-status" id="dnsStatus">NOT PROTECTED</div>
+            <div class="dns-sub-status" id="dnsSubStatus">Tap below to secure your connection</div>
+
+            <div class="tap-protect" id="btnProtect" onclick="toggleProtection()">
+                <span id="btnProtectText"><i class="fas fa-lock" style="margin-right:8px;"></i> TAP TO PROTECT</span>
+            </div>
+
+            <div class="server-details-card">
+                <div class="server-row">
+                    <div class="server-icon"><i class="fas fa-server"></i></div>
+                    <div class="server-info">
+                        <div class="server-label">PROTECTION SERVER</div>
+                        <div class="server-value" id="serverStatus">Ready to connect</div>
+                    </div>
+                </div>
+                <div class="server-row">
+                    <div class="server-icon"><i class="fas fa-globe"></i></div>
+                    <div class="server-info">
+                        <div class="server-label">LOCATION</div>
+                        <div class="server-value">India (Auto-Select)</div>
+                    </div>
+                </div>
+                <div class="server-row">
+                    <div class="server-icon"><i class="fas fa-tachometer-alt"></i></div>
+                    <div class="server-info">
+                        <div class="server-label">PING</div>
+                        <div class="server-value" id="serverPing">-- ms</div>
+                    </div>
+                </div>
+            </div>
+            <div class="dns-disclaimer">* VPN requires permission to protect your device.</div>
+        </div>
+    </div>
+
+    <!-- ================= SECTION: SETTINGS PAGE ================= -->
+    <div id="page-settings" class="page">
+        <!-- SECTION: USER PROFILE CARD -->
+        <div class="card">
+            <div style="display:flex; align-items:center; gap:14px; margin-bottom:12px;">
+                <div style="width:52px; height:52px; border-radius:16px; background:linear-gradient(135deg,#EF4444,#B91C1C); display:flex; align-items:center; justify-content:center; font-size:24px; color:white;">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div>
+                    <div style="font-size:18px; font-weight:700; color:#F1F5F9;" id="settingsUserName">Aadhi Aadil</div>
+                    <div style="font-size:13px; color:#94A3B8;">Premium Account</div>
+                </div>
+                <div style="margin-left:auto; color:#EF4444;"><i class="fas fa-crown" style="font-size:20px;"></i></div>
+            </div>
+            <div style="display:flex; gap:20px; font-size:13px; color:#94A3B8; border-top:1px solid rgba(239,68,68,0.1); padding-top:12px;">
+                <span><i class="fas fa-calendar-alt" style="margin-right:6px;"></i> Expires: <span id="settingsExpiry" style="color:#F87171;">Lifetime</span></span>
+            </div>
+        </div>
+
+        <!-- SECTION: SETTINGS OPTIONS -->
+        <div class="card">
+            <div class="settings-row"><span class="label"><i class="fas fa-palette" style="margin-right:8px; color:#EF4444;"></i> Theme</span><span class="value">Dark <i class="fas fa-chevron-right"></i></span></div>
+            <div class="settings-row"><span class="label"><i class="fas fa-bell" style="margin-right:8px; color:#EF4444;"></i> Notifications</span><span class="value"><i class="fas fa-toggle-on" style="color:#EF4444; font-size:20px;"></i></span></div>
+            <div class="settings-row"><span class="label"><i class="fas fa-tachometer-alt" style="margin-right:8px; color:#EF4444;"></i> Performance</span><span class="value">High <i class="fas fa-chevron-right"></i></span></div>
+            <div class="settings-row"><span class="label"><i class="fas fa-info-circle" style="margin-right:8px; color:#EF4444;"></i> About</span><span class="value">v3.2.1 <i class="fas fa-chevron-right"></i></span></div>
+            <div class="settings-row"><span class="label"><i class="fas fa-lock" style="margin-right:8px; color:#EF4444;"></i> Security</span><span class="value">High <i class="fas fa-chevron-right"></i></span></div>
+        </div>
+
+        <!-- SECTION: LOGOUT CARD -->
+        <div class="card" style="border-color: rgba(239,68,68,0.5);">
+            <div class="settings-row" style="border-bottom: none;">
+                <span class="label" style="color:#EF4444;"><i class="fas fa-sign-out-alt" style="margin-right:8px;"></i> Logout</span>
+                <span class="value" style="color:#EF4444;" onclick="logoutUser()"><i class="fas fa-chevron-right"></i></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= SECTION: DOWNLOAD OVERLAY ================= -->
+    <div class="download-overlay" id="downloadOverlay">
+        <div class="dl-header">
+            <span class="title"><i class="fas fa-spinner spin"></i> <span id="dlTitleText">Downloading...</span></span>
+            <button class="close-btn" onclick="hideDownloadUI()">✕</button>
+        </div>
+        <div class="dl-progress-wrap">
+            <span id="dlSize">0 MB / 0 MB</span>
+            <span class="percent" id="dlPercent">0%</span>
+        </div>
+        <div class="dl-progress-bar-bg"><div class="dl-progress-bar-fill" id="dlProgress"></div></div>
+        <div class="dl-info-row">
+            <span id="dlSpeed">0 KB/s</span>
+            <span id="dlStatusText">Downloading...</span>
+        </div>
+        <div class="dl-actions">
+            <button class="btn-hide" onclick="hideDownloadUI()">Hide</button>
+            <button class="btn-cancel" onclick="cancelDownload()">Cancel</button>
+        </div>
+    </div>
+
+    <!-- ================= SECTION: BOTTOM NAVIGATION ================= -->
+    <nav class="bottom-nav">
+        <div class="nav-item active" data-page="home"><i class="fas fa-home"></i> Home</div>
+        <div class="nav-item" data-page="dns"><i class="fas fa-shield-virus"></i> DNS</div>
+        <div class="nav-item" data-page="settings"><i class="fas fa-sliders-h"></i> Settings</div>
     </nav>
 
-    <div class="hero">
-        <h1>UNLOCK<br>MAX POWER</h1>
-        <p>The Ultimate Floating GFX Tool for BGMI. Unlock iPad View, 120 FPS, and experience Zero Lag gaming on any Android device.</p>
+    <!-- ================= SECTION: JAVASCRIPT LOGIC ================= -->
+    <script>
+        // SECTION: TOAST FUNCTION
+        function showToast(msg) { var t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(window.toastTimeout); window.toastTimeout = setTimeout(function() { t.classList.remove('show'); }, 2500); }
         
-        <a href="aadhi_gfx.apk" class="btn-download" download>
-            <i class="fas fa-download"></i> DOWNLOAD LATEST APK
-        </a>
-        <p style="margin-top: 20px; font-size: 0.85rem; opacity: 0.6; display: flex; align-items: center; justify-content: center; gap: 15px;">
-            <span><i class="fas fa-shield-alt" style="color:var(--primary)"></i> 100% Safe</span>
-            <span><i class="fas fa-ban" style="color:var(--secondary)"></i> Anti-Ban</span>
-            <span><i class="fas fa-check-circle" style="color:var(--primary)"></i> No Root</span>
-        </p>
-    </div>
-
-    <h2 class="section-title">PREMIUM FEATURES</h2>
-    <div class="features-grid">
-        <div class="feature-card">
-            <i class="fas fa-layer-group"></i>
-            <h3>Floating Window</h3>
-            <p>Control features like iPad View & Magic Bullet directly inside the game without closing it.</p>
-        </div>
-        <div class="feature-card">
-            <i class="fas fa-tachometer-alt"></i>
-            <h3>120 FPS Unlock</h3>
-            <p>Experience buttery smooth 120 FPS gameplay even on low-end 3GB/4GB RAM devices.</p>
-        </div>
-        <div class="feature-card">
-            <i class="fas fa-crosshairs"></i>
-            <h3>Aimbot & Magic</h3>
-            <p>Enhance your aim assist and bullet tracking accuracy with our VIP floating menu.</p>
-        </div>
-        <div class="feature-card">
-            <i class="fas fa-microchip"></i>
-            <h3>Potato Graphics</h3>
-            <p>Drastically reduce lag and heating by optimizing game textures for older phones.</p>
-        </div>
-        <div class="feature-card">
-            <i class="fas fa-user-secret"></i>
-            <h3>Safe Exit System</h3>
-            <p>Automatically cleans tracking files when you close the menu. 100% Safe & Secure.</p>
-        </div>
-        <div class="feature-card">
-            <i class="fas fa-mobile-alt"></i>
-            <h3>No Root (Shizuku)</h3>
-            <p>Works safely on Android 11, 12, 13 & 14 using wireless Shizuku technology.</p>
-        </div>
-    </div>
-
-    <div class="social-section">
-        <h2 class="section-title">JOIN OUR COMMUNITY</h2>
-        <p style="color: #aaa; max-width: 500px; margin: 0 auto;">Join us for the latest updates, premium config files, and 24/7 support.</p>
+        // SECTION: NAVIGATION LOGIC
+        document.querySelectorAll('.nav-item').forEach(function(item) { item.addEventListener('click', function() { document.querySelectorAll('.nav-item').forEach(function(n) { n.classList.remove('active'); }); this.classList.add('active'); var page = this.dataset.page; document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); }); document.getElementById('page-' + page).classList.add('active'); }); });
         
-        <div class="social-icons">
-            <a href="https://t.me/+7d23o7Tw1Zo5NmM1" target="_blank" class="social-btn tg" title="Join Telegram">
-                <i class="fab fa-telegram-plane"></i>
-            </a>
-            <a href="https://youtube.com/@aadhi_aadhi07?si=oR2is7eWbAvgjYkg" target="_blank" class="social-btn yt" title="Subscribe on YouTube">
-                <i class="fab fa-youtube"></i>
-            </a>
-            <a href="https://instagram.com/aadhi__aadil07" target="_blank" class="social-btn ig" title="Follow on Instagram">
-                <i class="fab fa-instagram"></i>
-            </a>
-        </div>
-    </div>
+        // SECTION: TOGGLE HANDLER (OBB/PAK)
+        function handleToggle(el, action, param) {
+            var isOn = el.classList.contains('active');
+            var name = el.closest('.feature-row').querySelector('.name').innerText;
+            if (isOn) {
+                if (action === 'downloadPak') { if (window.Android && Android.deleteMod) { Android.deleteMod(param); el.classList.remove('active'); showToast('🗑️ Removing ' + name); } else { showToast('⚠️ Delete not supported'); } }
+                else if (action === 'downloadObb') { if (window.Android && Android.restoreObb) { Android.restoreObb(); el.classList.remove('active'); showToast('🔄 Restoring Original OBB...'); } }
+                else if (action === 'restoreObb') { el.classList.remove('active'); showToast('⛔ ' + name + ' deactivated'); }
+            } else {
+                el.classList.add('active');
+                if (action === 'restoreObb') { if (window.Android && Android.restoreObb) { Android.restoreObb(); showToast('🔄 Restoring Original OBB...'); } }
+                else if (action === 'downloadObb') { if (window.Android && Android.downloadObb) { Android.downloadObb(param); showToast('📁 Applying ' + name); } }
+                else if (action === 'downloadPak') { if (window.Android && Android.downloadPak) { Android.downloadPak(param); showToast('📦 Applying ' + name); } }
+            }
+        }
+        
+        // SECTION: RUN GAME
+        function runGame() { if (window.Android && Android.runGame) { Android.runGame(); showToast('▶ Launching Game...'); } else { showToast('⚠️ Java bridge not ready'); } }
+        
+        // SECTION: VPN / DNS TOGGLE (NEW PREMIUM UI)
+        var vpnActive = false;
+        function toggleProtection() {
+            vpnActive = !vpnActive;
+            
+            var mainCard = document.getElementById('dnsMainCard');
+            var status = document.getElementById('dnsStatus');
+            var subStatus = document.getElementById('dnsSubStatus');
+            var btn = document.getElementById('btnProtect');
+            var btnText = document.getElementById('btnProtectText');
+            var serverStatus = document.getElementById('serverStatus');
+            var ping = document.getElementById('serverPing');
 
-    <footer>
-        <p>&copy; 2025 Aadhi GFX Tool. All Rights Reserved.</p>
-        <span class="dev-tag">⚡ DEVELOPED BY AADHI AADIL ⚡</span>
-    </footer>
+            if (window.Android && Android.toggleVpn) { Android.toggleVpn(vpnActive); }
 
+            if (vpnActive) {
+                mainCard.classList.add('protected');
+                status.textContent = 'PROTECTED';
+                subStatus.textContent = 'Your connection is secure';
+                btn.classList.add('active');
+                btnText.innerHTML = '<i class="fas fa-unlock" style="margin-right:8px;"></i> TAP TO DISCONNECT';
+                serverStatus.textContent = 'Connected';
+                ping.textContent = '35 ms';
+                showToast('🛡️ VPN Protection enabled');
+            } else {
+                mainCard.classList.remove('protected');
+                status.textContent = 'NOT PROTECTED';
+                subStatus.textContent = 'Tap below to secure your connection';
+                btn.classList.remove('active');
+                btnText.innerHTML = '<i class="fas fa-lock" style="margin-right:8px;"></i> TAP TO PROTECT';
+                serverStatus.textContent = 'Ready to connect';
+                ping.textContent = '-- ms';
+                showToast('⛔ VPN Protection disabled');
+            }
+        }
+        
+        // SECTION: LOGOUT
+        function logoutUser() { if (window.Android && Android.logout) { Android.logout(); } else { showToast('⚠️ Java bridge not ready'); } }
+        
+        // SECTION: TIMER LOGIC
+        var expiryTimestamp = -1; var timerInterval = null;
+        function startCountdown(expiryMillis) { expiryTimestamp = expiryMillis; if (expiryMillis <= 0) { showLifetime(); return; } updateTimerDisplay(expiryMillis); if (timerInterval) clearInterval(timerInterval); timerInterval = setInterval(function() { updateTimerDisplay(expiryTimestamp); }, 1000); }
+        function updateTimerDisplay(expiryMillis) { var now = Date.now(); var diff = expiryMillis - now; if (diff <= 0) { document.getElementById('days').innerText = '00'; document.getElementById('hours').innerText = '00'; document.getElementById('mins').innerText = '00'; document.getElementById('secs').innerText = '00'; return; } var days = Math.floor(diff / 86400000); diff -= days * 86400000; var hours = Math.floor(diff / 3600000); diff -= hours * 3600000; var mins = Math.floor(diff / 60000); diff -= mins * 60000; var secs = Math.floor(diff / 1000); document.getElementById('days').innerText = String(days).padStart(2, '0'); document.getElementById('hours').innerText = String(hours).padStart(2, '0'); document.getElementById('mins').innerText = String(mins).padStart(2, '0'); document.getElementById('secs').innerText = String(secs).padStart(2, '0'); }
+        function showLifetime() { document.getElementById('days').innerText = '♾️'; document.getElementById('hours').innerText = '♾️'; document.getElementById('mins').innerText = '♾️'; document.getElementById('secs').innerText = '♾️'; }
+        function updateTimerFromJava() { try { var ts = Android.getExpiryTimestamp(); if (ts > 0) startCountdown(ts); else showLifetime(); } catch (e) { console.log('Timer error', e); } }
+
+        // SECTION: VIDEO BANNER
+        var bannerVideo = document.getElementById('bannerVideo');
+        if (bannerVideo) {
+            bannerVideo.addEventListener('error', function() {
+                bannerVideo.src = 'https://www.w3schools.com/html/mov_bbb.mp4';
+                bannerVideo.load();
+                bannerVideo.play();
+            }, true);
+        }
+        
+        // SECTION: CLEAN DOWNLOAD UI FUNCTIONS
+        function showDownloadUI(key) {
+            var overlay = document.getElementById('downloadOverlay');
+            overlay.classList.add('show');
+            document.getElementById('dlTitleText').innerText = 'Downloading ' + key + '...';
+            document.getElementById('dlStatusText').innerText = 'Downloading...';
+            document.getElementById('dlSize').innerText = '0 MB / 0 MB';
+            document.getElementById('dlPercent').innerText = '0%';
+            document.getElementById('dlProgress').style.width = '0%';
+            document.getElementById('dlSpeed').innerText = '0 KB/s';
+            showToast('📥 Download started: ' + key);
+        }
+        function updateDownloadProgress(percent, downloaded, total, speedText) {
+            document.getElementById('dlPercent').innerText = percent + '%';
+            document.getElementById('dlProgress').style.width = percent + '%';
+            var totalMB = (total / (1024 * 1024)).toFixed(1);
+            var downMB = (downloaded / (1024 * 1024)).toFixed(1);
+            document.getElementById('dlSize').innerText = downMB + ' MB / ' + totalMB + ' MB';
+            document.getElementById('dlSpeed').innerText = speedText;
+            if (percent >= 100) { document.getElementById('dlStatusText').innerText = '✅ Extracting...'; }
+        }
+        function hideDownloadUI() { document.getElementById('downloadOverlay').classList.remove('show'); }
+        function cancelDownload() { if (window.Android && Android.cancelDownload) { Android.cancelDownload(); hideDownloadUI(); showToast('❌ Download Cancelled'); } }
+        
+        // SECTION: BRIDGE INIT
+        function waitForBridge(callback, attempts) { attempts = attempts || 20; if (attempts <= 0) return; try { if (window.Android && typeof Android.getUserKey === 'function') { callback(); return; } } catch(e) {} setTimeout(function() { waitForBridge(callback, attempts - 1); }, 200); }
+        document.addEventListener('DOMContentLoaded', function() { waitForBridge(function() { try { var name = Android.getUserKey(); var expiry = Android.getExpiry(); var pkg = Android.getGamePackage(); document.getElementById('settingsUserName').innerText = name || 'Guest'; document.getElementById('settingsExpiry').innerText = expiry || 'Lifetime'; document.getElementById('gamePkg').innerText = pkg || 'com.pubg.imobile'; var ts = Android.getExpiryTimestamp(); if (ts > 0) startCountdown(ts); else showLifetime(); } catch(e) { console.log('Bridge error:', e); } }); });
+    </script>
 </body>
 </html>

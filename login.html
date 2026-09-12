@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AADHI AADIL</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0A0E17;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            padding: 20px;
+        }
+
+        /* ================= 3D LOADER CSS ================= */
+        .loading-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: #0A0E17;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s ease;
+        }
+        .loader-wrapper {
+            width: 150px;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            perspective: 800px;
+        }
+        .cube {
+            width: 70px;
+            height: 70px;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: spinCube 2s linear infinite;
+        }
+        .cube .face {
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            border: 2px solid #8B5CF6;
+            background: rgba(139, 92, 246, 0.1);
+            box-shadow: inset 0 0 20px rgba(139, 92, 246, 0.2);
+        }
+        .cube .front  { transform: translateZ(35px); }
+        .cube .back   { transform: rotateY(180deg) translateZ(35px); }
+        .cube .right  { transform: rotateY(90deg) translateZ(35px); }
+        .cube .left   { transform: rotateY(-90deg) translateZ(35px); }
+        .cube .top    { transform: rotateX(90deg) translateZ(35px); }
+        .cube .bottom { transform: rotateX(-90deg) translateZ(35px); }
+        
+        @keyframes spinCube {
+            0%   { transform: rotateX(0deg) rotateY(0deg); }
+            100% { transform: rotateX(360deg) rotateY(360deg); }
+        }
+        
+        /* NEW: 3D Glowing Text */
+        .brand-3d-text {
+            font-size: 32px;
+            font-weight: 900;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-top: 30px;
+            background: linear-gradient(135deg, #A78BFA, #FF6B9A, #00FFC8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(139,92,246,0.8);
+            animation: floatText 2s ease-in-out infinite;
+        }
+        @keyframes floatText {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .loading-text {
+            color: #8B5CF6;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            margin-top: 10px;
+            animation: pulseText 1.5s infinite;
+        }
+        @keyframes pulseText {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* ================= LOGIN CARD CSS ================= */
+        .login-card {
+            background: rgba(17, 24, 39, 0.9);
+            border-radius: 32px;
+            padding: 36px 28px 30px;
+            border: 1.5px solid rgba(139, 92, 246, 0.25);
+            max-width: 420px;
+            width: 100%;
+            box-shadow: 0 0 60px rgba(139, 92, 246, 0.06), 0 20px 60px rgba(0,0,0,0.6);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px) scale(0.9);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            pointer-events: none;
+        }
+        .login-card.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+        }
+
+        .login-card::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 34px;
+            padding: 2px;
+            background: conic-gradient(from 0deg, transparent, rgba(139,92,246,0.2), rgba(255,105,180,0.15), transparent, rgba(139,92,246,0.2), transparent);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            animation: borderRotate 8s linear infinite;
+            opacity: 0.6;
+        }
+        @keyframes borderRotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .login-card::after {
+            content: '';
+            position: absolute;
+            top: -60px; right: -60px;
+            width: 200px; height: 200px;
+            background: radial-gradient(circle, rgba(255,105,180,0.06) 0%, transparent 70%);
+            pointer-events: none;
+            border-radius: 50%;
+        }
+
+        .brand .main-title {
+            font-size: 32px; font-weight: 900; letter-spacing: 3px; text-transform: uppercase;
+            background: linear-gradient(135deg, #A78BFA, #FF6B9A, #6D28D9);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-align: center;
+            position: relative; z-index: 1;
+        }
+        .heart {
+            display: inline-block;
+            animation: heartBeat 1.2s ease-in-out infinite;
+            text-shadow: 0 0 20px rgba(255, 105, 180, 0.8);
+        }
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.15); }
+            40% { transform: scale(0.95); }
+            60% { transform: scale(1.1); }
+        }
+        
+        .brand .sub {
+            text-align: center;
+            margin-top: 2px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #00FFC8;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: rgba(0,255,200,0.06);
+            padding: 2px 14px;
+            border-radius: 20px;
+            border: 1px solid rgba(0,255,200,0.12);
+            display: inline-block;
+            width: fit-content;
+            margin-left: auto; margin-right: auto;
+            position: relative; z-index: 1;
+        }
+        .tagline {
+            text-align: center;
+            margin: 12px 0 20px;
+            color: #22D3A7;
+            font-size: 12px;
+            letter-spacing: 2px;
+            font-weight: 600;
+            position: relative; z-index: 1;
+        }
+
+        /* Improved Input Styles */
+        .input-group { margin-bottom: 16px; position: relative; z-index: 1; }
+        .input-group .input-label { display: block; font-size: 11px; font-weight: 600; color: #94A3B8; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+        .input-group .input-wrapper { border-radius: 16px; background: rgba(7,9,15,0.5); border: 1.5px solid rgba(139,92,246,0.15); display: flex; align-items: center; padding: 0 16px; transition: border-color 0.3s; position: relative; }
+        .input-group .input-wrapper:focus-within { border-color: #8B5CF6; box-shadow: 0 0 30px rgba(139,92,246,0.08); }
+        .input-group .input-wrapper input { width: 100%; padding: 16px 0; background: transparent; border: none; color: #F1F5F9; font-size: 15px; outline: none; font-weight: 500; }
+        .input-group .input-wrapper input::placeholder { color: #475569; font-weight: 400; }
+        .input-group .input-wrapper .glow-line { position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, #8B5CF6, transparent); opacity: 0; transition: opacity 0.4s; }
+        .input-group .input-wrapper:focus-within .glow-line { opacity: 1; }
+
+        /* NEW: Show/Hide Password Eye Icon */
+        .eye-btn {
+            background: transparent;
+            border: none;
+            color: #64748B;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 0 5px;
+            outline: none;
+        }
+        .eye-btn:hover { color: #8B5CF6; }
+
+        /* NEW: Shake Animation on Error */
+        .shake {
+            animation: shake 0.5s;
+            border-color: #EF4444 !important;
+        }
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
+
+        /* Buttons */
+        .btn { width: 100%; padding: 16px 0; border: none; border-radius: 16px; font-size: 15px; font-weight: 700; cursor: pointer; transition: 0.25s; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 12px; position: relative; z-index: 1; }
+        .btn:active { transform: scale(0.97); }
+        .btn-login { background: linear-gradient(135deg, #8B5CF6, #6D28D9); color: #FFFFFF; box-shadow: 0 4px 30px rgba(139,92,246,0.25); border: 1px solid rgba(139,92,246,0.2); }
+        .btn-login .spinner { display: none; width: 20px; height: 20px; border: 2px solid rgba(255,255,255,0.15); border-top: 2px solid #FFFFFF; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto; }
+        .btn-login.loading .spinner { display: block; }
+        .btn-login.loading .btn-text { display: none; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* NEW: Free Login Button */
+        .btn-free { background: rgba(34, 211, 167, 0.15); color: #22D3A7; border: 1.5px solid rgba(34,211,167,0.3); }
+
+        .btn-getkey { background: transparent; color: #A78BFA; border: 1.5px solid rgba(139,92,246,0.25); }
+        .btn-telegram { background: transparent; color: #22D3A7; border: 1.5px solid rgba(34,211,167,0.15); margin-bottom: 0; }
+        .divider-line { display: flex; align-items: center; gap: 14px; margin: 14px 0 16px; position: relative; z-index: 1; }
+        .divider-line .line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, rgba(139,92,246,0.12), transparent); }
+        .divider-line .dot { width: 4px; height: 4px; border-radius: 50%; background: rgba(139,92,246,0.15); }
+
+        .footer { text-align: center; margin-top: 20px; font-size: 11px; color: #475569; position: relative; z-index: 1; }
+        .footer .highlight { color: #64748B; }
+        .footer .name { color: #556677; font-weight: 600; }
+
+        .toast-msg {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            background: rgba(17,24,39,0.92); backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,105,180,0.2); border-radius: 40px;
+            padding: 10px 24px; color: #E2E8F0; font-size: 13px; font-weight: 500;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.6);
+            opacity: 0; transition: opacity 0.35s ease;
+            pointer-events: none; z-index: 999;
+            white-space: nowrap; max-width: 90%; overflow: hidden; text-overflow: ellipsis;
+        }
+        .toast-msg.show { opacity: 1; }
+    </style>
+</head>
+<body>
+
+    <!-- 3D LOADING OVERLAY -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loader-wrapper">
+            <div class="cube">
+                <div class="face front"></div>
+                <div class="face back"></div>
+                <div class="face right"></div>
+                <div class="face left"></div>
+                <div class="face top"></div>
+                <div class="face bottom"></div>
+            </div>
+        </div>
+        <!-- NEW: AADHI AADIL in 3D Text -->
+        <div class="brand-3d-text">AADHI AADIL</div>
+        <div class="loading-text">LOADING...</div>
+    </div>
+
+    <!-- LOGIN CARD -->
+    <div class="login-card" id="loginCard">
+        <div class="brand"><div class="main-title"><span class="heart">❤️</span> AADHI AADIL <span class="heart">❤️</span></div></div>
+        <div class="brand"><div class="sub">★ PREMIUM ★ GFX TOOL</div></div>
+        <div class="tagline">🛡 PLAY SAFE · AVOID REPORT</div>
+
+        <div class="input-group" id="inputGroup">
+            <span class="input-label">🔑 ENTER YOUR KEY</span>
+            <div class="input-wrapper" id="inputWrapper">
+                <input type="password" id="editKey" placeholder="••••••••••••" autocomplete="off">
+                <!-- NEW: Eye Icon for Show/Hide -->
+                <button class="eye-btn" onclick="togglePassword()" id="eyeBtn">👁️</button>
+                <span class="glow-line"></span>
+            </div>
+        </div>
+
+        <button class="btn btn-login" id="btnLogin" onclick="handleLogin()">
+            <span class="btn-text">▶ LOGIN</span>
+            <span class="spinner"></span>
+        </button>
+
+        <!-- NEW: Free Login Button -->
+        <button class="btn btn-free" onclick="freeLogin()">🎁 FREE LOGIN</button>
+
+        <div class="divider-line"><span class="line"></span><span class="dot"></span><span class="line"></span></div>
+
+        <button class="btn btn-getkey" onclick="openTelegram('https://t.me/aadhi_aadil0')">📩 GET KEY (TELEGRAM)</button>
+        <button class="btn btn-telegram" onclick="openTelegram('https://t.me/+7d23o7Tw1Zo5NmM1')">⚡ JOIN TELEGRAM CHANNEL</button>
+
+        <div class="footer">
+            v<span id="appVersion">3.0</span> <span class="highlight">|</span> <span class="highlight">AADHI AADIL</span><br>
+            ⚡ <span class="name">AADHI AADIL</span> © 2026
+        </div>
+    </div>
+
+    <div id="toast" class="toast-msg">Ready</div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        var toastTimeout;
+
+        function showToast(msg, isError) {
+            var t = document.getElementById('toast');
+            t.textContent = msg;
+            t.style.color = isError ? '#EF4444' : '#E2E8F0';
+            t.style.borderColor = isError ? 'rgba(239,68,68,0.3)' : 'rgba(255,105,180,0.2)';
+            t.classList.add('show');
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(function() { t.classList.remove('show'); }, 3000);
+        }
+
+        // Show / Hide Password
+        function togglePassword() {
+            var keyInput = document.getElementById('editKey');
+            var eyeBtn = document.getElementById('eyeBtn');
+            if (keyInput.type === "password") {
+                keyInput.type = "text";
+                eyeBtn.innerHTML = "🙈"; // Eye closed
+            } else {
+                keyInput.type = "password";
+                eyeBtn.innerHTML = "👁️"; // Eye open
+            }
+        }
+
+        function openTelegram(url) {
+            if (window.Android && Android.openTelegram) {
+                Android.openTelegram(url);
+            } else {
+                window.open(url, '_blank');
+            }
+        }
+
+        // Improved: Error handling with shake
+        function triggerError(msg) {
+            showToast(msg, true);
+            var inputWrapper = document.getElementById('inputWrapper');
+            inputWrapper.classList.add('shake');
+            setTimeout(function() {
+                inputWrapper.classList.remove('shake');
+            }, 500);
+            document.getElementById('editKey').focus();
+        }
+
+        function handleLogin() {
+            var key = document.getElementById('editKey').value.trim();
+            if (!key) {
+                triggerError('❌ Please enter your key!');
+                return;
+            }
+            var btn = document.getElementById('btnLogin');
+            btn.classList.add('loading');
+            btn.disabled = true;
+
+            if (window.Android && Android.goToDashboard) {
+                Android.goToDashboard(key);
+            } else {
+                showToast('⚠️ Java bridge not ready', true);
+                btn.classList.remove('loading');
+                btn.disabled = false;
+            }
+        }
+
+        // New: Free Login function
+        function freeLogin() {
+            var btn = document.getElementById('btnLogin');
+            btn.classList.add('loading');
+            btn.disabled = true;
+            
+            if (window.Android && Android.goToDashboard) {
+                // Send FREE key to backend (used for guest access)
+                Android.goToDashboard("FREE_ACCESS");
+            } else {
+                showToast('⚠️ Java bridge not ready', true);
+                btn.classList.remove('loading');
+                btn.disabled = false;
+            }
+        }
+
+        function attemptAutoLogin() {
+            try {
+                if (window.Android && Android.getSavedKey) {
+                    var savedKey = Android.getSavedKey();
+                    if (savedKey && savedKey.length > 0) {
+                        document.getElementById('editKey').value = savedKey;
+                        setTimeout(function() { handleLogin(); }, 500);
+                    }
+                }
+            } catch(e) { /* ignore */ }
+        }
+
+        function loadVersion() {
+            try {
+                if (window.Android && Android.getAppVersion) {
+                    var ver = Android.getAppVersion();
+                    document.getElementById('appVersion').textContent = ver;
+                }
+            } catch(e) {}
+        }
+
+        // 3D LOADER LOGIC
+        window.onload = function() {
+            setTimeout(function() {
+                var overlay = document.getElementById('loadingOverlay');
+                var loginCard = document.getElementById('loginCard');
+                
+                overlay.style.opacity = '0';
+                overlay.style.pointerEvents = 'none';
+                
+                loginCard.classList.add('visible');
+                
+                setTimeout(function() {
+                    overlay.style.display = 'none';
+                }, 800);
+                
+                loadVersion();
+                attemptAutoLogin();
+                
+                setTimeout(function() {
+                    document.getElementById('editKey').focus();
+                }, 1000);
+            }, 2500);
+        };
+        
+        document.getElementById('editKey').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                handleLogin();
+            }
+        });
+    </script>
+</body>
+</html>
