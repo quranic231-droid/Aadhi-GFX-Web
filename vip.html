@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aadhi VIP Engine Max</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Base Setup */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; user-select: none; -webkit-tap-highlight-color: transparent; }
+        ::-webkit-scrollbar { display: none; }
+        body { background-color: #030407; background-image: radial-gradient(circle at top, #131c2e 0%, #030407 100%); color: #fff; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+
+        /* VIP Header & Expiry Timer */
+        .header { text-align: center; padding: 25px 15px 15px; background: rgba(0,0,0,0.6); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(0, 255, 204, 0.1); z-index: 10; }
+        .header h1 { font-family: 'Orbitron', sans-serif; font-size: 24px; color: #00ffcc; text-shadow: 0 0 15px rgba(0,255,204,0.6); letter-spacing: 2px; display: flex; align-items: center; justify-content: center; gap: 8px;}
+        .header h1 span { background: #ffaa00; color: #000; font-size: 10px; padding: 2px 6px; border-radius: 4px; vertical-align: middle; text-shadow: none; font-weight: 900;}
+        .timer-box { font-family: 'Orbitron', sans-serif; font-size: 14px; color: #ffaa00; margin-top: 8px; letter-spacing: 1px; background: rgba(255, 170, 0, 0.1); padding: 5px 10px; border-radius: 20px; display: inline-block; border: 1px solid rgba(255, 170, 0, 0.3);}
+
+        /* Content Area */
+        .content-area { flex: 1; overflow-y: auto; padding: 15px 15px 90px 15px; scroll-behavior: smooth; }
+        .tab-section { display: none; animation: slideUp 0.3s ease forwards; opacity: 0; transform: translateY(20px); }
+        .tab-section.active { display: block; }
+        @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
+
+        /* Section Headings */
+        .section-title { font-family: 'Orbitron', sans-serif; font-size: 12px; color: #94a3b8; margin: 25px 0 15px 5px; text-transform: uppercase; letter-spacing: 1.5px; display: flex; align-items: center; }
+        .section-title::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(0,255,204,0.4), transparent); margin-left: 12px; }
+
+        /* Grids */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .grid-4 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+        /* Single Select Cards (Game, Device) */
+        .v-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 10px; padding: 12px; text-align: center; transition: 0.3s; cursor: pointer; }
+        .v-card h3 { font-family: 'Orbitron', sans-serif; font-size: 14px; color: #fff; margin-bottom: 2px;}
+        .v-card p { font-size: 9px; color: #64748b; font-weight: 600; text-transform: uppercase;}
+        .v-card.active { background: rgba(0,255,204,0.1); border-color: #00ffcc; box-shadow: inset 0 0 15px rgba(0,255,204,0.2); }
+        .v-card.active h3 { color: #00ffcc; text-shadow: 0 0 5px rgba(0,255,204,0.5); }
+
+        /* Toggle Feature Cards (ON/OFF Logic) */
+        .feature-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 15px 10px; display: flex; flex-direction: column; align-items: center; text-align: center; transition: all 0.3s ease; }
+        .feature-card h3 { font-family: 'Orbitron', sans-serif; font-size: 12px; color: #e2e8f0; margin-bottom: 3px; }
+        .feature-card p { font-size: 9px; color: #64748b; font-weight: 600; margin-bottom: 12px; text-transform: uppercase;}
+        .feature-card.is-on { background: rgba(0, 255, 204, 0.05); border-color: rgba(0, 255, 204, 0.5); box-shadow: 0 0 15px rgba(0, 255, 204, 0.1) inset; }
+        .feature-card.is-on h3 { color: #00ffcc; }
+
+        /* Toggle Switch */
+        .switch { position: relative; display: inline-block; width: 42px; height: 22px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #1e293b; transition: .4s; border-radius: 34px; border: 1px solid #334155; }
+        .slider:before { position: absolute; content: ""; height: 14px; width: 14px; left: 3px; bottom: 3px; background-color: #94a3b8; transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background-color: #00ffcc; border-color: #00ffcc; box-shadow: 0 0 10px rgba(0,255,204,0.5); }
+        input:checked + .slider:before { transform: translateX(20px); background-color: #000; }
+
+        /* Action Buttons */
+        .btn-main { background: linear-gradient(90deg, #00ffcc, #0077ff); border: none; color: #000; font-family: 'Orbitron', sans-serif; font-size: 16px; font-weight: 900; padding: 18px; border-radius: 12px; width: 100%; margin-top: 20px; box-shadow: 0 8px 25px rgba(0,255,204,0.3); transition: 0.2s; text-transform: uppercase; cursor: pointer; }
+        .btn-main:active { transform: scale(0.97); }
+        
+        .btn-danger { background: linear-gradient(90deg, #ff0055, #ff6600); box-shadow: 0 5px 20px rgba(255,0,85,0.3); color: #fff;}
+
+        /* Bottom Nav */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; height: 65px; background: rgba(5, 5, 10, 0.95); backdrop-filter: blur(15px); display: flex; justify-content: space-around; align-items: center; border-top: 1px solid rgba(0,255,204,0.1); z-index: 100; }
+        .nav-item { flex: 1; text-align: center; color: #475569; font-size: 10px; font-weight: 600; text-transform: uppercase; cursor: pointer; transition: 0.3s; padding: 10px 0; }
+        .nav-item.active { color: #00ffcc; }
+        .nav-icon { font-size: 20px; display: block; margin-bottom: 4px; filter: grayscale(100%) opacity(0.5); transition: 0.3s; }
+        .nav-item.active .nav-icon { filter: grayscale(0%) opacity(1); text-shadow: 0 0 10px rgba(0,255,204,0.5); }
+    </style>
+</head>
+<body>
+
+    <!-- Header & VIP Expiry Timer -->
+    <div class="header">
+        <h1>AADHI ENGINE <span>PRO</span></h1>
+        <!-- Ye timer ab ulti ginti (countdown) karega -->
+        <div class="timer-box" id="expiryTimer">Checking VIP Key...</div>
+    </div>
+
+    <!-- Scrollable Window -->
+    <div class="content-area">
+        
+        <!-- ================= HOME TAB ================= -->
+        <div id="tab-home" class="tab-section active">
+            
+            <div class="section-title">1. Target Game</div>
+            <div class="grid-4">
+                <div class="v-card active" onclick="selectSingle(this, '.grid-4')"><h3>BGMI</h3><p>INDIA</p></div>
+                <div class="v-card" onclick="selectSingle(this, '.grid-4')"><h3>GLOBAL</h3><p>INTL</p></div>
+                <div class="v-card" onclick="selectSingle(this, '.grid-4')"><h3>KOREA</h3><p>KR/JP</p></div>
+                <div class="v-card" onclick="selectSingle(this, '.grid-4')"><h3>VNG</h3><p>VIETNAM</p></div>
+            </div>
+
+            <div class="section-title">2. Device Spoofer (Safe)</div>
+            <div class="grid-2">
+                <div class="v-card active" onclick="selectSingle(this, '.grid-2')"><h3>ROG 7</h3><p>120Hz Profile</p></div>
+                <div class="v-card" onclick="selectSingle(this, '.grid-2')"><h3>iPad Pro</h3><p>Ultra Wide</p></div>
+                <div class="v-card" onclick="selectSingle(this, '.grid-2')"><h3>iPhone 15</h3><p>Smooth Aim</p></div>
+                <div class="v-card" onclick="selectSingle(this, '.grid-2')"><h3>Default</h3><p>Original</p></div>
+            </div>
+
+            <div class="section-title">3. OBB Security</div>
+            <div class="grid-2">
+                <div class="feature-card" id="card-obb1">
+                    <h3>Safe OBB</h3><p>Main ID</p>
+                    <label class="switch"><input type="checkbox" onchange="toggleCard('card-obb1', this)"><span class="slider"></span></label>
+                </div>
+                <div class="feature-card" id="card-obb2">
+                    <h3>Magic OBB</h3><p>Brutal Damage</p>
+                    <label class="switch"><input type="checkbox" onchange="toggleCard('card-obb2', this)"><span class="slider"></span></label>
+                </div>
+                <div class="feature-card" id="card-obb3">
+                    <h3>Auto Track</h3><p>Magnetic Aim</p>
+                    <label class="switch"><input type="checkbox" onchange="toggleCard('card-obb3', this)"><span class="slider"></span></label>
+                </div>
+                <div class="feature-card" id="card-obb4">
+                    <h3>Bypass OBB</h3><p>Anti-Ban</p>
+                    <label class="switch"><input type="checkbox" onchange="toggleCard('card-obb4', this)"><span class="slider"></span></label>
+                </div>
+            </div>
+
+            <div class="section-title">4. Memory Hacks (Lua)</div>
+            <div class="grid-2">
+                <div class="feature-card" id="card-lua1">
+                    <h3>Aimbot Lock</h3><p>Head Target</p>
+                    <label class="switch"><input type="checkbox" onchange="toggleCard('card-lua1', this)"><span class="slider"></span></label>
+                </div>
+                <div class="feature-card" id="card-lua2">
+                    <h3>Zero Recoil</h3><p>Laser Spray</p>
+                    <label class="switch"><input type="checkbox" onchange="toggleCard('card-lua2', this)"><span class="slider"></span></label>
+                </div>
+                <div class="feature-card" id="card-lua3">
+                    <h3>Antenna Pro</h3><p>Enemy Line</p>
+                    <label class="switch"><input type="checkbox" onchange="toggleCard('card-lua3', this)"><span class="slider"></span></label>
+                </div>
+                <div class="feature-card" id="card-lua4">
+                    <h3>X-Ray Wallhack</h3><p>See Enemy</p>
+                    <label class="switch"><input type="checkbox" onchange="toggleCard('card-lua4', this)"><span class="slider"></span></label>
+                </div>
+                <div class="feature-card" id="card-lua5" style="grid-column: span 2;">
+                    <h3>Magic Bullet (100m)</h3><p>Hit anywhere to kill</p>
+                    <label class="switch"><input type="checkbox" onchange="toggleCard('card-lua5', this)"><span class="slider"></span></label>
+                </div>
+            </div>
+
+            <div class="section-title">5. Pak Visuals</div>
+            <div class="grid-2">
+                <div class="feature-card" id="card-pak1">
+                    <h3>90/120 FPS</h3><p>Unlocker</p>
+                    <label class="switch"><input type="checkbox" onchange="toggleCard('card-pak1', this)"><span class="slider"></span></label>
+                </div>
+                <div class="feature-card" id="card-pak2">
+                    <h3>No Grass/Trees</h3><p>Erangel</p>
+                    <label class="switch"><input type="checkbox" onchange="toggleCard('card-pak2', this)"><span class="slider"></span></label>
+                </div>
+                <div class="feature-card" id="card-pak3">
+                    <h3>Black Body</h3><p>Spot Easily</p>
+                    <label class="switch"><input type="checkbox" onchange="toggleCard('card-pak3', this)"><span class="slider"></span></label>
+                </div>
+                <div class="feature-card" id="card-pak4">
+                    <h3>White Body</h3><p>Glowing</p>
+                    <label class="switch"><input type="checkbox" onchange="toggleCard('card-pak4', this)"><span class="slider"></span></label>
+                </div>
+                <div class="feature-card" id="card-pak5">
+                    <h3>No Fog / Sky</h3><p>Clear View</p>
+                    <label class="switch"><input type="checkbox" onchange="toggleCard('card-pak5', this)"><span class="slider"></span></label>
+                </div>
+                <div class="feature-card" id="card-pak6">
+                    <h3>Small Crosshair</h3><p>Shotgun Assist</p>
+                    <label class="switch"><input type="checkbox" onchange="toggleCard('card-pak6', this)"><span class="slider"></span></label>
+                </div>
+            </div>
+
+            <button class="btn-main" onclick="startInjection()" id="injectBtn">🚀 INJECT & START</button>
+        </div>
+
+        <!-- ================= DNS TAB ================= -->
+        <div id="tab-dns" class="tab-section">
+            <div class="section-title">Anti-Ban DNS</div>
+            <div class="grid-2">
+                <div class="v-card active" onclick="selectSingle(this, '.grid-2')"><h3>Google</h3><p>8.8.8.8</p></div>
+                <div class="v-card" onclick="selectSingle(this, '.grid-2')"><h3>Cloudflare</h3><p>1.1.1.1</p></div>
+            </div>
+            <button class="btn-main" style="margin-top: 20px;">CONNECT DNS TUNNEL</button>
+        </div>
+
+        <!-- ================= SETTINGS TAB ================= -->
+        <div id="tab-settings" class="tab-section">
+            <div class="section-title">Security & Account</div>
+            
+            <div class="feature-card is-on" id="card-set1" style="flex-direction: row; justify-content: space-between;">
+                <div style="text-align: left;">
+                    <h3 style="font-size: 14px;">Bypass 10 Min Ban</h3>
+                    <p style="margin:0;">Clear Logs Automatically</p>
+                </div>
+                <label class="switch"><input type="checkbox" checked onchange="toggleCard('card-set1', this)"><span class="slider"></span></label>
+            </div>
+            
+            <div class="feature-card" id="card-set2" style="flex-direction: row; justify-content: space-between; margin-top: 10px;">
+                <div style="text-align: left;">
+                    <h3 style="font-size: 14px;">Stealth Mode</h3>
+                    <p style="margin:0;">Hide from Screen Record</p>
+                </div>
+                <label class="switch"><input type="checkbox" onchange="toggleCard('card-set2', this)"><span class="slider"></span></label>
+            </div>
+
+            <!-- Naya Guest Reset Button -->
+            <button class="btn-main btn-danger" style="margin-top: 30px;" onclick="alert('Guest Data Wiped! Ready for New ID.')">⚠️ RESET GUEST ACCOUNT</button>
+            <button class="btn-main btn-danger" style="margin-top: 15px; background: #334155; box-shadow: none;" onclick="alert('Game Cache Cleared')">CLEAR GAME CACHE</button>
+        </div>
+
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <div class="nav-item active" onclick="switchTab('tab-home', this)">
+            <span class="nav-icon">🛡️</span> CHEATS
+        </div>
+        <div class="nav-item" onclick="switchTab('tab-dns', this)">
+            <span class="nav-icon">🌐</span> DNS
+        </div>
+        <div class="nav-item" onclick="switchTab('tab-settings', this)">
+            <span class="nav-icon">⚙️</span> SETTINGS
+        </div>
+    </nav>
+
+    <script>
+        // --- 1. VIP EXPIRY COUNTDOWN LOGIC ---
+        // Expiry date set kijiye (Format: "Month Date, Year Time")
+        const expiryDate = new Date("Oct 30, 2026 23:59:59").getTime();
+
+        function updateTimer() {
+            const now = new Date().getTime();
+            const distance = expiryDate - now;
+
+            // Agar time khatam ho jaye
+            if (distance < 0) {
+                document.getElementById('expiryTimer').innerHTML = "KEY EXPIRED!";
+                document.getElementById('expiryTimer').style.color = "#ff0000";
+                document.getElementById('expiryTimer').style.borderColor = "#ff0000";
+                document.getElementById('injectBtn').innerText = "SUBSCRIPTION ENDED";
+                document.getElementById('injectBtn').style.background = "#333";
+                document.getElementById('injectBtn').style.pointerEvents = "none";
+                return;
+            }
+
+            // Calculation for Days, Hours, Minutes, Seconds
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Print on Screen
+            document.getElementById('expiryTimer').innerText = `EXPIRES IN: ${days}D ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        }
+        setInterval(updateTimer, 1000); updateTimer();
+
+        // --- 2. Tab Navigation ---
+        function switchTab(tabId, element) {
+            document.querySelectorAll('.tab-section').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            element.classList.add('active');
+        }
+
+        // --- 3. Single Selection (Game & Device) ---
+        function selectSingle(element, parentClass) {
+            let siblings = element.closest(parentClass).querySelectorAll('.v-card');
+            siblings.forEach(card => card.classList.remove('active'));
+            element.classList.add('active');
+        }
+
+        // --- 4. Switch Glow Logic ---
+        function toggleCard(cardId, checkbox) {
+            let card = document.getElementById(cardId);
+            if(checkbox.checked) {
+                card.classList.add('is-on');
+            } else {
+                card.classList.remove('is-on');
+            }
+        }
+
+        // --- 5. Inject Bridge ---
+        function startInjection() {
+            if(typeof Android !== 'undefined') {
+                Android.showToast("Bypassing Anti-Cheat & Injecting...");
+                setTimeout(() => Android.runGame(), 1000);
+            } else {
+                alert("Injecting features... Please wait.");
+            }
+        }
+    </script>
+
+</body>
+</html>
