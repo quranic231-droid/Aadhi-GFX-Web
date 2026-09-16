@@ -6,39 +6,38 @@
     <title>Aadhi Floating Menu</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <style>
-        /* Transparent Background for Android Overlay */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; user-select: none; -webkit-tap-highlight-color: transparent; }
-        body { background-color: transparent; color: #fff; height: 100vh; width: 100vw; overflow: hidden; position: relative; }
+        html, body {
+            background: transparent;
+            width: 100%; height: 100%;
+            overflow: hidden;
+        }
 
-        /* Floating Text Bar (Replaced Logo) */
+        /* ───── BAR MODE (small) ───── */
         #float-bar {
             position: absolute;
-            top: 30px;
-            left: 20px;
-            background: rgba(10, 15, 25, 0.9);
+            top: 0; left: 0; right: 0; bottom: 0;
+            margin: 4px;
+            background: rgba(10, 15, 25, 0.92);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(0, 255, 204, 0.4);
-            border-radius: 8px;
-            padding: 8px 15px;
+            border: 1px solid rgba(0, 255, 204, 0.5);
+            border-radius: 10px;
+            padding: 8px 14px;
             font-family: 'Orbitron', sans-serif;
             font-size: 12px;
             font-weight: 700;
             color: #00ffcc;
             letter-spacing: 1px;
-            white-space: nowrap; /* Forces text in a single line */
-            box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
+            white-space: nowrap;
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.4);
             cursor: pointer;
-            z-index: 1000;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
-            transition: transform 0.1s;
         }
-        #float-bar:active { transform: scale(0.95); }
-        /* Blinking dot for active status */
         #float-bar::before {
             content: '';
             width: 8px; height: 8px;
@@ -46,208 +45,247 @@
             border-radius: 50%;
             box-shadow: 0 0 8px #ff0055;
             animation: blink 1.5s infinite;
+            flex-shrink: 0;
         }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-        /* The Main Mod Menu */
+        /* ───── MENU MODE (full screen) ───── */
         #mod-menu {
-            position: absolute;
+            position: fixed;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%) scale(0.8);
-            width: 260px;
-            background: rgba(10, 15, 25, 0.9);
+            transform: translate(-50%, -50%) scale(0.85);
+            width: 270px;
+            background: rgba(10, 15, 25, 0.96);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(0, 255, 204, 0.3);
-            border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.8), inset 0 0 15px rgba(0,255,204,0.1);
-            display: none; 
+            border: 1px solid rgba(0, 255, 204, 0.4);
+            border-radius: 14px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.9),
+                        inset 0 0 15px rgba(0,255,204,0.1);
+            display: none;
             opacity: 0;
             z-index: 1001;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             overflow: hidden;
         }
-
         #mod-menu.active {
             display: block;
             opacity: 1;
             transform: translate(-50%, -50%) scale(1);
         }
 
-        /* Menu Header */
         .menu-header {
-            background: linear-gradient(90deg, rgba(0, 255, 204, 0.2), transparent);
-            padding: 12px 15px;
+            background: linear-gradient(90deg, rgba(0, 255, 204, 0.25), transparent);
+            padding: 14px;
             text-align: center;
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
-        .menu-header h2 { font-family: 'Orbitron', sans-serif; font-size: 15px; color: #fff; letter-spacing: 1px;}
+        .menu-header h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 15px;
+            color: #fff;
+            letter-spacing: 1px;
+        }
         .menu-header h2 span { color: #00ffcc; }
 
-        /* Menu Body */
-        .menu-body { padding: 15px; }
+        .menu-body { padding: 16px; }
 
-        /* DNS Toggle Row */
-        .feature-row { display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; }
-        .feature-row.active-row { border-color: rgba(0,255,204,0.4); background: rgba(0,255,204,0.05); }
-        .feature-name { font-size: 13px; font-weight: 600; color: #e2e8f0; display: flex; align-items: center; gap: 8px;}
+        .feature-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255,255,255,0.03);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255,255,255,0.06);
+            transition: 0.3s;
+        }
+        .feature-row.active-row {
+            border-color: rgba(0,255,204,0.5);
+            background: rgba(0,255,204,0.06);
+        }
+        .feature-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
-        /* Switch UI */
         .switch { position: relative; display: inline-block; width: 42px; height: 22px; }
         .switch input { opacity: 0; width: 0; height: 0; }
-        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #1e293b; transition: .4s; border-radius: 34px; border: 1px solid #334155; }
-        .slider:before { position: absolute; content: ""; height: 14px; width: 14px; left: 3px; bottom: 3px; background-color: #94a3b8; transition: .4s; border-radius: 50%; }
-        input:checked + .slider { background-color: #00ffcc; border-color: #00ffcc; box-shadow: 0 0 10px rgba(0,255,204,0.5); }
-        input:checked + .slider:before { transform: translateX(20px); background-color: #000; }
+        .slider {
+            position: absolute; cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #1e293b;
+            transition: .4s; border-radius: 34px;
+            border: 1px solid #334155;
+        }
+        .slider:before {
+            position: absolute; content: "";
+            height: 14px; width: 14px;
+            left: 3px; bottom: 3px;
+            background-color: #94a3b8;
+            transition: .4s; border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #00ffcc;
+            border-color: #00ffcc;
+            box-shadow: 0 0 10px rgba(0,255,204,0.6);
+        }
+        input:checked + .slider:before {
+            transform: translateX(20px);
+            background-color: #000;
+        }
 
-        /* Action Buttons (Hide & Close) */
-        .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .btn { padding: 10px; border-radius: 8px; border: none; font-family: 'Orbitron', sans-serif; font-size: 11px; font-weight: 700; cursor: pointer; transition: 0.2s; text-transform: uppercase; color: #fff;}
+        .btn-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .btn {
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+            text-transform: uppercase;
+            color: #fff;
+        }
         .btn:active { transform: scale(0.95); }
-        
-        .btn-hide { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); }
-        .btn-hide:hover { background: rgba(255,255,255,0.15); }
-        
-        .btn-stop { background: linear-gradient(90deg, #ff0055, #cc0044); box-shadow: 0 5px 15px rgba(255,0,85,0.3); }
+        .btn-hide {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .btn-stop {
+            background: linear-gradient(90deg, #ff0055, #cc0044);
+            box-shadow: 0 5px 15px rgba(255,0,85,0.4);
+        }
     </style>
 </head>
 <body>
 
-    <!-- Single Line Draggable Text Bar -->
     <div id="float-bar">AADHI PAID GFX TOOL</div>
 
-    <!-- The Mod Menu Window -->
     <div id="mod-menu">
         <div class="menu-header">
             <h2>AADHI <span>CONTROL</span></h2>
         </div>
-        
         <div class="menu-body">
-            
-            <!-- DNS Control Only -->
             <div class="feature-row" id="row-dns">
-                <span class="feature-name"><i class="fa-solid fa-server" style="color:#00ffcc;"></i> ANTI-BAN DNS</span>
+                <span class="feature-name">
+                    <i class="fa-solid fa-server" style="color:#00ffcc;"></i> ANTI-BAN VPN
+                </span>
                 <label class="switch">
                     <input type="checkbox" onchange="toggleDNS(this)">
                     <span class="slider"></span>
                 </label>
             </div>
-
-            <!-- Hide and Stop Buttons -->
             <div class="btn-grid">
-                <button class="btn btn-hide" onclick="hideMenu()"><i class="fa-solid fa-eye-slash"></i> HIDE</button>
-                <button class="btn btn-stop" onclick="stopApp()"><i class="fa-solid fa-power-off"></i> STOP</button>
+                <button class="btn btn-hide" onclick="hideMenu()">
+                    <i class="fa-solid fa-eye-slash"></i> HIDE
+                </button>
+                <button class="btn btn-stop" onclick="stopApp()">
+                    <i class="fa-solid fa-power-off"></i> STOP
+                </button>
             </div>
-            
         </div>
     </div>
 
     <script>
-        // --- Elements ---
         const floatBar = document.getElementById('float-bar');
         const modMenu = document.getElementById('mod-menu');
 
-        // --- Window Management Logic ---
-        
-        // Open Menu
-        floatBar.addEventListener('click', () => {
-            modMenu.classList.add('active');
-            floatBar.style.display = 'none'; // Text bar chup jayega
+        // ───── Drag + Tap detection ─────
+        let startX = 0, startY = 0;
+        let lastX = 0, lastY = 0;
+        let hasMoved = false;
+        let touching = false;
+
+        floatBar.addEventListener('touchstart', (e) => {
+            touching = true;
+            hasMoved = false;
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+            lastX = startX;
+            lastY = startY;
+            e.preventDefault();
+        }, { passive: false });
+
+        floatBar.addEventListener('touchmove', (e) => {
+            if (!touching) return;
+            const cx = e.touches[0].clientX;
+            const cy = e.touches[0].clientY;
+            const dx = cx - lastX;
+            const dy = cy - lastY;
+
+            if (Math.abs(cx - startX) > 8 || Math.abs(cy - startY) > 8) {
+                hasMoved = true;
+            }
+
+            if (hasMoved && typeof Android !== 'undefined') {
+                Android.moveWindowBy(Math.round(dx), Math.round(dy));
+            }
+
+            lastX = cx;
+            lastY = cy;
+            e.preventDefault();
+        }, { passive: false });
+
+        floatBar.addEventListener('touchend', (e) => {
+            touching = false;
+            if (!hasMoved) {
+                openMenu();
+            }
+            e.preventDefault();
         });
 
-        // Hide Menu (Wapas Text Bar ban jayega)
+        // Also support click for desktop testing
+        floatBar.addEventListener('click', (e) => {
+            if (!hasMoved) openMenu();
+        });
+
+        // ───── Open / Close menu ─────
+        function openMenu() {
+            if (typeof Android !== 'undefined') Android.setMenuState(true);
+            modMenu.style.display = 'block';
+            setTimeout(() => modMenu.classList.add('active'), 20);
+            floatBar.style.display = 'none';
+        }
+
         function hideMenu() {
             modMenu.classList.remove('active');
-            floatBar.style.display = 'flex'; // Text bar wapas aa jayega
+            setTimeout(() => {
+                modMenu.style.display = 'none';
+                floatBar.style.display = 'flex';
+                if (typeof Android !== 'undefined') Android.setMenuState(false);
+            }, 220);
         }
 
-        // Stop / Close App completely
-        function stopApp() {
-            if(confirm("Are you sure you want to STOP and CLOSE the tool?")) {
-                // Java Backend ko command bhejo ki service band kare
-                if(typeof Android !== 'undefined') {
-                    Android.stopFloatingService(); 
-                } else {
-                    document.body.style.display = 'none'; // Browser testing ke liye gayab
-                    alert("App Stopped & Floating Service Closed!");
-                }
-            }
-        }
-
-        // --- DNS Toggle Logic ---
+        // ───── VPN toggle ─────
         function toggleDNS(checkbox) {
-            let row = document.getElementById('row-dns');
-            if(checkbox.checked) {
+            const row = document.getElementById('row-dns');
+            if (checkbox.checked) {
                 row.classList.add('active-row');
-                if(typeof Android !== 'undefined') Android.showToast("DNS Connected Successfully!");
+                if (typeof Android !== 'undefined') Android.toggleVpn(true);
             } else {
                 row.classList.remove('active-row');
-                if(typeof Android !== 'undefined') Android.showToast("DNS Disconnected!");
+                if (typeof Android !== 'undefined') Android.toggleVpn(false);
             }
         }
 
-        // --- Drag Logic for Text Bar (Touch & Mouse) ---
-        let isDragging = false;
-        let startX, startY, initialX, initialY;
-
-        floatBar.addEventListener('touchstart', dragStart, {passive: false});
-        document.addEventListener('touchmove', drag, {passive: false});
-        document.addEventListener('touchend', dragEnd);
-
-        floatBar.addEventListener('mousedown', dragStart);
-        document.addEventListener('mousemove', drag);
-        document.addEventListener('mouseup', dragEnd);
-
-        function dragStart(e) {
-            initialX = floatBar.offsetLeft;
-            initialY = floatBar.offsetTop;
-
-            if (e.type === 'touchstart') {
-                startX = e.touches[0].clientX;
-                startY = e.touches[0].clientY;
-            } else {
-                startX = e.clientX;
-                startY = e.clientY;
+        // ───── Stop tool ─────
+        function stopApp() {
+            if (confirm("Close floating tool?")) {
+                if (typeof Android !== 'undefined') Android.stopFloatingService();
             }
-            isDragging = true;
-        }
-
-        function drag(e) {
-            if (!isDragging) return;
-            e.preventDefault(); 
-            
-            let currentX, currentY;
-            if (e.type === 'touchmove') {
-                currentX = e.touches[0].clientX;
-                currentY = e.touches[0].clientY;
-            } else {
-                currentX = e.clientX;
-                currentY = e.clientY;
-            }
-
-            let diffX = currentX - startX;
-            let diffY = currentY - startY;
-
-            let newX = initialX + diffX;
-            let newY = initialY + diffY;
-
-            let maxW = window.innerWidth - floatBar.offsetWidth;
-            let maxH = window.innerHeight - floatBar.offsetHeight;
-
-            if(newX < 0) newX = 0;
-            if(newY < 0) newY = 0;
-            if(newX > maxW) newX = maxW;
-            if(newY > maxH) newY = maxH;
-
-            floatBar.style.left = newX + "px";
-            floatBar.style.top = newY + "px";
-        }
-
-        function dragEnd(e) {
-            isDragging = false;
         }
     </script>
-
 </body>
 </html>
