@@ -2,72 +2,181 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aadhi VIP - Secure Login</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Aadhi VIP - Premium Authentication</title>
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; user-select: none; }
-        body { background-color: #050810; background-image: radial-gradient(circle at 15% 50%, rgba(0,255,204,0.08) 0%, transparent 50%), radial-gradient(circle at 85% 30%, rgba(0,119,255,0.08) 0%, transparent 50%); color: #fff; height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; }
-        .login-box { background: rgba(15,23,42,0.6); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border: 1px solid rgba(255,255,255,0.05); border-top: 1px solid rgba(0,255,204,0.3); border-radius: 24px; padding: 40px 30px; width: 90%; max-width: 420px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.6), inset 0 0 20px rgba(0,255,204,0.02); animation: floatUp 0.8s ease-out; }
-        @keyframes floatUp { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
-        .shield-icon { width: 60px; height: 60px; background: linear-gradient(135deg, rgba(0,255,204,0.1), rgba(0,119,255,0.1)); border: 1px solid rgba(0,255,204,0.3); border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 0 auto 20px; font-size: 26px; color: #00ffcc; box-shadow: 0 0 20px rgba(0,255,204,0.2); }
-        .logo h1 { font-family: 'Orbitron', sans-serif; font-size: 28px; color: #fff; letter-spacing: 2px; margin-bottom: 4px; display: flex; justify-content: center; align-items: center; gap: 8px; }
-        .logo h1 span { color: #00ffcc; text-shadow: 0 0 15px rgba(0,255,204,0.5); }
-        .logo p { font-size: 11px; color: #64748b; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 35px; font-weight: 500; }
-        .input-group { position: relative; margin-bottom: 25px; }
-        .input-group i { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: #64748b; font-size: 16px; transition: 0.3s; }
-        .input-group input { width: 100%; padding: 18px 20px 18px 50px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; color: #00ffcc; font-size: 15px; outline: none; transition: 0.3s; font-family: 'Orbitron', sans-serif; letter-spacing: 1px; }
-        .input-group input::placeholder { color: #475569; font-family: 'Poppins', sans-serif; letter-spacing: 0; }
-        .input-group input:focus { border-color: #00ffcc; background: rgba(0,255,204,0.03); box-shadow: 0 0 20px rgba(0,255,204,0.15); }
-        .input-group input:focus + i, .input-group input:not(:placeholder-shown) + i { color: #00ffcc; }
-        .error-text { color: #ff3366; font-size: 12px; margin-top: -15px; margin-bottom: 15px; height: 18px; font-weight: 500; display: block; opacity: 0; transition: 0.3s; }
-        .btn-login { background: linear-gradient(90deg, #00ffcc, #0077ff); border: none; color: #000; font-family: 'Orbitron', sans-serif; font-size: 16px; font-weight: 900; padding: 18px; border-radius: 14px; width: 100%; box-shadow: 0 8px 25px rgba(0,255,204,0.3); transition: 0.3s; text-transform: uppercase; cursor: pointer; letter-spacing: 1px; display: flex; justify-content: center; align-items: center; gap: 10px; }
-        .btn-login:active { transform: scale(0.96); }
-        .btn-login:disabled { background: #1e293b; color: #64748b; box-shadow: none; cursor: not-allowed; }
-        .spinner { animation: spin 1s linear infinite; display: none; }
+        * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; -webkit-tap-highlight-color: transparent; }
+        
+        /* 🔥 ANIMATED PREMIUM BACKGROUND 🔥 */
+        body { 
+            font-family: 'Rajdhani', sans-serif; 
+            min-height: 100vh; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            background: linear-gradient(-45deg, #050810, #0a1128, #050810, #001220);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            overflow: hidden;
+            position: relative;
+            color: #fff;
+        }
+        @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+        /* Floating Particles Effect */
+        .particle { position: absolute; border-radius: 50%; filter: blur(40px); opacity: 0.4; animation: float 10s infinite ease-in-out alternate; }
+        .p1 { width: 250px; height: 250px; background: #00ffcc; top: -10%; left: -10%; }
+        .p2 { width: 300px; height: 300px; background: #0077ff; bottom: -10%; right: -10%; animation-delay: -5s; }
+
+        @keyframes float { 0% { transform: translate(0, 0); } 100% { transform: translate(30px, 40px); } }
+
+        /* 🔥 GLASSMORPHISM LOGIN CARD 🔥 */
+        .login-box { 
+            background: rgba(10, 15, 30, 0.6); 
+            backdrop-filter: blur(25px); 
+            -webkit-backdrop-filter: blur(25px); 
+            border: 1px solid rgba(0, 255, 204, 0.15); 
+            border-top: 1px solid rgba(0, 255, 204, 0.4);
+            border-radius: 24px; 
+            padding: 40px 30px; 
+            width: 90%; 
+            max-width: 400px; 
+            position: relative;
+            z-index: 10;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8), inset 0 0 20px rgba(0, 255, 204, 0.05); 
+            animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1); 
+        }
+        @keyframes slideUp { 0% { opacity: 0; transform: translateY(40px); } 100% { opacity: 1; transform: translateY(0); } }
+
+        /* 🔥 PURE HTML/CSS GLOWING LOGO 🔥 */
+        .css-logo {
+            width: 80px; height: 80px;
+            margin: 0 auto 20px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .css-logo .glow-ring-1 { position: absolute; inset: 0; border-radius: 50%; border: 2px solid transparent; border-top-color: #00ffcc; border-bottom-color: #0077ff; animation: spin 2s linear infinite; }
+        .css-logo .glow-ring-2 { position: absolute; inset: 8px; border-radius: 50%; border: 2px dashed rgba(0, 255, 204, 0.5); animation: spin 3s linear infinite reverse; }
+        .css-logo i { font-size: 32px; color: #00ffcc; filter: drop-shadow(0 0 10px rgba(0,255,204,0.8)); animation: pulse 2s infinite alternate; }
+        
         @keyframes spin { 100% { transform: rotate(360deg); } }
-        .divider { display: flex; align-items: center; margin: 30px 0 20px; color: #475569; font-size: 10px; text-transform: uppercase; letter-spacing: 2px; }
+        @keyframes pulse { 0% { transform: scale(0.95); opacity: 0.8; } 100% { transform: scale(1.05); opacity: 1; } }
+
+        .brand-text { text-align: center; margin-bottom: 30px; }
+        .brand-text h1 { font-family: 'Orbitron', sans-serif; font-size: 26px; font-weight: 900; letter-spacing: 2px; color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+        .brand-text h1 span { color: #00ffcc; text-shadow: 0 0 15px rgba(0,255,204,0.6); }
+        .brand-text p { font-size: 11px; color: #00ffcc; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; background: linear-gradient(90deg, transparent, rgba(0,255,204,0.1), transparent); padding: 4px 0; margin-top: 5px; }
+
+        /* 🔥 PREMIUM INPUT FIELD 🔥 */
+        .input-wrapper { position: relative; margin-bottom: 25px; }
+        .input-wrapper i { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: #64748b; font-size: 16px; transition: 0.3s; }
+        .input-wrapper input { 
+            width: 100%; padding: 18px 20px 18px 48px; 
+            background: rgba(0, 0, 0, 0.4); 
+            border: 1px solid rgba(255,255,255,0.1); 
+            border-radius: 14px; color: #00ffcc; font-size: 15px; 
+            outline: none; transition: all 0.3s; 
+            font-family: 'Orbitron', sans-serif; letter-spacing: 1px; font-weight: 600;
+        }
+        .input-wrapper input::placeholder { color: #475569; font-family: 'Rajdhani', sans-serif; letter-spacing: 0; font-weight: 600; }
+        .input-wrapper input:focus { border-color: #00ffcc; background: rgba(0,0,0,0.6); box-shadow: 0 0 20px rgba(0,255,204,0.15); }
+        .input-wrapper input:focus + i, .input-wrapper input:not(:placeholder-shown) + i { color: #00ffcc; filter: drop-shadow(0 0 5px rgba(0,255,204,0.5)); }
+        
+        .error-text { color: #ff3366; font-size: 12px; margin-top: -15px; margin-bottom: 15px; height: 18px; font-weight: 700; display: block; opacity: 0; transition: 0.3s; letter-spacing: 1px; }
+
+        /* 🔥 GLOWING BUTTON 🔥 */
+        .btn-login { 
+            background: linear-gradient(90deg, #00ffcc, #0077ff); 
+            border: none; color: #030305; 
+            font-family: 'Orbitron', sans-serif; font-size: 16px; font-weight: 900; 
+            padding: 18px; border-radius: 14px; width: 100%; 
+            box-shadow: 0 10px 25px rgba(0,255,204,0.3); 
+            transition: all 0.3s; text-transform: uppercase; cursor: pointer; letter-spacing: 2px; 
+            display: flex; justify-content: center; align-items: center; gap: 10px; 
+        }
+        .btn-login:active { transform: scale(0.96); box-shadow: 0 5px 15px rgba(0,255,204,0.2); }
+        .btn-login:disabled { background: #1e293b; color: #64748b; box-shadow: none; cursor: not-allowed; }
+        
+        .spinner { animation: spin 1s linear infinite; display: none; font-size: 18px; }
+
+        /* 🔥 FOOTER / SOCIALS 🔥 */
+        .divider { display: flex; align-items: center; margin: 30px 0 20px; color: #64748b; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; }
         .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.05); }
         .divider span { padding: 0 15px; }
+
         .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .social-btn { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px; border-radius: 12px; text-decoration: none; font-size: 12px; font-weight: 600; color: #fff; transition: 0.3s; border: 1px solid transparent; }
-        .btn-tg { background: rgba(0,136,204,0.1); border-color: rgba(0,136,204,0.2); } .btn-tg i { color: #0088cc; font-size: 16px; }
-        .btn-tg:active { background: rgba(0,136,204,0.2); }
-        .btn-yt { background: rgba(255,0,0,0.08); border-color: rgba(255,0,0,0.2); } .btn-yt i { color: #ff0000; font-size: 16px; }
-        .btn-yt:active { background: rgba(255,0,0,0.15); }
-        .btn-wa { background: rgba(37,211,102,0.08); border-color: rgba(37,211,102,0.2); grid-column: span 2; margin-top: 5px; } .btn-wa i { color: #25d366; font-size: 16px; }
-        .btn-wa:active { background: rgba(37,211,102,0.15); }
+        .social-btn { 
+            display: flex; align-items: center; justify-content: center; gap: 8px; 
+            padding: 14px; border-radius: 12px; text-decoration: none; 
+            font-size: 13px; font-weight: 700; color: #fff; transition: 0.3s; 
+            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05);
+        }
+        .social-btn:hover, .social-btn:active { background: rgba(255,255,255,0.1); }
+        .social-btn i { font-size: 16px; }
+        .icon-tg { color: #0088cc; } 
+        .icon-yt { color: #ff0000; }
+
+        .btn-wa { grid-column: span 2; background: rgba(37,211,102,0.05); border-color: rgba(37,211,102,0.2); color: #25d366; }
+        .btn-wa:hover, .btn-wa:active { background: rgba(37,211,102,0.15); }
+
+        .sys-info { text-align: center; margin-top: 25px; font-size: 10px; color: #475569; font-family: 'Orbitron', sans-serif; font-weight: bold; letter-spacing: 1px; }
+
+        /* Shake Animation for Error */
         @keyframes shake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-8px); } 50% { transform: translateX(8px); } 75% { transform: translateX(-8px); } }
-        .shake { animation: shake 0.4s ease-in-out; }
+        .shake { animation: shake 0.4s ease-in-out; border-color: rgba(255,51,102,0.5) !important; }
     </style>
 </head>
 <body>
+
+    <!-- Background Animated Blobs -->
+    <div class="particle p1"></div>
+    <div class="particle p2"></div>
+
     <div class="login-box" id="loginBox">
-        <div class="shield-icon"><i class="fa-solid fa-shield-halved"></i></div>
-        <div class="logo">
-            <h1>AADHI <span>VIP</span></h1>
+        
+        <!-- 🔥 PURE CSS GLOWING LOGO 🔥 -->
+        <div class="css-logo">
+            <div class="glow-ring-1"></div>
+            <div class="glow-ring-2"></div>
+            <i class="fa-solid fa-fingerprint"></i> <!-- Or use fa-shield-halved -->
+        </div>
+        
+        <div class="brand-text">
+            <h1>AADHI <span>ENGINE</span></h1>
             <p>Secure Authentication</p>
         </div>
-        <div class="input-group">
-            <input type="text" id="vipKey" placeholder="Paste VIP Key Here" autocomplete="off" spellcheck="false">
+        
+        <div class="input-wrapper" id="inputWrapper">
+            <input type="password" id="vipKey" placeholder="Paste VIP Key Here" autocomplete="off" spellcheck="false">
             <i class="fa-solid fa-key"></i>
         </div>
         <span class="error-text" id="errorText">Invalid Key!</span>
+        
         <button class="btn-login" id="loginBtn" onclick="verifyKey()">
             <span id="btnText">UNLOCK ENGINE</span>
             <i class="fa-solid fa-circle-notch spinner" id="spinnerIcon"></i>
         </button>
-        <div class="divider"><span>Get Key / Community</span></div>
+        
+        <div class="divider"><span>Community Support</span></div>
+        
         <div class="social-grid">
-            <a href="https://t.me/aadhi_aadil0" class="social-btn btn-tg"><i class="fa-brands fa-telegram"></i> Telegram</a>
-            <a href="https://youtube.com/@your_channel" class="social-btn btn-yt"><i class="fa-brands fa-youtube"></i> YouTube</a>
+            <!-- Update your links here -->
+            <a href="https://t.me/aadhi_aadil0" class="social-btn"><i class="fa-brands fa-telegram icon-tg"></i> Telegram</a>
+            <a href="https://youtube.com/@your_channel" class="social-btn"><i class="fa-brands fa-youtube icon-yt"></i> YouTube</a>
             <a href="https://wa.me/your_number_here" class="social-btn btn-wa"><i class="fa-brands fa-whatsapp"></i> Buy via WhatsApp</a>
         </div>
+
+        <div class="sys-info">SYS_VER: 3.0 | SECURE CONNECTION</div>
     </div>
 
     <script>
-        // Jab page load ho, agar saved key ho to auto-fill (auto-login Java khud handle karega)
+        // Auto-fill saved key
         window.addEventListener('load', () => {
             if (typeof Android !== 'undefined') {
                 try {
@@ -82,39 +191,39 @@
         function verifyKey() {
             let inputKey = document.getElementById("vipKey").value.trim();
             let loginBox = document.getElementById("loginBox");
+            let inputWrapper = document.getElementById("inputWrapper");
             let errorText = document.getElementById("errorText");
             let loginBtn = document.getElementById("loginBtn");
             let btnText = document.getElementById("btnText");
             let spinnerIcon = document.getElementById("spinnerIcon");
 
             if (inputKey === "") {
-                showError("Key cannot be empty!");
-                loginBox.classList.add("shake");
-                setTimeout(() => loginBox.classList.remove("shake"), 400);
+                showError("ACCESS DENIED: KEY REQUIRED");
+                inputWrapper.classList.add("shake");
+                setTimeout(() => inputWrapper.classList.remove("shake"), 400);
                 return;
             }
 
-            // Loading UI
+            // Show Loading State
             btnText.innerText = "AUTHENTICATING...";
             spinnerIcon.style.display = "inline-block";
             loginBtn.disabled = true;
             errorText.style.opacity = "0";
 
             if (typeof Android !== 'undefined') {
-                // Save key (for auto-login)
+                // Java Backend Bridge
                 try { Android.saveKey(inputKey); } catch (e) {}
-                // Ask Java to verify against Firebase & open dashboard
                 try { Android.goToDashboard(inputKey); } catch (e) {}
             } else {
-                // Browser preview fallback
+                // Browser Test Mode
                 setTimeout(() => {
                     btnText.innerText = "ACCESS GRANTED";
                     spinnerIcon.className = "fa-solid fa-check";
-                    setTimeout(() => { window.location.href = "vip.html"; }, 600);
-                }, 1200);
+                    setTimeout(() => { window.location.href = "index.html"; }, 600);
+                }, 1500);
             }
 
-            // Safety: agar Java respond na kare to 8 sec baad reset
+            // Fail-safe Reset
             setTimeout(() => {
                 if (loginBtn.disabled) {
                     btnText.innerText = "UNLOCK ENGINE";
@@ -131,16 +240,21 @@
             errorText.style.opacity = "1";
         }
 
-        // Java se error aane par HTML button reset karne ke liye (optional)
+        // Error callback from Java
         function onLoginError(msg) {
             let btnText = document.getElementById("btnText");
             let spinnerIcon = document.getElementById("spinnerIcon");
             let loginBtn = document.getElementById("loginBtn");
+            let inputWrapper = document.getElementById("inputWrapper");
+            
             btnText.innerText = "UNLOCK ENGINE";
             spinnerIcon.style.display = "none";
             spinnerIcon.className = "fa-solid fa-circle-notch spinner";
             loginBtn.disabled = false;
-            showError(msg || "Invalid Key!");
+            
+            showError(msg || "INVALID SECURITY KEY!");
+            inputWrapper.classList.add("shake");
+            setTimeout(() => inputWrapper.classList.remove("shake"), 400);
         }
     </script>
 </body>
