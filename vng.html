@@ -216,27 +216,37 @@
     </nav>
 
     <script>
-        function selectGame(element, pkg) {
-            document.querySelectorAll('#gameGrid .v-card').forEach(c => c.classList.remove('active'));
-            element.classList.add('active');
-
+                function selectGame(element, pkg) {
             if (typeof Android !== 'undefined' && Android.setSelectedGame) {
                 try {
                     const result = Android.setSelectedGame(pkg);
                     if (result === "ok") {
-                        showGameStatus("✅ " + pkg.split('.').pop().toUpperCase() + " selected", true);
-                        element.classList.add('game-available');
-                        element.classList.remove('game-missing');
+                        // Kaunsa page kholna hai wo set karo
+                        let targetHtml = "index.html";
+                        if (pkg === "com.tencent.ig") targetHtml = "global.html";
+                        else if (pkg === "com.pubg.krmobile") targetHtml = "kr.html";
+                        else if (pkg === "com.vng.pubgmobile") targetHtml = "vng.html";
+                        
+                        // Check karo ki kya hum pehle se ussi page par hain
+                        if (!window.location.href.includes(targetHtml)) {
+                            document.body.style.opacity = '0.3'; // Smooth loading effect
+                            document.body.style.transition = '0.2s';
+                            window.location.replace(targetHtml + "?v=" + Date.now()); // Bina flicker ke page switch
+                        } else {
+                            // Agar same page par hain, toh bas button active dikhao
+                            document.querySelectorAll('#gameGrid .v-card').forEach(c => c.classList.remove('active'));
+                            element.classList.add('active');
+                            showGameStatus("✅ " + pkg.split('.').pop().toUpperCase() + " selected", true);
+                        }
                     } else {
                         showGameStatus("❌ Game install nahi hai!", false);
-                        element.classList.add('game-missing');
-                        element.classList.remove('game-available');
                     }
                 } catch (e) {
-                    console.log("setSelectedGame error:", e);
+                    console.log(e);
                 }
             }
         }
+
 
         function showGameStatus(msg, success) {
             const el = document.getElementById('gameStatus');
