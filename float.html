@@ -7,31 +7,34 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; user-select: none; -webkit-tap-highlight-color: transparent; }
+        * {
+            margin: 0; padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
         html, body {
             background: transparent;
             width: 100%; height: 100%;
             overflow: hidden;
         }
 
-        /* ───── BAR MODE (small) ───── */
+        /* ───── BAR MODE ───── */
         #float-bar {
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            margin: 4px;
-            background: rgba(10, 15, 25, 0.92);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(0, 255, 204, 0.5);
+            background: #0a0f19;                 /* solid — koi blur nahi */
+            border: 1px solid #00ffcc;
             border-radius: 10px;
-            padding: 8px 14px;
+            padding: 0 12px;
             font-family: 'Orbitron', sans-serif;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 700;
             color: #00ffcc;
             letter-spacing: 1px;
             white-space: nowrap;
-            box-shadow: 0 0 15px rgba(0, 255, 204, 0.4);
+            box-shadow: 0 0 10px rgba(0, 255, 204, 0.4);
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -40,33 +43,29 @@
         }
         #float-bar::before {
             content: '';
-            width: 8px; height: 8px;
+            width: 7px; height: 7px;
             background-color: #ff0055;
             border-radius: 50%;
-            box-shadow: 0 0 8px #ff0055;
+            box-shadow: 0 0 6px #ff0055;
             animation: blink 1.5s infinite;
             flex-shrink: 0;
         }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-        /* ───── MENU MODE (full screen) ───── */
+        /* ───── MENU MODE ───── */
         #mod-menu {
             position: fixed;
-            top: 50%;
-            left: 50%;
+            top: 50%; left: 50%;
             transform: translate(-50%, -50%) scale(0.85);
             width: 270px;
-            background: rgba(10, 15, 25, 0.96);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(0, 255, 204, 0.4);
+            background: #0a0f19;                 /* solid — blur nahi */
+            border: 1px solid #00ffcc;
             border-radius: 14px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.9),
-                        inset 0 0 15px rgba(0,255,204,0.1);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.9);
             display: none;
             opacity: 0;
             z-index: 1001;
-            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: opacity 0.15s ease, transform 0.15s ease;
             overflow: hidden;
         }
         #mod-menu.active {
@@ -76,7 +75,7 @@
         }
 
         .menu-header {
-            background: linear-gradient(90deg, rgba(0, 255, 204, 0.25), transparent);
+            background: linear-gradient(90deg, rgba(0,255,204,0.25), transparent);
             padding: 14px;
             text-align: center;
             border-bottom: 1px solid rgba(255,255,255,0.1);
@@ -100,7 +99,7 @@
             border-radius: 10px;
             margin-bottom: 15px;
             border: 1px solid rgba(255,255,255,0.06);
-            transition: 0.3s;
+            transition: 0.2s;
         }
         .feature-row.active-row {
             border-color: rgba(0,255,204,0.5);
@@ -121,7 +120,7 @@
             position: absolute; cursor: pointer;
             top: 0; left: 0; right: 0; bottom: 0;
             background-color: #1e293b;
-            transition: .4s; border-radius: 34px;
+            transition: .3s; border-radius: 34px;
             border: 1px solid #334155;
         }
         .slider:before {
@@ -129,12 +128,11 @@
             height: 14px; width: 14px;
             left: 3px; bottom: 3px;
             background-color: #94a3b8;
-            transition: .4s; border-radius: 50%;
+            transition: .3s; border-radius: 50%;
         }
         input:checked + .slider {
             background-color: #00ffcc;
             border-color: #00ffcc;
-            box-shadow: 0 0 10px rgba(0,255,204,0.6);
         }
         input:checked + .slider:before {
             transform: translateX(20px);
@@ -147,14 +145,14 @@
             gap: 10px;
         }
         .btn {
-            padding: 12px;
+            padding: 14px;
             border-radius: 10px;
             border: none;
             font-family: 'Orbitron', sans-serif;
             font-size: 11px;
             font-weight: 700;
             cursor: pointer;
-            transition: 0.2s;
+            transition: 0.15s;
             text-transform: uppercase;
             color: #fff;
         }
@@ -165,7 +163,6 @@
         }
         .btn-stop {
             background: linear-gradient(90deg, #ff0055, #cc0044);
-            box-shadow: 0 5px 15px rgba(255,0,85,0.4);
         }
     </style>
 </head>
@@ -202,11 +199,12 @@
         const floatBar = document.getElementById('float-bar');
         const modMenu = document.getElementById('mod-menu');
 
-        // ───── Drag + Tap detection ─────
+        // ───── Tap + Drag detection ─────
         let startX = 0, startY = 0;
         let lastX = 0, lastY = 0;
         let hasMoved = false;
         let touching = false;
+        let menuBusy = false;
 
         floatBar.addEventListener('touchstart', (e) => {
             touching = true;
@@ -222,15 +220,16 @@
             if (!touching) return;
             const cx = e.touches[0].clientX;
             const cy = e.touches[0].clientY;
-            const dx = cx - lastX;
-            const dy = cy - lastY;
 
             if (Math.abs(cx - startX) > 8 || Math.abs(cy - startY) > 8) {
                 hasMoved = true;
             }
 
             if (hasMoved && typeof Android !== 'undefined') {
-                Android.moveWindowBy(Math.round(dx), Math.round(dy));
+                Android.moveWindowBy(
+                    Math.round(cx - lastX),
+                    Math.round(cy - lastY)
+                );
             }
 
             lastX = cx;
@@ -240,35 +239,36 @@
 
         floatBar.addEventListener('touchend', (e) => {
             touching = false;
-            if (!hasMoved) {
-                openMenu();
-            }
+            if (!hasMoved) openMenu();
             e.preventDefault();
         });
 
-        // Also support click for desktop testing
-        floatBar.addEventListener('click', (e) => {
-            if (!hasMoved) openMenu();
-        });
-
-        // ───── Open / Close menu ─────
+        // ───── Open / Close ─────
         function openMenu() {
-            if (typeof Android !== 'undefined') Android.setMenuState(true);
-            modMenu.style.display = 'block';
-            setTimeout(() => modMenu.classList.add('active'), 20);
+            if (menuBusy) return;
+            menuBusy = true;
             floatBar.style.display = 'none';
+            modMenu.style.display = 'block';
+            if (typeof Android !== 'undefined') Android.setMenuState(true);
+            requestAnimationFrame(() => {
+                modMenu.classList.add('active');
+                setTimeout(() => menuBusy = false, 200);
+            });
         }
 
         function hideMenu() {
+            if (menuBusy) return;
+            menuBusy = true;
             modMenu.classList.remove('active');
             setTimeout(() => {
                 modMenu.style.display = 'none';
                 floatBar.style.display = 'flex';
                 if (typeof Android !== 'undefined') Android.setMenuState(false);
-            }, 220);
+                setTimeout(() => menuBusy = false, 200);
+            }, 150);
         }
 
-        // ───── VPN toggle ─────
+        // ───── VPN ─────
         function toggleDNS(checkbox) {
             const row = document.getElementById('row-dns');
             if (checkbox.checked) {
@@ -280,10 +280,10 @@
             }
         }
 
-        // ───── Stop tool ─────
+        // ───── STOP — no confirm (overlay dialogs don't work) ─────
         function stopApp() {
-            if (confirm("Close floating tool?")) {
-                if (typeof Android !== 'undefined') Android.stopFloatingService();
+            if (typeof Android !== 'undefined') {
+                Android.stopFloatingService();
             }
         }
     </script>
