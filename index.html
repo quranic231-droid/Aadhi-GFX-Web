@@ -21,11 +21,15 @@
         .section-title::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(0,255,204,0.4), transparent); margin-left: 12px; }
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         .grid-4 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .v-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 10px; padding: 12px; text-align: center; transition: 0.3s; cursor: pointer; }
+        .v-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 10px; padding: 12px; text-align: center; transition: 0.3s; cursor: pointer; position: relative; }
         .v-card h3 { font-family: 'Orbitron', sans-serif; font-size: 14px; color: #fff; margin-bottom: 2px; }
         .v-card p { font-size: 9px; color: #64748b; font-weight: 600; text-transform: uppercase; }
         .v-card.active { background: rgba(0,255,204,0.1); border-color: #00ffcc; box-shadow: inset 0 0 15px rgba(0,255,204,0.2); }
         .v-card.active h3 { color: #00ffcc; }
+        /* Game card status */
+        .v-card.game-missing { opacity: 0.45; border-color: rgba(255,0,85,0.3); }
+        .v-card.game-missing::after { content: '✕'; position: absolute; top: 6px; right: 8px; color: #ff0055; font-size: 12px; font-weight: 900; }
+        .v-card.game-available::after { content: '✓'; position: absolute; top: 6px; right: 8px; color: #00ffcc; font-size: 12px; font-weight: 900; }
         .feature-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 15px 10px; display: flex; flex-direction: column; align-items: center; text-align: center; transition: all 0.3s ease; position: relative; }
         .feature-card h3 { font-family: 'Orbitron', sans-serif; font-size: 12px; color: #e2e8f0; margin-bottom: 3px; }
         .feature-card p { font-size: 9px; color: #64748b; font-weight: 600; margin-bottom: 12px; text-transform: uppercase; }
@@ -54,6 +58,21 @@
         #downloadOverlay h2 { font-family: 'Orbitron', sans-serif; color: #00ffcc; font-size: 16px; letter-spacing: 1px; margin-bottom: 20px; text-align: center; }
         #downloadOverlay .loader { width: 60px; height: 60px; border: 4px solid rgba(0,255,204,0.15); border-top-color: #00ffcc; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 25px; }
         #downloadOverlay .cancel-btn { background: rgba(255,0,85,0.15); border: 1px solid #ff0055; color: #ff0055; padding: 10px 30px; border-radius: 25px; font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+        /* Game Status Toast */
+        #gameStatus {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            z-index: 10000;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body>
@@ -67,10 +86,10 @@
         <div id="tab-home" class="tab-section active">
             <div class="section-title">1. Target Game</div>
             <div class="grid-4" id="gameGrid">
-                <div class="v-card active" data-pkg="com.pubg.imobile" onclick="selectSingle(this, 'gameGrid')"><h3>BGMI</h3><p>INDIA</p></div>
-                <div class="v-card" data-pkg="com.tencent.ig" onclick="selectSingle(this, 'gameGrid')"><h3>GLOBAL</h3><p>INTL</p></div>
-                <div class="v-card" data-pkg="com.pubg.krmobile" onclick="selectSingle(this, 'gameGrid')"><h3>KOREA</h3><p>KR/JP</p></div>
-                <div class="v-card" data-pkg="com.vng.pubgmobile" onclick="selectSingle(this, 'gameGrid')"><h3>VNG</h3><p>VIETNAM</p></div>
+                <div class="v-card active" data-pkg="com.pubg.imobile" onclick="selectGame(this, 'com.pubg.imobile')"><h3>BGMI</h3><p>INDIA</p></div>
+                <div class="v-card" data-pkg="com.tencent.ig" onclick="selectGame(this, 'com.tencent.ig')"><h3>GLOBAL</h3><p>INTL</p></div>
+                <div class="v-card" data-pkg="com.pubg.krmobile" onclick="selectGame(this, 'com.pubg.krmobile')"><h3>KOREA</h3><p>KR/JP</p></div>
+                <div class="v-card" data-pkg="com.vng.pubgmobile" onclick="selectGame(this, 'com.vng.pubgmobile')"><h3>VNG</h3><p>VIETNAM</p></div>
             </div>
 
             <div class="section-title">2. Device Spoofer (Safe)</div>
@@ -201,6 +220,9 @@
         <button class="cancel-btn" onclick="cancelDownload()">CANCEL</button>
     </div>
 
+    <!-- Game Status Toast -->
+    <div id="gameStatus"></div>
+
     <!-- Bottom Nav -->
     <nav class="bottom-nav">
         <div class="nav-item active" onclick="switchTab('tab-home', this)"><span class="nav-icon">🛡️</span> CHEATS</div>
@@ -209,7 +231,77 @@
     </nav>
 
     <script>
-        // ================= TAB NAV =================
+        // ═══════════════════════════════════════════════════
+        //  GAME SELECTION — Java Bridge
+        // ═══════════════════════════════════════════════════
+        function selectGame(element, pkg) {
+            // UI highlight
+            document.querySelectorAll('#gameGrid .v-card').forEach(c => c.classList.remove('active'));
+            element.classList.add('active');
+
+            // Java ko bhejo — verify hoga
+            if (typeof Android !== 'undefined' && Android.setSelectedGame) {
+                try {
+                    const result = Android.setSelectedGame(pkg);
+
+                    if (result === "ok") {
+                        showGameStatus("✅ " + pkg.split('.').pop().toUpperCase() + " selected", true);
+                        element.classList.add('game-available');
+                        element.classList.remove('game-missing');
+                    } else {
+                        showGameStatus("❌ Game install nahi hai!", false);
+                        element.classList.add('game-missing');
+                        element.classList.remove('game-available');
+                    }
+                } catch (e) {
+                    console.log("setSelectedGame error:", e);
+                }
+            }
+        }
+
+        function showGameStatus(msg, success) {
+            const el = document.getElementById('gameStatus');
+            el.innerText = msg;
+            el.style.background = success ? 'rgba(0,255,204,0.15)' : 'rgba(255,0,85,0.15)';
+            el.style.color = success ? '#00ffcc' : '#ff0055';
+            el.style.border = success ? '1px solid #00ffcc' : '1px solid #ff0055';
+            el.style.opacity = '1';
+            clearTimeout(el._t);
+            el._t = setTimeout(() => { el.style.opacity = '0'; }, 2500);
+        }
+
+        // Page load pe har game ka status check karo
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                if (typeof Android !== 'undefined' && Android.setSelectedGame) {
+                    // Default BGMI select karo
+                    Android.setSelectedGame('com.pubg.imobile');
+                    
+                    // Har game ka availability check karo
+                    document.querySelectorAll('#gameGrid .v-card').forEach(card => {
+                        const pkg = card.dataset.pkg;
+                        if (!pkg) return;
+                        try {
+                            const result = Android.setSelectedGame(pkg);
+                            if (result === "ok") {
+                                card.classList.add('game-available');
+                                card.classList.remove('game-missing');
+                            } else {
+                                card.classList.add('game-missing');
+                                card.classList.remove('game-available');
+                            }
+                        } catch (e) {}
+                    });
+                    
+                    // Wapas BGMI select karo
+                    try { Android.setSelectedGame('com.pubg.imobile'); } catch (e) {}
+                }
+            }, 800);
+        });
+
+        // ═══════════════════════════════════════════════════
+        //  TAB NAV
+        // ═══════════════════════════════════════════════════
         function switchTab(tabId, element) {
             document.querySelectorAll('.tab-section').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
@@ -217,13 +309,17 @@
             element.classList.add('active');
         }
 
-        // ================= SINGLE SELECT =================
+        // ═══════════════════════════════════════════════════
+        //  SINGLE SELECT (Device / DNS)
+        // ═══════════════════════════════════════════════════
         function selectSingle(element, parentId) {
             document.getElementById(parentId).querySelectorAll('.v-card').forEach(c => c.classList.remove('active'));
             element.classList.add('active');
         }
 
-        // ================= FEATURE TOGGLE (Java Bridge) =================
+        // ═══════════════════════════════════════════════════
+        //  FEATURE TOGGLE
+        // ═══════════════════════════════════════════════════
         function onFeatureToggle(checkbox) {
             const card = checkbox.closest('.feature-card');
             const key = checkbox.dataset.key;
@@ -236,7 +332,6 @@
                     if (type === 'obb') Android.downloadObb(key);
                     else Android.downloadPak(key);
                 } else {
-                    // Browser preview
                     setTimeout(() => { card.classList.remove('loading'); }, 1500);
                 }
             } else {
@@ -247,7 +342,9 @@
             }
         }
 
-        // ================= DNS / VPN =================
+        // ═══════════════════════════════════════════════════
+        //  DNS / VPN
+        // ═══════════════════════════════════════════════════
         function onVpnToggle(checkbox) {
             const card = document.getElementById('card-dns');
             if (checkbox.checked) {
@@ -259,22 +356,34 @@
             }
         }
 
-        // ================= DOWNLOAD OVERLAY (Java se control) =================
+        // ═══════════════════════════════════════════════════
+        //  DOWNLOAD OVERLAY (Java se control)
+        // ═══════════════════════════════════════════════════
         function showDownloadUI(key) {
             document.getElementById('dlTitle').innerText = "DOWNLOADING: " + key.toUpperCase();
             document.getElementById('downloadOverlay').classList.add('active');
         }
+
         function hideDownloadUI() {
             document.getElementById('downloadOverlay').classList.remove('active');
-            // Reset any loading spinners
             document.querySelectorAll('.feature-card.loading').forEach(c => c.classList.remove('loading'));
         }
+
+        function updateDownloadProgress(percent, downloaded, total, speed) {
+            const title = document.getElementById('dlTitle');
+            const mb = (downloaded / (1024 * 1024)).toFixed(1);
+            const totalMb = (total / (1024 * 1024)).toFixed(1);
+            title.innerText = `DOWNLOADING ${percent}%  •  ${mb}/${totalMb} MB  •  ${speed}`;
+        }
+
         function cancelDownload() {
             if (typeof Android !== 'undefined') Android.cancelDownload();
             hideDownloadUI();
         }
 
-        // ================= EXPIRY TIMER (Java se update) =================
+        // ═══════════════════════════════════════════════════
+        //  EXPIRY TIMER
+        // ═══════════════════════════════════════════════════
         function updateTimerFromJava() {
             if (typeof Android === 'undefined') return;
             try {
@@ -284,12 +393,13 @@
             } catch (e) {}
         }
 
-        // Auto-call on load
         window.addEventListener('load', () => {
             setTimeout(updateTimerFromJava, 300);
         });
 
-        // ================= INJECT =================
+        // ═══════════════════════════════════════════════════
+        //  INJECT & START
+        // ═══════════════════════════════════════════════════
         function startInjection() {
             const btn = document.getElementById('injectBtn');
             btn.innerText = "⏳ LAUNCHING...";
@@ -305,14 +415,15 @@
                 }, 800);
             }
 
-            // Reset after 6 sec
             setTimeout(() => {
                 btn.innerText = "🚀 INJECT & START";
                 btn.disabled = false;
             }, 6000);
         }
 
-        // ================= SETTINGS =================
+        // ═══════════════════════════════════════════════════
+        //  SETTINGS
+        // ═══════════════════════════════════════════════════
         function toggleCard(cardId, checkbox) {
             const card = document.getElementById(cardId);
             if (checkbox.checked) card.classList.add('is-on');
