@@ -4,14 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Aadhi VIP - Premium Authentication</title>
-    <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; -webkit-tap-highlight-color: transparent; }
         
-        /* 🔥 ANIMATED PREMIUM BACKGROUND 🔥 */
         body { 
             font-family: 'Rajdhani', sans-serif; 
             min-height: 100vh; 
@@ -31,36 +29,56 @@
         .particle { position: absolute; border-radius: 50%; filter: blur(40px); opacity: 0.4; animation: float 10s infinite ease-in-out alternate; }
         .p1 { width: 250px; height: 250px; background: #00ffcc; top: -10%; left: -10%; }
         .p2 { width: 300px; height: 300px; background: #0077ff; bottom: -10%; right: -10%; animation-delay: -5s; }
-
         @keyframes float { 0% { transform: translate(0, 0); } 100% { transform: translate(30px, 40px); } }
+
+        /* 🔥 SPLASH SCREEN INTRO ANIMATION 🔥 */
+        #splashScreen {
+            position: fixed; inset: 0; background: #030407; z-index: 99999;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: opacity 0.5s ease-out, visibility 0.5s;
+        }
+        .intro-title {
+            font-family: 'Orbitron', sans-serif; font-size: 38px; font-weight: 900;
+            color: transparent; -webkit-text-stroke: 1px rgba(0, 255, 204, 0.3);
+            position: relative; letter-spacing: 4px;
+        }
+        .intro-title::before {
+            content: "AADHI"; position: absolute; left: 0; top: 0; width: 0; height: 100%;
+            color: #00ffcc; -webkit-text-stroke: 0px; text-shadow: 0 0 20px rgba(0,255,204,0.8);
+            overflow: hidden; animation: fillText 2s ease-in-out forwards;
+        }
+        .intro-sub {
+            font-family: 'Rajdhani', sans-serif; font-size: 16px; font-weight: 700;
+            color: #fff; letter-spacing: 6px; margin-top: 10px; opacity: 0;
+            animation: fadeInSub 1s ease forwards 1.2s;
+            background: linear-gradient(90deg, #00ffcc, #0077ff);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .loading-line {
+            width: 150px; height: 2px; background: rgba(255,255,255,0.1); margin-top: 30px; position: relative; overflow: hidden; border-radius: 2px; opacity: 0; animation: fadeInSub 0.5s ease forwards 1s;
+        }
+        .loading-line::after {
+            content: ''; position: absolute; left: -50px; top: 0; height: 100%; width: 50px;
+            background: #00ffcc; box-shadow: 0 0 10px #00ffcc; animation: scanLine 1.5s linear infinite;
+        }
+        
+        @keyframes fillText { 0% { width: 0; } 100% { width: 100%; } }
+        @keyframes fadeInSub { 0% { opacity: 0; transform: translateY(10px); } 100% { opacity: 1; transform: translateY(0); } }
+        @keyframes scanLine { 0% { left: -50px; } 100% { left: 150px; } }
 
         /* 🔥 GLASSMORPHISM LOGIN CARD 🔥 */
         .login-box { 
-            background: rgba(10, 15, 30, 0.6); 
-            backdrop-filter: blur(25px); 
-            -webkit-backdrop-filter: blur(25px); 
-            border: 1px solid rgba(0, 255, 204, 0.15); 
-            border-top: 1px solid rgba(0, 255, 204, 0.4);
-            border-radius: 24px; 
-            padding: 40px 30px; 
-            width: 90%; 
-            max-width: 400px; 
-            position: relative;
-            z-index: 10;
+            background: rgba(10, 15, 30, 0.6); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); 
+            border: 1px solid rgba(0, 255, 204, 0.15); border-top: 1px solid rgba(0, 255, 204, 0.4);
+            border-radius: 24px; padding: 40px 30px; width: 90%; max-width: 400px; position: relative; z-index: 10;
             box-shadow: 0 30px 60px rgba(0,0,0,0.8), inset 0 0 20px rgba(0, 255, 204, 0.05); 
-            animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1); 
+            
+            /* Hidden initially, shown after splash */
+            opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        @keyframes slideUp { 0% { opacity: 0; transform: translateY(40px); } 100% { opacity: 1; transform: translateY(0); } }
+        .login-box.show { opacity: 1; transform: translateY(0); }
 
-        /* 🔥 PURE HTML/CSS GLOWING LOGO 🔥 */
-        .css-logo {
-            width: 80px; height: 80px;
-            margin: 0 auto 20px;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+        .css-logo { width: 80px; height: 80px; margin: 0 auto 20px; position: relative; display: flex; align-items: center; justify-content: center; }
         .css-logo .glow-ring-1 { position: absolute; inset: 0; border-radius: 50%; border: 2px solid transparent; border-top-color: #00ffcc; border-bottom-color: #0077ff; animation: spin 2s linear infinite; }
         .css-logo .glow-ring-2 { position: absolute; inset: 8px; border-radius: 50%; border: 2px dashed rgba(0, 255, 204, 0.5); animation: spin 3s linear infinite reverse; }
         .css-logo i { font-size: 32px; color: #00ffcc; filter: drop-shadow(0 0 10px rgba(0,255,204,0.8)); animation: pulse 2s infinite alternate; }
@@ -73,66 +91,45 @@
         .brand-text h1 span { color: #00ffcc; text-shadow: 0 0 15px rgba(0,255,204,0.6); }
         .brand-text p { font-size: 11px; color: #00ffcc; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; background: linear-gradient(90deg, transparent, rgba(0,255,204,0.1), transparent); padding: 4px 0; margin-top: 5px; }
 
-        /* 🔥 PREMIUM INPUT FIELD 🔥 */
         .input-wrapper { position: relative; margin-bottom: 25px; }
         .input-wrapper i { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: #64748b; font-size: 16px; transition: 0.3s; }
-        .input-wrapper input { 
-            width: 100%; padding: 18px 20px 18px 48px; 
-            background: rgba(0, 0, 0, 0.4); 
-            border: 1px solid rgba(255,255,255,0.1); 
-            border-radius: 14px; color: #00ffcc; font-size: 15px; 
-            outline: none; transition: all 0.3s; 
-            font-family: 'Orbitron', sans-serif; letter-spacing: 1px; font-weight: 600;
-        }
+        .input-wrapper input { width: 100%; padding: 18px 20px 18px 48px; background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; color: #00ffcc; font-size: 15px; outline: none; transition: all 0.3s; font-family: 'Orbitron', sans-serif; letter-spacing: 1px; font-weight: 600; }
         .input-wrapper input::placeholder { color: #475569; font-family: 'Rajdhani', sans-serif; letter-spacing: 0; font-weight: 600; }
         .input-wrapper input:focus { border-color: #00ffcc; background: rgba(0,0,0,0.6); box-shadow: 0 0 20px rgba(0,255,204,0.15); }
         .input-wrapper input:focus + i, .input-wrapper input:not(:placeholder-shown) + i { color: #00ffcc; filter: drop-shadow(0 0 5px rgba(0,255,204,0.5)); }
         
         .error-text { color: #ff3366; font-size: 12px; margin-top: -15px; margin-bottom: 15px; height: 18px; font-weight: 700; display: block; opacity: 0; transition: 0.3s; letter-spacing: 1px; }
 
-        /* 🔥 GLOWING BUTTON 🔥 */
-        .btn-login { 
-            background: linear-gradient(90deg, #00ffcc, #0077ff); 
-            border: none; color: #030305; 
-            font-family: 'Orbitron', sans-serif; font-size: 16px; font-weight: 900; 
-            padding: 18px; border-radius: 14px; width: 100%; 
-            box-shadow: 0 10px 25px rgba(0,255,204,0.3); 
-            transition: all 0.3s; text-transform: uppercase; cursor: pointer; letter-spacing: 2px; 
-            display: flex; justify-content: center; align-items: center; gap: 10px; 
-        }
+        .btn-login { background: linear-gradient(90deg, #00ffcc, #0077ff); border: none; color: #030305; font-family: 'Orbitron', sans-serif; font-size: 16px; font-weight: 900; padding: 18px; border-radius: 14px; width: 100%; box-shadow: 0 10px 25px rgba(0,255,204,0.3); transition: all 0.3s; text-transform: uppercase; cursor: pointer; letter-spacing: 2px; display: flex; justify-content: center; align-items: center; gap: 10px; }
         .btn-login:active { transform: scale(0.96); box-shadow: 0 5px 15px rgba(0,255,204,0.2); }
         .btn-login:disabled { background: #1e293b; color: #64748b; box-shadow: none; cursor: not-allowed; }
-        
         .spinner { animation: spin 1s linear infinite; display: none; font-size: 18px; }
 
-        /* 🔥 FOOTER / SOCIALS 🔥 */
         .divider { display: flex; align-items: center; margin: 30px 0 20px; color: #64748b; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; }
         .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.05); }
         .divider span { padding: 0 15px; }
 
         .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .social-btn { 
-            display: flex; align-items: center; justify-content: center; gap: 8px; 
-            padding: 14px; border-radius: 12px; text-decoration: none; 
-            font-size: 13px; font-weight: 700; color: #fff; transition: 0.3s; 
-            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05);
-        }
+        .social-btn { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px; border-radius: 12px; text-decoration: none; font-size: 13px; font-weight: 700; color: #fff; transition: 0.3s; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); }
         .social-btn:hover, .social-btn:active { background: rgba(255,255,255,0.1); }
-        .social-btn i { font-size: 16px; }
-        .icon-tg { color: #0088cc; } 
-        .icon-yt { color: #ff0000; }
-
+        .icon-tg { color: #0088cc; } .icon-yt { color: #ff0000; }
         .btn-wa { grid-column: span 2; background: rgba(37,211,102,0.05); border-color: rgba(37,211,102,0.2); color: #25d366; }
         .btn-wa:hover, .btn-wa:active { background: rgba(37,211,102,0.15); }
 
         .sys-info { text-align: center; margin-top: 25px; font-size: 10px; color: #475569; font-family: 'Orbitron', sans-serif; font-weight: bold; letter-spacing: 1px; }
 
-        /* Shake Animation for Error */
         @keyframes shake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-8px); } 50% { transform: translateX(8px); } 75% { transform: translateX(-8px); } }
         .shake { animation: shake 0.4s ease-in-out; border-color: rgba(255,51,102,0.5) !important; }
     </style>
 </head>
 <body>
+
+    <!-- 🔥 NEW: SPLASH SCREEN INTRO 🔥 -->
+    <div id="splashScreen">
+        <h1 class="intro-title">AADHI</h1>
+        <p class="intro-sub">PAID GFX TOOL</p>
+        <div class="loading-line"></div>
+    </div>
 
     <!-- Background Animated Blobs -->
     <div class="particle p1"></div>
@@ -140,11 +137,10 @@
 
     <div class="login-box" id="loginBox">
         
-        <!-- 🔥 PURE CSS GLOWING LOGO 🔥 -->
         <div class="css-logo">
             <div class="glow-ring-1"></div>
             <div class="glow-ring-2"></div>
-            <i class="fa-solid fa-fingerprint"></i> <!-- Or use fa-shield-halved -->
+            <i class="fa-solid fa-fingerprint"></i>
         </div>
         
         <div class="brand-text">
@@ -166,7 +162,6 @@
         <div class="divider"><span>Community Support</span></div>
         
         <div class="social-grid">
-            <!-- Update your links here -->
             <a href="https://t.me/aadhi_aadil0" class="social-btn"><i class="fa-brands fa-telegram icon-tg"></i> Telegram</a>
             <a href="https://youtube.com/@your_channel" class="social-btn"><i class="fa-brands fa-youtube icon-yt"></i> YouTube</a>
             <a href="https://wa.me/your_number_here" class="social-btn btn-wa"><i class="fa-brands fa-whatsapp"></i> Buy via WhatsApp</a>
@@ -176,16 +171,35 @@
     </div>
 
     <script>
-        // Auto-fill saved key
+        // 🔥 Handle Splash Screen & Auto Login 🔥
         window.addEventListener('load', () => {
-            if (typeof Android !== 'undefined') {
-                try {
-                    const saved = Android.getSavedKey();
-                    if (saved && saved.length > 0) {
-                        document.getElementById('vipKey').value = saved;
+            // 3 Second Intro Animation Timeout
+            setTimeout(() => {
+                const splash = document.getElementById('splashScreen');
+                const loginBox = document.getElementById('loginBox');
+                
+                // Fade out Splash
+                splash.style.opacity = '0';
+                
+                setTimeout(() => {
+                    splash.style.visibility = 'hidden';
+                    // Reveal Login Box smoothly
+                    loginBox.classList.add('show');
+                    
+                    // Check Auto Login AFTER intro finishes
+                    if (typeof Android !== 'undefined') {
+                        try {
+                            const saved = Android.getSavedKey();
+                            if (saved && saved.length > 0) {
+                                document.getElementById('vipKey').value = saved;
+                                // Auto press login if key exists
+                                setTimeout(() => { verifyKey(); }, 500);
+                            }
+                        } catch (e) {}
                     }
-                } catch (e) {}
-            }
+                }, 500); // Wait for splash fade out
+                
+            }, 3000); // Show intro for 3 seconds
         });
 
         function verifyKey() {
@@ -211,7 +225,6 @@
             errorText.style.opacity = "0";
 
             if (typeof Android !== 'undefined') {
-                // Java Backend Bridge
                 try { Android.saveKey(inputKey); } catch (e) {}
                 try { Android.goToDashboard(inputKey); } catch (e) {}
             } else {
