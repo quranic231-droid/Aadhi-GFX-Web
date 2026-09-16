@@ -10,59 +10,71 @@
         ::-webkit-scrollbar { display: none; }
         body { background-color: #030407; background-image: radial-gradient(circle at top, #131c2e 0%, #030407 100%); color: #fff; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
         
-        .header { text-align: center; padding: 25px 15px 10px; background: rgba(0,0,0,0.6); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(0,255,204,0.1); z-index: 10; }
+        .header { text-align: center; padding: 25px 15px 15px; background: rgba(0,0,0,0.6); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(0,255,204,0.1); z-index: 10; }
         .header h1 { font-family: 'Orbitron', sans-serif; font-size: 24px; color: #00ffcc; text-shadow: 0 0 15px rgba(0,255,204,0.6); letter-spacing: 2px; display: flex; align-items: center; justify-content: center; gap: 8px; }
         .header h1 span { background: #ffaa00; color: #000; font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: 900; }
         
-        /* 🔥 NEW PREMIUM TIMER CSS 🔥 */
-        .timer-card { background: rgba(20, 25, 40, 0.6); border: 1px solid rgba(0, 255, 204, 0.2); border-radius: 12px; margin: 15px; padding: 15px; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.5); }
+        .content-area { flex: 1; overflow-y: auto; padding: 0 15px 90px 15px; scroll-behavior: smooth; }
+        
+        /* 🔥 TIMER CARD MOVED & RESPONSIVE 🔥 */
+        .timer-card { background: rgba(20, 25, 40, 0.6); border: 1px solid rgba(0, 255, 204, 0.2); border-radius: 12px; margin: 20px 0; padding: 15px; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.5); }
         .timer-title { font-family: 'Orbitron', sans-serif; font-size: 10px; color: #94a3b8; letter-spacing: 2px; margin-bottom: 12px; }
-        .timer-countdown { display: flex; justify-content: center; gap: 8px; }
+        .timer-countdown { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
         .time-block { background: linear-gradient(145deg, #0f172a, #1e293b); border: 1px solid rgba(0, 255, 204, 0.1); padding: 10px; border-radius: 8px; min-width: 55px; box-shadow: inset 0 0 10px rgba(0,0,0,0.5); }
         .time-block span { font-size: 20px; font-weight: 900; color: #00ffcc; font-family: 'Orbitron', sans-serif; text-shadow: 0 0 8px rgba(0, 255, 204, 0.5); display: block; }
         .time-block small { font-size: 9px; color: #64748b; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
         .timer-key { font-size: 11px; color: #ffaa00; margin-top: 12px; font-weight: 600; letter-spacing: 1px; background: rgba(255,170,0,0.1); padding: 5px 10px; border-radius: 6px; display: inline-block; border: 1px dashed rgba(255,170,0,0.3); }
 
-        .content-area { flex: 1; overflow-y: auto; padding: 0 15px 90px 15px; scroll-behavior: smooth; }
         .tab-section { display: none; animation: slideUp 0.3s ease forwards; opacity: 0; transform: translateY(20px); }
         .tab-section.active { display: block; }
         @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
-        .section-title { font-family: 'Orbitron', sans-serif; font-size: 12px; color: #94a3b8; margin: 25px 0 15px 5px; text-transform: uppercase; letter-spacing: 1.5px; display: flex; align-items: center; }
+        
+        .section-title { font-family: 'Orbitron', sans-serif; font-size: 12px; color: #94a3b8; margin: 15px 0 15px 5px; text-transform: uppercase; letter-spacing: 1.5px; display: flex; align-items: center; }
         .section-title::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(0,255,204,0.4), transparent); margin-left: 12px; }
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .grid-4 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .v-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 10px; padding: 12px; text-align: center; transition: 0.3s; cursor: pointer; position: relative; }
-        .v-card h3 { font-family: 'Orbitron', sans-serif; font-size: 14px; color: #fff; margin-bottom: 2px; }
+        
+        /* 🔥 GRID FIXED (Always 2 Columns) 🔥 */
+        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; width: 100%; }
+        .grid-4 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; width: 100%; }
+        
+        .v-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 10px; padding: 12px; text-align: center; transition: 0.3s; cursor: pointer; position: relative; width: 100%; overflow: hidden; }
+        .v-card h3 { font-family: 'Orbitron', sans-serif; font-size: 13px; color: #fff; margin-bottom: 2px; }
         .v-card p { font-size: 9px; color: #64748b; font-weight: 600; text-transform: uppercase; }
         .v-card.active { background: rgba(0,255,204,0.1); border-color: #00ffcc; box-shadow: inset 0 0 15px rgba(0,255,204,0.2); }
         .v-card.active h3 { color: #00ffcc; }
-        .feature-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 15px 10px; display: flex; flex-direction: column; align-items: center; text-align: center; transition: all 0.3s ease; position: relative; }
-        .feature-card h3 { font-family: 'Orbitron', sans-serif; font-size: 12px; color: #e2e8f0; margin-bottom: 3px; }
-        .feature-card p { font-size: 9px; color: #64748b; font-weight: 600; margin-bottom: 12px; text-transform: uppercase; }
+        
+        .feature-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 15px 10px; display: flex; flex-direction: column; align-items: center; text-align: center; transition: all 0.3s ease; position: relative; width: 100%; overflow: hidden; }
+        .feature-card h3 { font-family: 'Orbitron', sans-serif; font-size: 11px; color: #e2e8f0; margin-bottom: 3px; }
+        .feature-card p { font-size: 8px; color: #64748b; font-weight: 600; margin-bottom: 12px; text-transform: uppercase; }
         .feature-card.is-on { background: rgba(0,255,204,0.05); border-color: rgba(0,255,204,0.5); box-shadow: 0 0 15px rgba(0,255,204,0.1) inset; }
         .feature-card.is-on h3 { color: #00ffcc; }
         .feature-card.loading { opacity: 0.6; pointer-events: none; }
         .feature-card.loading::after { content: ''; position: absolute; inset: 0; border-radius: 12px; border: 2px solid transparent; border-top-color: #00ffcc; animation: spin 0.8s linear infinite; }
+        
         @keyframes spin { 100% { transform: rotate(360deg); } }
-        .switch { position: relative; display: inline-block; width: 42px; height: 22px; }
+        
+        .switch { position: relative; display: inline-block; width: 38px; height: 20px; }
         .switch input { opacity: 0; width: 0; height: 0; }
         .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #1e293b; transition: .4s; border-radius: 34px; border: 1px solid #334155; }
-        .slider:before { position: absolute; content: ""; height: 14px; width: 14px; left: 3px; bottom: 3px; background-color: #94a3b8; transition: .4s; border-radius: 50%; }
+        .slider:before { position: absolute; content: ""; height: 12px; width: 12px; left: 3px; bottom: 3px; background-color: #94a3b8; transition: .4s; border-radius: 50%; }
         input:checked + .slider { background-color: #00ffcc; border-color: #00ffcc; box-shadow: 0 0 10px rgba(0,255,204,0.5); }
-        input:checked + .slider:before { transform: translateX(20px); background-color: #000; }
+        input:checked + .slider:before { transform: translateX(18px); background-color: #000; }
+        
         .btn-main { background: linear-gradient(90deg, #00ffcc, #0077ff); border: none; color: #000; font-family: 'Orbitron', sans-serif; font-size: 16px; font-weight: 900; padding: 18px; border-radius: 12px; width: 100%; margin-top: 20px; box-shadow: 0 8px 25px rgba(0,255,204,0.3); transition: 0.2s; text-transform: uppercase; cursor: pointer; }
         .btn-main:active { transform: scale(0.97); }
         .btn-danger { background: linear-gradient(90deg, #ff0055, #ff6600); box-shadow: 0 5px 20px rgba(255,0,85,0.3); color: #fff; }
+        
         .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; height: 65px; background: rgba(5,5,10,0.95); backdrop-filter: blur(15px); display: flex; justify-content: space-around; align-items: center; border-top: 1px solid rgba(0,255,204,0.1); z-index: 100; }
         .nav-item { flex: 1; text-align: center; color: #475569; font-size: 10px; font-weight: 600; text-transform: uppercase; cursor: pointer; transition: 0.3s; padding: 10px 0; }
         .nav-item.active { color: #00ffcc; }
         .nav-icon { font-size: 20px; display: block; margin-bottom: 4px; filter: grayscale(100%) opacity(0.5); transition: 0.3s; }
         .nav-item.active .nav-icon { filter: grayscale(0%) opacity(1); text-shadow: 0 0 10px rgba(0,255,204,0.5); }
+        
         #downloadOverlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); z-index: 9999; justify-content: center; align-items: center; flex-direction: column; padding: 30px; }
         #downloadOverlay.active { display: flex; }
         #downloadOverlay h2 { font-family: 'Orbitron', sans-serif; color: #00ffcc; font-size: 16px; letter-spacing: 1px; margin-bottom: 20px; text-align: center; }
         #downloadOverlay .loader { width: 60px; height: 60px; border: 4px solid rgba(0,255,204,0.15); border-top-color: #00ffcc; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 25px; }
         #downloadOverlay .cancel-btn { background: rgba(255,0,85,0.15); border: 1px solid #ff0055; color: #ff0055; padding: 10px 30px; border-radius: 25px; font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+        
         #gameStatus { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); padding: 10px 20px; border-radius: 8px; font-size: 12px; font-weight: 700; z-index: 10000; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
     </style>
 </head>
@@ -71,24 +83,23 @@
         <h1>AADHI ENGINE <span>PRO</span></h1>
     </div>
 
-    <!-- 🔥 NEW LIVE TIMER CARD 🔥 -->
-    <div class="timer-card">
-        <div class="timer-title">SUBSCRIPTION EXPIRY</div>
-        <div class="timer-countdown" id="countdownDisplay">
-            <div class="time-block"><span id="t-days">00</span><small>Days</small></div>
-            <div class="time-block"><span id="t-hours">00</span><small>Hours</small></div>
-            <div class="time-block"><span id="t-mins">00</span><small>Mins</small></div>
-            <div class="time-block"><span id="t-secs">00</span><small>Secs</small></div>
-        </div>
-        <div class="timer-key" id="keyDisplay">🔑 KEY: Verifying...</div>
-    </div>
-
     <div class="content-area">
+        <!-- 🔥 TIMER IS NOW INSIDE SCROLL AREA 🔥 -->
+        <div class="timer-card">
+            <div class="timer-title">SUBSCRIPTION EXPIRY</div>
+            <div class="timer-countdown" id="countdownDisplay">
+                <div class="time-block"><span id="t-days">00</span><small>Days</small></div>
+                <div class="time-block"><span id="t-hours">00</span><small>Hours</small></div>
+                <div class="time-block"><span id="t-mins">00</span><small>Mins</small></div>
+                <div class="time-block"><span id="t-secs">00</span><small>Secs</small></div>
+            </div>
+            <div class="timer-key" id="keyDisplay">🔑 KEY: Verifying...</div>
+        </div>
+
         <!-- HOME TAB -->
         <div id="tab-home" class="tab-section active">
             <div class="section-title">1. Target Game</div>
             <div class="grid-4" id="gameGrid">
-                <!-- Set BGMI (index.html) as active -->
                 <div class="v-card active" data-pkg="com.pubg.imobile" onclick="selectGame(this, 'com.pubg.imobile')"><h3>BGMI</h3><p>INDIA</p></div>
                 <div class="v-card" data-pkg="com.tencent.ig" onclick="selectGame(this, 'com.tencent.ig')"><h3>GLOBAL</h3><p>INTL</p></div>
                 <div class="v-card" data-pkg="com.pubg.krmobile" onclick="selectGame(this, 'com.pubg.krmobile')"><h3>KOREA</h3><p>KR/JP</p></div>
@@ -234,9 +245,6 @@
     </nav>
 
     <script>
-        // ═══════════════════════════════════════════════════
-        //  LIVE COUNTDOWN TIMER LOGIC
-        // ═══════════════════════════════════════════════════
         let countdownInterval;
 
         function startCountdown(expiryTimestamp) {
@@ -276,12 +284,11 @@
             if (typeof Android === 'undefined') return;
             try {
                 const key = Android.getUserKey();
-                const timestamp = Android.getExpiryTimestamp(); // Gets long ms from Java
+                const timestamp = Android.getExpiryTimestamp(); 
 
                 document.getElementById('keyDisplay').innerText = "🔑 KEY: " + key;
 
                 if (timestamp === -1) {
-                    // Lifetime Key
                     document.querySelectorAll('.time-block span').forEach(el => el.innerText = "∞");
                 } else {
                     startCountdown(timestamp);
@@ -293,27 +300,21 @@
             setTimeout(updateTimerFromJava, 300);
         });
 
-        // ═══════════════════════════════════════════════════
-        //  SMOOTH GAME SELECTION & PAGE ROUTING (index.html fix)
-        // ═══════════════════════════════════════════════════
         function selectGame(element, pkg) {
             if (typeof Android !== 'undefined' && Android.setSelectedGame) {
                 try {
                     const result = Android.setSelectedGame(pkg);
                     if (result === "ok") {
-                        // Routing fix: BGMI goes to index.html
                         let targetHtml = "index.html";
                         if (pkg === "com.tencent.ig") targetHtml = "global.html";
                         else if (pkg === "com.pubg.krmobile") targetHtml = "kr.html";
                         else if (pkg === "com.vng.pubgmobile") targetHtml = "vng.html";
                         
-                        // Check if we need to switch page without flicker
                         if (!window.location.href.includes(targetHtml)) {
                             document.body.style.opacity = '0.3';
                             document.body.style.transition = '0.2s';
                             window.location.replace(targetHtml + "?v=" + Date.now());
                         } else {
-                            // Active status only
                             document.querySelectorAll('#gameGrid .v-card').forEach(c => c.classList.remove('active'));
                             element.classList.add('active');
                             showGameStatus("✅ " + pkg.split('.').pop().toUpperCase() + " selected", true);
@@ -341,15 +342,11 @@
         window.addEventListener('load', () => {
             setTimeout(() => {
                 if (typeof Android !== 'undefined' && Android.setSelectedGame) {
-                    // Set current game active
                     Android.setSelectedGame('com.pubg.imobile');
                 }
             }, 800);
         });
 
-        // ═══════════════════════════════════════════════════
-        //  OTHER FUNCTIONS
-        // ═══════════════════════════════════════════════════
         function switchTab(tabId, element) {
             document.querySelectorAll('.tab-section').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
