@@ -1,170 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Aadhi Floating Menu</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0; padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
-        }
-        html, body {
-            background: transparent;
-            width: 100%; height: 100%;
-            overflow: hidden;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Aadhi Floating</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; user-select:none; -webkit-tap-highlight-color:transparent; }
+    html, body { background: transparent; width:100%; height:100%; overflow:hidden; }
 
-        /* ───── BAR MODE ───── */
-        #float-bar {
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: #0a0f19;                 /* solid — koi blur nahi */
-            border: 1px solid #00ffcc;
-            border-radius: 10px;
-            padding: 0 12px;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 11px;
-            font-weight: 700;
-            color: #00ffcc;
-            letter-spacing: 1px;
-            white-space: nowrap;
-            box-shadow: 0 0 10px rgba(0, 255, 204, 0.4);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-        #float-bar::before {
-            content: '';
-            width: 7px; height: 7px;
-            background-color: #ff0055;
-            border-radius: 50%;
-            box-shadow: 0 0 6px #ff0055;
-            animation: blink 1.5s infinite;
-            flex-shrink: 0;
-        }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+    /* ─── BAR MODE ─── */
+    #float-bar {
+        position: absolute;
+        top: 4px; left: 4px; right: 4px; bottom: 4px;
+        background: #0a0f19;
+        border: 1px solid #00ffcc;
+        border-radius: 10px;
+        padding: 0 14px;
+        font-family: 'Orbitron', sans-serif;
+        font-size: 11px;
+        font-weight: 700;
+        color: #00ffcc;
+        letter-spacing: 1px;
+        white-space: nowrap;
+        box-shadow: 0 0 10px rgba(0,255,204,0.4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+    #float-bar::before {
+        content: '';
+        width: 7px; height: 7px;
+        background: #ff0055;
+        border-radius: 50%;
+        box-shadow: 0 0 6px #ff0055;
+        animation: blink 1.5s infinite;
+        flex-shrink: 0;
+    }
+    @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
 
-        /* ───── MENU MODE ───── */
-        #mod-menu {
-            position: fixed;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%) scale(0.85);
-            width: 270px;
-            background: #0a0f19;                 /* solid — blur nahi */
-            border: 1px solid #00ffcc;
-            border-radius: 14px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.9);
-            display: none;
-            opacity: 0;
-            z-index: 1001;
-            transition: opacity 0.15s ease, transform 0.15s ease;
-            overflow: hidden;
-        }
-        #mod-menu.active {
-            display: block;
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
-        }
+    /* ─── MENU MODE ─── */
+    #mod-menu {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: #0a0f19;
+        border: 1px solid #00ffcc;
+        border-radius: 14px;
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+        box-shadow: 0 0 20px rgba(0,255,204,0.3);
+    }
+    #mod-menu.visible { display: flex; }
 
-        .menu-header {
-            background: linear-gradient(90deg, rgba(0,255,204,0.25), transparent);
-            padding: 14px;
-            text-align: center;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-        .menu-header h2 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 15px;
-            color: #fff;
-            letter-spacing: 1px;
-        }
-        .menu-header h2 span { color: #00ffcc; }
+    .menu-header {
+        background: linear-gradient(90deg, rgba(0,255,204,0.25), transparent);
+        padding: 16px 14px;
+        text-align: center;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        cursor: grab;
+    }
+    .menu-header h2 {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 15px;
+        color: #fff;
+        letter-spacing: 1px;
+    }
+    .menu-header h2 span { color: #00ffcc; }
+    .menu-header .drag-hint {
+        font-size: 9px;
+        color: #64748b;
+        margin-top: 3px;
+        letter-spacing: 1px;
+    }
 
-        .menu-body { padding: 16px; }
+    .menu-body { padding: 16px; flex: 1; }
 
-        .feature-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(255,255,255,0.03);
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            border: 1px solid rgba(255,255,255,0.06);
-            transition: 0.2s;
-        }
-        .feature-row.active-row {
-            border-color: rgba(0,255,204,0.5);
-            background: rgba(0,255,204,0.06);
-        }
-        .feature-name {
-            font-size: 13px;
-            font-weight: 600;
-            color: #e2e8f0;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+    .feature-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: rgba(255,255,255,0.03);
+        padding: 14px;
+        border-radius: 10px;
+        margin-bottom: 14px;
+        border: 1px solid rgba(255,255,255,0.06);
+        transition: 0.2s;
+    }
+    .feature-row.active-row {
+        border-color: rgba(0,255,204,0.5);
+        background: rgba(0,255,204,0.06);
+    }
+    .feature-name {
+        font-size: 12px;
+        font-weight: 600;
+        color: #e2e8f0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
 
-        .switch { position: relative; display: inline-block; width: 42px; height: 22px; }
-        .switch input { opacity: 0; width: 0; height: 0; }
-        .slider {
-            position: absolute; cursor: pointer;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-color: #1e293b;
-            transition: .3s; border-radius: 34px;
-            border: 1px solid #334155;
-        }
-        .slider:before {
-            position: absolute; content: "";
-            height: 14px; width: 14px;
-            left: 3px; bottom: 3px;
-            background-color: #94a3b8;
-            transition: .3s; border-radius: 50%;
-        }
-        input:checked + .slider {
-            background-color: #00ffcc;
-            border-color: #00ffcc;
-        }
-        input:checked + .slider:before {
-            transform: translateX(20px);
-            background-color: #000;
-        }
+    .switch { position: relative; display: inline-block; width: 42px; height: 22px; }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider {
+        position: absolute; cursor: pointer;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: #1e293b;
+        transition: .3s; border-radius: 34px;
+        border: 1px solid #334155;
+    }
+    .slider:before {
+        position: absolute; content: "";
+        height: 14px; width: 14px;
+        left: 3px; bottom: 3px;
+        background: #94a3b8;
+        transition: .3s; border-radius: 50%;
+    }
+    input:checked + .slider {
+        background: #00ffcc;
+        border-color: #00ffcc;
+    }
+    input:checked + .slider:before {
+        transform: translateX(20px);
+        background: #000;
+    }
 
-        .btn-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-        .btn {
-            padding: 14px;
-            border-radius: 10px;
-            border: none;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 11px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.15s;
-            text-transform: uppercase;
-            color: #fff;
-        }
-        .btn:active { transform: scale(0.95); }
-        .btn-hide {
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-        .btn-stop {
-            background: linear-gradient(90deg, #ff0055, #cc0044);
-        }
-    </style>
+    .btn-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: auto;
+    }
+    .btn {
+        padding: 14px;
+        border-radius: 10px;
+        border: none;
+        font-family: 'Orbitron', sans-serif;
+        font-size: 11px;
+        font-weight: 700;
+        cursor: pointer;
+        text-transform: uppercase;
+        color: #fff;
+    }
+    .btn-hide {
+        background: rgba(255,255,255,0.1);
+        border: 1px solid rgba(255,255,255,0.2);
+    }
+    .btn-stop {
+        background: linear-gradient(90deg, #ff0055, #cc0044);
+    }
+</style>
 </head>
 <body>
 
@@ -173,8 +160,9 @@
     <div id="mod-menu">
         <div class="menu-header">
             <h2>AADHI <span>CONTROL</span></h2>
+            <div class="drag-hint">drag this header to move</div>
         </div>
-        <div class="menu-body">
+        <div class="menu-body" style="display:flex;flex-direction:column;">
             <div class="feature-row" id="row-dns">
                 <span class="feature-name">
                     <i class="fa-solid fa-server" style="color:#00ffcc;"></i> ANTI-BAN VPN
@@ -184,11 +172,12 @@
                     <span class="slider"></span>
                 </label>
             </div>
+
             <div class="btn-grid">
-                <button class="btn btn-hide" onclick="hideMenu()">
+                <button class="btn btn-hide" onclick="doHide()">
                     <i class="fa-solid fa-eye-slash"></i> HIDE
                 </button>
-                <button class="btn btn-stop" onclick="stopApp()">
+                <button class="btn btn-stop" onclick="doStop()">
                     <i class="fa-solid fa-power-off"></i> STOP
                 </button>
             </div>
@@ -197,78 +186,28 @@
 
     <script>
         const floatBar = document.getElementById('float-bar');
-        const modMenu = document.getElementById('mod-menu');
+        const modMenu  = document.getElementById('mod-menu');
 
-        // ───── Tap + Drag detection ─────
-        let startX = 0, startY = 0;
-        let lastX = 0, lastY = 0;
-        let hasMoved = false;
-        let touching = false;
-        let menuBusy = false;
-
-        floatBar.addEventListener('touchstart', (e) => {
-            touching = true;
-            hasMoved = false;
-            startX = e.touches[0].clientX;
-            startY = e.touches[0].clientY;
-            lastX = startX;
-            lastY = startY;
-            e.preventDefault();
-        }, { passive: false });
-
-        floatBar.addEventListener('touchmove', (e) => {
-            if (!touching) return;
-            const cx = e.touches[0].clientX;
-            const cy = e.touches[0].clientY;
-
-            if (Math.abs(cx - startX) > 8 || Math.abs(cy - startY) > 8) {
-                hasMoved = true;
-            }
-
-            if (hasMoved && typeof Android !== 'undefined') {
-                Android.moveWindowBy(
-                    Math.round(cx - lastX),
-                    Math.round(cy - lastY)
-                );
-            }
-
-            lastX = cx;
-            lastY = cy;
-            e.preventDefault();
-        }, { passive: false });
-
-        floatBar.addEventListener('touchend', (e) => {
-            touching = false;
-            if (!hasMoved) openMenu();
-            e.preventDefault();
-        });
-
-        // ───── Open / Close ─────
-        function openMenu() {
-            if (menuBusy) return;
-            menuBusy = true;
+        // Called by Java when bar is tapped
+        window.showMenuContent = function() {
             floatBar.style.display = 'none';
-            modMenu.style.display = 'block';
-            if (typeof Android !== 'undefined') Android.setMenuState(true);
-            requestAnimationFrame(() => {
-                modMenu.classList.add('active');
-                setTimeout(() => menuBusy = false, 200);
-            });
+            modMenu.classList.add('visible');
+        };
+
+        // Called by Java when menu is closed
+        window.hideMenuContent = function() {
+            modMenu.classList.remove('visible');
+            floatBar.style.display = 'flex';
+        };
+
+        function doHide() {
+            if (typeof Android !== 'undefined') Android.hideMenu();
         }
 
-        function hideMenu() {
-            if (menuBusy) return;
-            menuBusy = true;
-            modMenu.classList.remove('active');
-            setTimeout(() => {
-                modMenu.style.display = 'none';
-                floatBar.style.display = 'flex';
-                if (typeof Android !== 'undefined') Android.setMenuState(false);
-                setTimeout(() => menuBusy = false, 200);
-            }, 150);
+        function doStop() {
+            if (typeof Android !== 'undefined') Android.stopFloatingService();
         }
 
-        // ───── VPN ─────
         function toggleDNS(checkbox) {
             const row = document.getElementById('row-dns');
             if (checkbox.checked) {
@@ -277,13 +216,6 @@
             } else {
                 row.classList.remove('active-row');
                 if (typeof Android !== 'undefined') Android.toggleVpn(false);
-            }
-        }
-
-        // ───── STOP — no confirm (overlay dialogs don't work) ─────
-        function stopApp() {
-            if (typeof Android !== 'undefined') {
-                Android.stopFloatingService();
             }
         }
     </script>
