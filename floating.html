@@ -8,49 +8,59 @@
     <style>
         * { margin:0; padding:0; box-sizing:border-box; }
         
-        body {
+        /* 🔥 TOUCH ISSUE FIXED: min-height 100vh hata diya gaya hai! Ab ye sirf utni jagah lega jitni zaroorat hai 🔥 */
+        html, body {
             background: transparent !important;
-            display: flex; align-items: flex-start; /* Upar se align kiya taaki minimize hone par jump na kare */
-            justify-content: center;
-            min-height: 100vh;
-            padding-top: 30px;
+            width: max-content; 
+            height: max-content; 
+            margin: 0; padding: 0;
             user-select: none; -webkit-tap-highlight-color: transparent;
             font-family: 'Rajdhani', sans-serif;
-            touch-action: none;
             overflow: hidden;
         }
 
-        /* 🔥 MAIN WINDOW (OPEN STATE) - DARK & CLEAR 🔥 */
+        /* 🔥 MAIN WINDOW (OPEN STATE) 🔥 */
         .floating-window {
-            width: 330px; max-width: 92vw;
-            background: rgba(10, 14, 23, 0.96); /* 96% Dark taaki sab clear dikhe */
+            width: 330px; 
+            background: rgba(10, 14, 23, 0.95); 
             backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
             border-radius: 24px;
             padding: 16px 20px 20px;
             border: 1px solid rgba(0, 255, 204, 0.4);
             border-top: 2px solid rgba(0, 255, 204, 0.8);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.8), inset 0 0 15px rgba(0, 255, 204, 0.05);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.8);
             position: relative;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* 🔥 MINI WINDOW (HIDE STATE) - TRANSPARENT 🔥 */
+        /* 🔥 MINI MODE (TRANSPARENT TEXT ONLY) 🔥 */
         .floating-window.mini {
-            width: 260px;
-            background: rgba(10, 14, 23, 0.35); /* Chupa hone par 35% Transparent */
-            border: 1px solid rgba(0, 255, 204, 0.2);
-            padding: 12px 15px 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            width: max-content;
+            background: transparent;
+            backdrop-filter: none; -webkit-backdrop-filter: none;
+            border: none;
+            box-shadow: none;
+            /* Yahan 50px padding isiliye di hai taaki Java ka drag system text click ko block na kare! */
+            padding: 50px 10px 5px 10px; 
         }
 
-        /* Hiding main contents when minimized */
+        /* Show/Hide logic */
+        #mainControls { display: block; }
         .floating-window.mini #mainControls { display: none; }
+
+        #miniControls { display: none; text-align: center; cursor: pointer; }
         .floating-window.mini #miniControls { display: block; }
 
-        /* Hidden by default, only shows in mini state */
-        #miniControls { 
-            display: none; 
-            margin-top: 25px; /* Java drag overlay se bachane ke liye margin */
+        /* 🔥 SIRF TEXT DIKHEGA HIDE HONE PAR 🔥 */
+        .mini-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 15px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            color: #00ffcc;
+            /* Text ke piche black stroke/shadow taaki game ke upar saaf dikhe */
+            text-shadow: 1px 1px 2px #000, -1px -1px 2px #000, 1px -1px 2px #000, -1px 1px 2px #000, 0 0 12px rgba(0,255,204,0.9);
+            white-space: nowrap;
+            animation: pulseGlow 2s infinite;
         }
 
         /* DRAG HANDLE */
@@ -85,22 +95,6 @@
         
         .divider { width: 100%; height: 1px; background: linear-gradient(90deg, transparent, rgba(0,255,204,0.3), transparent); margin-bottom: 15px; }
 
-        /* 🔥 TAP TO OPEN BUTTON 🔥 */
-        .btn-expand {
-            background: rgba(0, 255, 204, 0.1);
-            border: 1px solid rgba(0, 255, 204, 0.4);
-            border-radius: 12px;
-            padding: 10px;
-            text-align: center;
-            color: #00ffcc;
-            font-size: 13px;
-            font-weight: 800;
-            letter-spacing: 2px;
-            cursor: pointer;
-            box-shadow: 0 0 10px rgba(0,255,204,0.1);
-            animation: pulseGlow 2s infinite;
-        }
-
         /* PAK STATUS BOX */
         .pak-status {
             background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.08);
@@ -133,7 +127,7 @@
         .btn-apply.applying .txt { color: #00ffcc; }
         .btn-apply.disabled { opacity: 0.3; pointer-events: none; filter: grayscale(100%); }
 
-        @keyframes pulseGlow { 0%,100% { box-shadow: 0 0 10px rgba(0,255,204,0.2); } 50% { box-shadow: 0 0 20px rgba(0,255,204,0.5); } }
+        @keyframes pulseGlow { 0%,100% { filter: brightness(1); } 50% { filter: brightness(1.3); } }
         @keyframes pulse-dot { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(0.8); opacity: 0.6; } }
 
         /* DNS TOGGLE SWITCH */
@@ -180,29 +174,30 @@
 </head>
 <body>
     <div class="floating-window" id="floatingWindow">
-        <!-- DRAG HANDLE -->
-        <div class="drag-handle" id="dragHandle">
-            <div class="drag-bar"></div>
-        </div>
 
-        <!-- HEADER -->
-        <div class="header">
-            <span class="status-dot" id="headerDot"></span>
-            <div class="brand">
-                <span class="title">AADHI <span>GFX TOOL</span></span>
-                <span class="sub">PREMIUM FLOATING ENGINE</span>
-            </div>
-        </div>
-
-        <!-- 🔥 MINI MODE CONTROLS (Only visible when Hide is clicked) 🔥 -->
-        <div id="miniControls">
-            <div class="btn-expand" onclick="expandWindow()">
-                ▼ TAP TO OPEN ▼
-            </div>
+        <!-- 🔥 MINI MODE CONTROLS (Only visible when Minimized) 🔥 -->
+        <div id="miniControls" onclick="expandWindow()">
+            <!-- Sirf ek glowing text jo click karne par open ho jayega -->
+            <div class="mini-text">AADHI GFX TOOL</div>
         </div>
 
         <!-- 🔥 MAIN CONTROLS (Hidden when minimized) 🔥 -->
         <div id="mainControls">
+            
+            <!-- DRAG HANDLE (Java isko hi drag karta hai) -->
+            <div class="drag-handle" id="dragHandle">
+                <div class="drag-bar"></div>
+            </div>
+
+            <!-- HEADER -->
+            <div class="header">
+                <span class="status-dot" id="headerDot"></span>
+                <div class="brand">
+                    <span class="title">AADHI <span>GFX TOOL</span></span>
+                    <span class="sub">PREMIUM FLOATING ENGINE</span>
+                </div>
+            </div>
+            
             <div class="divider"></div>
 
             <!-- PAK STATUS -->
@@ -278,18 +273,17 @@
             }, 2500);
         }
 
-        // MINIMIZE & EXPAND LOGIC
+        // 🔥 EXPAND WINDOW (OPEN MAIN MENU) 🔥
         function expandWindow() {
             floatingWindow.classList.remove('mini');
         }
 
+        // 🔥 MINIMIZE WINDOW (SHOW TEXT ONLY) 🔥
         btnHide.addEventListener('click', function(e) {
             e.stopPropagation();
-            floatingWindow.classList.add('mini'); // Shrinks the window and makes it transparent
-            showFloatToast('MINIMIZED', false);
+            floatingWindow.classList.add('mini'); 
         });
 
-        // baaki saara java logic same hai
         window.setProtectionState = function(active) {
             isProtected = active;
             dnsToggle.checked = active; 
