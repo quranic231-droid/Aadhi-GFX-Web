@@ -7,140 +7,140 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
         * { margin:0; padding:0; box-sizing:border-box; }
+        
+        /* 🔥 BODY TRANSPARENT RAKHNA ZAROORI HAI 🔥 */
         body {
-            background:transparent !important;
-            display:flex; align-items:center; justify-content:center;
-            min-height:100vh;
-            user-select:none; -webkit-tap-highlight-color:transparent;
-            font-family:'Rajdhani', sans-serif;
-            touch-action:none;
+            background: transparent !important;
+            display: flex; align-items: center; justify-content: center;
+            min-height: 100vh;
+            user-select: none; -webkit-tap-highlight-color: transparent;
+            font-family: 'Rajdhani', sans-serif;
+            touch-action: none;
+            overflow: hidden;
         }
 
-        /* 🔥 PREMIUM FLOATING CONTAINER 🔥 */
+        /* 🔥 PREMIUM TRANSPARENT GLASS WINDOW 🔥 */
         .floating-window {
-            width:330px; max-width:92vw;
-            background:rgba(10, 14, 23, 0.85);
-            backdrop-filter:blur(15px); -webkit-backdrop-filter:blur(15px);
-            border-radius:24px;
-            padding:16px 20px 20px;
-            border:1px solid rgba(0, 255, 204, 0.3);
-            border-top:1px solid rgba(0, 255, 204, 0.6);
-            box-shadow:0 15px 35px rgba(0,0,0,0.6), inset 0 0 20px rgba(0, 255, 204, 0.05);
-            position:relative;
-            overflow:hidden;
+            width: 330px; max-width: 92vw;
+            background: rgba(10, 14, 23, 0.70); /* 70% dark, 30% transparent */
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); /* Piche ka game blur dikhega */
+            border-radius: 24px;
+            padding: 16px 20px 20px;
+            border: 1px solid rgba(0, 255, 204, 0.3);
+            border-top: 1px solid rgba(0, 255, 204, 0.6);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6), inset 0 0 20px rgba(0, 255, 204, 0.05);
+            position: relative;
         }
 
-        /* Drag Handle */
+        /* DRAG HANDLE (Java isko pakad kar drag karega) */
         .drag-handle {
-            position:absolute; top:0; left:0; right:0; height:45px;
-            cursor:grab; border-radius:24px 24px 0 0; z-index:10;
+            position: absolute; top: 0; left: 0; right: 0; height: 45px;
+            cursor: grab; border-radius: 24px 24px 0 0; z-index: 10;
         }
         .drag-bar {
-            width:40px; height:4px; background:rgba(255,255,255,0.2);
-            border-radius:10px; margin:8px auto 0;
+            width: 40px; height: 4px; background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px; margin: 8px auto 0;
         }
 
         /* HEADER */
         .header {
-            display:flex; align-items:center; justify-content:center;
-            gap:10px; padding-top:10px; padding-bottom:12px; position:relative; z-index:5;
+            display: flex; align-items: center; justify-content: center;
+            gap: 10px; padding-top: 10px; padding-bottom: 12px; position: relative; z-index: 5;
         }
         .header .status-dot {
-            width:10px; height:10px; border-radius:50%;
-            background:#00ffcc; box-shadow:0 0 12px #00ffcc;
-            animation:pulse-dot 2s infinite; transition:0.3s;
+            width: 10px; height: 10px; border-radius: 50%;
+            background: #00ffcc; box-shadow: 0 0 12px #00ffcc;
+            animation: pulse-dot 2s infinite; transition: 0.3s;
         }
-        .header .status-dot.off { background:#ff3366; box-shadow:0 0 10px rgba(255,51,102,0.6); animation:none; }
+        .header .status-dot.off { background: #ff3366; box-shadow: 0 0 10px rgba(255,51,102,0.6); animation: none; }
         
-        .header .brand { display:flex; flex-direction:column; align-items:center; line-height:1; }
+        .header .brand { display: flex; flex-direction: column; align-items: center; line-height: 1; }
+        
+        /* 🔥 NAME CHANGED TO AADHI GFX TOOL 🔥 */
         .header .brand .title {
-            font-family:'Orbitron', sans-serif; font-size:18px; font-weight:900; letter-spacing:2px;
-            color:#fff; text-shadow:0 0 10px rgba(0,255,204,0.4);
+            font-family: 'Orbitron', sans-serif; font-size: 18px; font-weight: 900; letter-spacing: 2px;
+            color: #fff; text-shadow: 0 0 10px rgba(0,255,204,0.4);
         }
-        .header .brand .title span { color:#00ffcc; }
-        .header .brand .sub { font-size:10px; color:#94a3b8; letter-spacing:3px; font-weight:700; margin-top:4px; }
+        .header .brand .title span { color: #00ffcc; }
+        .header .brand .sub { font-size: 10px; color: #94a3b8; letter-spacing: 3px; font-weight: 700; margin-top: 4px; }
         
-        .divider { width:100%; height:1px; background:linear-gradient(90deg, transparent, rgba(0,255,204,0.3), transparent); margin-bottom:15px; }
+        .divider { width: 100%; height: 1px; background: linear-gradient(90deg, transparent, rgba(0,255,204,0.3), transparent); margin-bottom: 15px; }
 
         /* PAK STATUS BOX */
         .pak-status {
-            background:rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.05);
-            border-radius:14px; padding:12px 15px; display:flex; align-items:center; justify-content:space-between;
-            margin-bottom:15px; transition:0.3s;
+            background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 14px; padding: 12px 15px; display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 15px; transition: 0.3s;
         }
-        .pak-status.active { border-color:rgba(0,255,204,0.4); box-shadow:inset 0 0 15px rgba(0,255,204,0.05); }
-        .pak-status .info { display:flex; align-items:center; gap:10px; }
-        .pak-status .info .icon { font-size:16px; filter:grayscale(100%); opacity:0.5; transition:0.3s; }
-        .pak-status.active .info .icon { filter:grayscale(0%); opacity:1; text-shadow:0 0 10px rgba(0,255,204,0.5); }
-        .pak-status .info .text { font-size:12px; font-weight:700; color:#64748b; letter-spacing:1px; text-transform:uppercase; }
-        .pak-status.active .info .text { color:#00ffcc; }
-        .pak-status .badge { font-size:10px; font-weight:800; color:#64748b; background:rgba(255,255,255,0.05); padding:4px 10px; border-radius:8px; }
-        .pak-status.active .badge { color:#000; background:#00ffcc; box-shadow:0 0 10px rgba(0,255,204,0.4); }
+        .pak-status.active { border-color: rgba(0,255,204,0.4); box-shadow: inset 0 0 15px rgba(0,255,204,0.05); }
+        .pak-status .info { display: flex; align-items: center; gap: 10px; }
+        .pak-status .info .icon { font-size: 16px; filter: grayscale(100%); opacity: 0.5; transition: 0.3s; }
+        .pak-status.active .info .icon { filter: grayscale(0%); opacity: 1; text-shadow: 0 0 10px rgba(0,255,204,0.5); }
+        .pak-status .info .text { font-size: 12px; font-weight: 700; color: #64748b; letter-spacing: 1px; text-transform: uppercase; }
+        .pak-status.active .info .text { color: #00ffcc; }
+        .pak-status .badge { font-size: 10px; font-weight: 800; color: #64748b; background: rgba(255,255,255,0.05); padding: 4px 10px; border-radius: 8px; }
+        .pak-status.active .badge { color: #000; background: #00ffcc; box-shadow: 0 0 10px rgba(0,255,204,0.4); }
 
-        /* ACTION BUTTONS (LOBBY & INGAME) */
-        .action-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:15px; }
+        /* ACTION BUTTONS */
+        .action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
         .btn-apply {
-            background:linear-gradient(145deg, rgba(255,255,255,0.03), rgba(0,0,0,0.3));
-            border:1px solid rgba(255,255,255,0.08); border-radius:14px;
-            padding:12px 5px; text-align:center; cursor:pointer; transition:all 0.3s;
-            display:flex; flex-direction:column; align-items:center; gap:5px;
+            background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(0,0,0,0.4));
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 14px;
+            padding: 12px 5px; text-align: center; cursor: pointer; transition: all 0.3s;
+            display: flex; flex-direction: column; align-items: center; gap: 5px;
         }
-        .btn-apply .em { font-size:18px; }
-        .btn-apply .txt { font-size:11px; font-weight:700; color:#94a3b8; text-transform:uppercase; letter-spacing:1px; }
+        .btn-apply .em { font-size: 18px; }
+        .btn-apply .txt { font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; }
         
-        /* Active / Enabled state styles */
-        .btn-apply:not(.disabled):hover { background:rgba(0,255,204,0.05); border-color:rgba(0,255,204,0.3); }
-        .btn-apply:not(.disabled):active { transform:scale(0.95); }
-        
-        .btn-apply.applying { border-color:#00ffcc; box-shadow:0 0 15px rgba(0,255,204,0.3); animation:pulseGlow 1s infinite; }
-        .btn-apply.applying .txt { color:#00ffcc; }
-        
-        .btn-apply.disabled { opacity:0.4; pointer-events:none; filter:grayscale(100%); }
+        .btn-apply:not(.disabled):hover { background: rgba(0,255,204,0.1); border-color: rgba(0,255,204,0.4); }
+        .btn-apply:not(.disabled):active { transform: scale(0.95); }
+        .btn-apply.applying { border-color: #00ffcc; box-shadow: 0 0 15px rgba(0,255,204,0.3); animation: pulseGlow 1s infinite; }
+        .btn-apply.applying .txt { color: #00ffcc; }
+        .btn-apply.disabled { opacity: 0.4; pointer-events: none; filter: grayscale(100%); }
 
-        @keyframes pulseGlow { 0%,100% { box-shadow:0 0 10px rgba(0,255,204,0.2); } 50% { box-shadow:0 0 25px rgba(0,255,204,0.6); } }
-        @keyframes pulse-dot { 0%,100% { transform:scale(1); opacity:1; } 50% { transform:scale(0.8); opacity:0.6; } }
+        @keyframes pulseGlow { 0%,100% { box-shadow: 0 0 10px rgba(0,255,204,0.2); } 50% { box-shadow: 0 0 25px rgba(0,255,204,0.6); } }
+        @keyframes pulse-dot { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(0.8); opacity: 0.6; } }
 
-        /* 🔥 DNS ON/OFF TOGGLE 🔥 */
+        /* DNS TOGGLE SWITCH */
         .dns-card {
-            background:rgba(0,0,0,0.4); border-radius:16px; padding:14px 16px;
-            border:1px solid rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:space-between;
-            margin-bottom:15px; transition:0.3s;
+            background: rgba(0,0,0,0.4); border-radius: 16px; padding: 14px 16px;
+            border: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 15px; transition: 0.3s;
         }
-        .dns-card.active { border-color:rgba(0,119,255,0.4); box-shadow:inset 0 0 15px rgba(0,119,255,0.1); }
+        .dns-card.active { border-color: rgba(0,119,255,0.4); box-shadow: inset 0 0 15px rgba(0,119,255,0.1); }
         
-        .dns-info { display:flex; flex-direction:column; gap:2px; }
-        .dns-info .title { font-size:13px; font-weight:700; color:#e2e8f0; letter-spacing:1px; }
-        .dns-info .sub { font-size:10px; color:#64748b; font-weight:600; text-transform:uppercase; transition:0.3s; }
-        .dns-card.active .dns-info .sub { color:#0077ff; }
+        .dns-info { display: flex; flex-direction: column; gap: 2px; }
+        .dns-info .title { font-size: 13px; font-weight: 700; color: #e2e8f0; letter-spacing: 1px; }
+        .dns-info .sub { font-size: 10px; color: #64748b; font-weight: 600; text-transform: uppercase; transition: 0.3s; }
+        .dns-card.active .dns-info .sub { color: #0077ff; }
 
-        /* Premium CSS Toggle Switch */
-        .switch { position:relative; display:inline-block; width:44px; height:24px; }
-        .switch input { opacity:0; width:0; height:0; }
-        .slider { position:absolute; cursor:pointer; top:0; left:0; right:0; bottom:0; background-color:rgba(255,255,255,0.1); transition:0.4s; border-radius:34px; border:1px solid rgba(255,255,255,0.1); }
-        .slider:before { position:absolute; content:""; height:16px; width:16px; left:3px; bottom:3px; background-color:#94a3b8; transition:0.4s; border-radius:50%; }
-        input:checked + .slider { background-color:rgba(0,119,255,0.2); border-color:#0077ff; box-shadow:0 0 15px rgba(0,119,255,0.4); }
-        input:checked + .slider:before { transform:translateX(20px); background-color:#fff; box-shadow:0 0 10px #fff; }
+        .switch { position: relative; display: inline-block; width: 44px; height: 24px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(255,255,255,0.1); transition: 0.4s; border-radius: 34px; border: 1px solid rgba(255,255,255,0.1); }
+        .slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px; background-color: #94a3b8; transition: 0.4s; border-radius: 50%; }
+        input:checked + .slider { background-color: rgba(0,119,255,0.2); border-color: #0077ff; box-shadow: 0 0 15px rgba(0,119,255,0.4); }
+        input:checked + .slider:before { transform: translateX(20px); background-color: #fff; box-shadow: 0 0 10px #fff; }
 
         /* BOTTOM CONTROLS */
-        .bottom-controls { display:flex; gap:10px; }
+        .bottom-controls { display: flex; gap: 10px; }
         .btn-bottom {
-            flex:1; padding:12px 0; border-radius:12px; font-family:'Orbitron', sans-serif;
-            font-size:12px; font-weight:900; letter-spacing:2px; text-transform:uppercase;
-            text-align:center; cursor:pointer; transition:0.2s; border:none; color:#fff;
+            flex: 1; padding: 12px 0; border-radius: 12px; font-family: 'Orbitron', sans-serif;
+            font-size: 12px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase;
+            text-align: center; cursor: pointer; transition: 0.2s; border: none; color: #fff;
         }
-        .btn-bottom:active { transform:scale(0.95); }
-        .btn-hide { background:linear-gradient(90deg, #334155, #1e293b); box-shadow:0 5px 15px rgba(0,0,0,0.3); color:#94a3b8; border:1px solid rgba(255,255,255,0.05); }
-        .btn-close { background:linear-gradient(90deg, #ff0055, #cc0044); box-shadow:0 5px 15px rgba(255,0,85,0.3); }
+        .btn-bottom:active { transform: scale(0.95); }
+        .btn-hide { background: linear-gradient(90deg, rgba(51,65,85,0.8), rgba(30,41,59,0.8)); box-shadow: 0 5px 15px rgba(0,0,0,0.3); color: #cbd5e1; border: 1px solid rgba(255,255,255,0.1); }
+        .btn-close { background: linear-gradient(90deg, rgba(255,0,85,0.8), rgba(204,0,68,0.8)); box-shadow: 0 5px 15px rgba(255,0,85,0.3); border: 1px solid rgba(255,0,85,0.4); }
 
         /* TOAST NOTIFICATION */
         .float-toast {
-            position:absolute; top:-40px; left:50%; transform:translateX(-50%) translateY(10px);
-            background:rgba(0,0,0,0.9); border:1px solid #00ffcc; border-radius:12px;
-            padding:8px 18px; font-size:11px; font-weight:700; color:#00ffcc; letter-spacing:1px;
-            white-space:nowrap; opacity:0; pointer-events:none; transition:0.3s; z-index:100;
-            box-shadow:0 5px 15px rgba(0,255,204,0.2); text-transform:uppercase;
+            position: absolute; top: -40px; left: 50%; transform: translateX(-50%) translateY(10px);
+            background: rgba(0,0,0,0.9); border: 1px solid #00ffcc; border-radius: 12px;
+            padding: 8px 18px; font-size: 11px; font-weight: 700; color: #00ffcc; letter-spacing: 1px;
+            white-space: nowrap; opacity: 0; pointer-events: none; transition: 0.3s; z-index: 100;
+            box-shadow: 0 5px 15px rgba(0,255,204,0.2); text-transform: uppercase;
         }
-        .float-toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+        .float-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
     </style>
 </head>
 <body>
@@ -181,7 +181,7 @@
             </div>
         </div>
 
-        <!-- DNS TOGGLE (ON/OFF) -->
+        <!-- DNS TOGGLE -->
         <div class="dns-card" id="dnsCard">
             <div class="dns-info">
                 <span class="title">ANTI-BAN DNS</span>
@@ -204,31 +204,22 @@
     </div>
 
     <script>
-        // ═══════════════════════════════════════════════════════
-        //  ELEMENTS
-        // ═══════════════════════════════════════════════════════
         var headerDot = document.getElementById('headerDot');
         var dnsCard = document.getElementById('dnsCard');
         var dnsSubtitle = document.getElementById('dnsSubtitle');
         var dnsToggle = document.getElementById('dnsToggle');
-        
         var pakStatus = document.getElementById('pakStatus');
         var pakStatusText = document.getElementById('pakStatusText');
         var pakBadge = document.getElementById('pakBadge');
-        
         var btnLobby = document.getElementById('btnLobby');
         var btnInGame = document.getElementById('btnInGame');
         var btnHide = document.getElementById('btnHide');
         var btnClose = document.getElementById('btnClose');
-        
         var floatToast = document.getElementById('floatToast');
 
         var isProtected = false;
         var currentPak = null;
 
-        // ═══════════════════════════════════════════════════════
-        //  TOAST
-        // ═══════════════════════════════════════════════════════
         function showFloatToast(msg, isError) {
             floatToast.textContent = msg;
             floatToast.style.color = isError ? '#ff3366' : '#00ffcc';
@@ -240,13 +231,9 @@
             }, 2500);
         }
 
-        // ═══════════════════════════════════════════════════════
-        //  DNS / PROTECTION STATE
-        // ═══════════════════════════════════════════════════════
         window.setProtectionState = function(active) {
             isProtected = active;
-            dnsToggle.checked = active; // Switch UI ko on/off karega
-            
+            dnsToggle.checked = active; 
             if (active) {
                 headerDot.className = 'status-dot';
                 dnsCard.classList.add('active');
@@ -258,9 +245,6 @@
             }
         };
 
-        // ═══════════════════════════════════════════════════════
-        //  PAK STATE
-        // ═══════════════════════════════════════════════════════
         window.setPakState = function(pakKey) {
             if (!pakKey || pakKey === "null" || pakKey === "") {
                 currentPak = null;
@@ -280,21 +264,14 @@
             }
         };
 
-        // ═══════════════════════════════════════════════════════
-        //  BUTTON ACTIONS
-        // ═══════════════════════════════════════════════════════
-
-        // DNS Toggle Switch Action
         dnsToggle.addEventListener('change', function(e) {
             var targetState = e.target.checked;
-            // UI ko turant update mat karo jab tak java confirm na kare (Optional but smooth)
             if (window.Android && window.Android.onProtectionToggle) {
                 window.Android.onProtectionToggle(targetState);
             }
             setProtectionState(targetState);
         });
 
-        // LOBBY APPLY
         btnLobby.addEventListener('click', function(e) {
             e.stopPropagation();
             if (!currentPak || btnLobby.classList.contains('disabled')) return;
@@ -311,7 +288,6 @@
             }
         });
 
-        // IN-GAME APPLY
         btnInGame.addEventListener('click', function(e) {
             e.stopPropagation();
             if (!currentPak || btnInGame.classList.contains('disabled')) return;
@@ -328,7 +304,6 @@
             }
         });
 
-        // HIDE
         btnHide.addEventListener('click', function(e) {
             e.stopPropagation();
             if (window.Android && window.Android.onHide) {
@@ -336,7 +311,6 @@
             }
         });
 
-        // CLOSE
         btnClose.addEventListener('click', function(e) {
             e.stopPropagation();
             if (window.Android && window.Android.onClose) {
@@ -344,9 +318,6 @@
             }
         });
 
-        // ═══════════════════════════════════════════════════════
-        //  INIT — Fetch from Java
-        // ═══════════════════════════════════════════════════════
         setProtectionState(false);
         setPakState("");
 
