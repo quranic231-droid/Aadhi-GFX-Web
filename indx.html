@@ -24,7 +24,6 @@ body::after {
     z-index:-1; filter:blur(70px); pointer-events:none;
 }
 
-/* HEADER */
 .header {
     position:fixed; top:0; left:0; right:0; height:66px;
     background:rgba(2,4,8,0.75);
@@ -49,7 +48,6 @@ body::after {
     text-shadow:0 2px 15px rgba(0,255,200,0.15);
 }
 
-/* BOTTOM NAV */
 .bottom-nav {
     position:fixed; bottom:14px; left:18px; right:18px; height:64px;
     background:rgba(8,12,20,0.9);
@@ -75,7 +73,6 @@ body::after {
     box-shadow:0 0 12px #00FFC8;
 }
 
-/* PAGES */
 .page { display:none; padding:0 16px 20px; animation:fadeScale 0.35s cubic-bezier(0.16,1,0.3,1); }
 .page.active { display:block; }
 @keyframes fadeScale {
@@ -83,7 +80,6 @@ body::after {
     to   { opacity:1; transform:scale(1) translateY(0); }
 }
 
-/* CARDS */
 .card {
     background:linear-gradient(145deg, rgba(15,20,30,0.6), rgba(8,12,20,0.5));
     backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
@@ -126,7 +122,6 @@ body::after {
     border-color:rgba(255,170,0,0.2);
 }
 
-/* TIMER */
 .timer-label {
     text-align:center; font-size:10px; font-weight:700;
     color:#64748B; letter-spacing:2.5px;
@@ -156,7 +151,6 @@ body::after {
     letter-spacing:2px; text-transform:uppercase; margin-top:4px;
 }
 
-/* GAME CARD */
 .game-card { display:flex; align-items:center; gap:16px; }
 .game-icon {
     width:62px; height:62px; border-radius:18px;
@@ -199,7 +193,6 @@ body::after {
 }
 @keyframes pulseLive { 0%,100% { opacity:1; } 50% { opacity:0.55; } }
 
-/* FEATURE ROWS */
 .feature-row {
     display:flex; align-items:center; gap:14px;
     padding:14px 0;
@@ -233,7 +226,6 @@ body::after {
     letter-spacing:0.5px;
 }
 
-/* TOGGLE SWITCH (for independent features) */
 .toggle {
     width:50px; height:27px;
     background:rgba(0,0,0,0.5);
@@ -262,7 +254,6 @@ body::after {
     box-shadow:-2px 0 8px rgba(0,0,0,0.3);
 }
 
-/* RADIO BUTTON (for pak files) */
 .radio-btn {
     width:27px; height:27px;
     border-radius:50%;
@@ -290,7 +281,6 @@ body::after {
     width:13px; height:13px;
 }
 
-/* RADIO CARD (highlight entire row when selected) */
 .feature-row.radio-row.on {
     background:linear-gradient(90deg, rgba(0,255,200,0.08), transparent);
     margin:0 -20px;
@@ -299,7 +289,6 @@ body::after {
     border-radius:12px;
 }
 
-/* RUN BUTTON */
 .btn-run {
     background:linear-gradient(90deg, #8B5CF6, #00FFC8);
     color:#030407;
@@ -320,7 +309,6 @@ body::after {
 }
 .btn-run:active { transform:scale(0.96); }
 
-/* TERMINAL OVERLAY */
 .terminal-overlay {
     position:fixed; inset:0;
     background:rgba(2,4,8,0.96);
@@ -357,6 +345,7 @@ body::after {
 .terminal-body p { margin-bottom:5px; word-wrap:break-word; }
 .term-prefix { color:#8B5CF6; font-weight:bold; margin-right:6px; }
 .term-success { color:#00FFC8; font-weight:bold; }
+.term-skip { color:#FBBF24; font-weight:bold; }
 .cursor-blink {
     display:inline-block; width:10px; height:15px;
     background:#00FFC8; animation:blink 1s infinite;
@@ -364,7 +353,6 @@ body::after {
 }
 @keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0; } }
 
-/* DNS PAGE */
 .dns-main-card {
     background:linear-gradient(145deg, rgba(10,14,23,0.7), rgba(8,12,20,0.6));
     backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px);
@@ -475,7 +463,6 @@ body::after {
 }
 .server-value { font-size:13px; color:#F1F5F9; font-weight:700; }
 
-/* SETTINGS PAGE */
 .user-profile-card { display:flex; align-items:center; gap:16px; margin-bottom:18px; }
 .user-avatar {
     width:62px; height:62px; border-radius:18px;
@@ -540,7 +527,6 @@ body::after {
     gap:12px; font-size:13px;
 }
 
-/* TOAST */
 .toast-msg {
     position:fixed; top:82px; left:50%;
     transform:translateX(-50%) translateY(-25px);
@@ -557,7 +543,6 @@ body::after {
 }
 .toast-msg.show { opacity:1; transform:translateX(-50%) translateY(0); }
 
-/* DOWNLOAD OVERLAY */
 .download-overlay {
     position:fixed; bottom:-320px; left:14px; right:14px;
     background:linear-gradient(145deg, rgba(15,20,30,0.98), rgba(8,12,20,0.95));
@@ -635,20 +620,16 @@ body::after {
 </head>
 <body>
 
-<!-- HEADER -->
 <header class="header">
     <div class="icon-btn"><i class="fas fa-microchip"></i></div>
     <div class="title">AADHI PUBLIC TOOL</div>
     <div class="icon-btn"><i class="fas fa-fingerprint"></i></div>
 </header>
 
-<!-- TOAST -->
 <div id="toast" class="toast-msg">System Ready</div>
 
-<!-- ══════════════ HOME PAGE ══════════════ -->
 <div id="page-home" class="page active">
 
-    <!-- License Timer -->
     <div class="card">
         <div class="timer-label">License Expiry</div>
         <div class="timer-grid">
@@ -659,7 +640,6 @@ body::after {
         </div>
     </div>
 
-    <!-- Game Card -->
     <div class="card" style="padding:16px;">
         <div class="game-card">
             <div class="game-icon"><i class="fas fa-crosshairs"></i></div>
@@ -672,7 +652,6 @@ body::after {
         </div>
     </div>
 
-    <!-- Original OBB -->
     <div class="section-title"><i class="fas fa-database"></i> System OBB</div>
     <div class="card">
         <div class="feature-row" id="row-obb">
@@ -685,7 +664,6 @@ body::after {
         </div>
     </div>
 
-    <!-- Lua Scripts -->
     <div class="section-title"><i class="fas fa-code"></i> Lua Scripts</div>
     <div class="card">
         <div class="feature-row" id="row-lua1">
@@ -702,14 +680,13 @@ body::after {
                 <div class="name">Lua ESP 2</div>
                 <div class="desc">Advanced Protocol</div>
             </div>
-            <div class="toggPREMIlick="handleLuaToggle(this, 'lua2_url')"><div class="knob"></div></div>
+            <div class="toggle" onclick="handleLuaToggle(this, 'lua2_url')"><div class="knob"></div></div>
         </div>
     </div>
 
-    <!-- Pak Files (RADIO) -->
     <div class="section-title">
         <i class="fas fa-cube"></i> Pak Files
-        <span class="badge radio">SELECT ONE</span>
+        <span class="badge radio">OPTIONAL</span>
     </div>
     <div class="card">
         <div class="feature-row radio-row" id="row-pak1" onclick="selectPak('pak1_url', this)">
@@ -730,13 +707,11 @@ body::after {
         </div>
     </div>
 
-    <!-- Run Button -->
     <button class="btn-run" onclick="runGame()">
         <i class="fas fa-space-shuttle" style="margin-right:10px;"></i> LAUNCH GAME
     </button>
 </div>
 
-<!-- TERMINAL OVERLAY -->
 <div class="terminal-overlay" id="terminalOverlay">
     <div class="terminal-box">
         <div class="terminal-header">
@@ -747,7 +722,6 @@ body::after {
     </div>
 </div>
 
-<!-- DNS PAGE -->
 <div id="page-dns" class="page">
     <div class="dns-main-card" id="dnsMainCard">
         <div class="dns-glow"></div>
@@ -783,7 +757,6 @@ body::after {
     </div>
 </div>
 
-<!-- SETTINGS PAGE -->
 <div id="page-settings" class="page">
     <div class="card">
         <div class="user-profile-card">
@@ -825,7 +798,6 @@ body::after {
     </div>
 </div>
 
-<!-- DOWNLOAD OVERLAY -->
 <div class="download-overlay" id="downloadOverlay">
     <div class="dl-header">
         <span class="title"><i class="fas fa-circle-notch"></i> <span id="dlTitleText">Fetching...</span></span>
@@ -846,14 +818,12 @@ body::after {
     </div>
 </div>
 
-<!-- BOTTOM NAV -->
 <nav class="bottom-nav">
     <button class="nav-item active" data-page="home"><i class="fas fa-layer-group"></i><span>Dashboard</span></button>
     <button class="nav-item" data-page="dns"><i class="fas fa-shield-virus"></i><span>Firewall</span></button>
     <button class="nav-item" data-page="settings"><i class="fas fa-sliders-h"></i><span>System</span></button>
 </nav>
 
-<!-- ══════════════ JAVASCRIPT ══════════════ -->
 <script>
 // ═══════════════════════════════════════════════════════════
 //  STATE
@@ -862,7 +832,7 @@ var state = {
     obb: false,
     lua1: false,
     lua2: false,
-    selectedPak: null   // 'pak1_url' or 'pak2_url' or null
+    selectedPak: null
 };
 
 // ═══════════════════════════════════════════════════════════
@@ -899,7 +869,7 @@ document.querySelectorAll('.nav-item').forEach(function(item) {
 });
 
 // ═══════════════════════════════════════════════════════════
-//  OBB TOGGLE (Independent)
+//  OBB TOGGLE
 // ═══════════════════════════════════════════════════════════
 function handleObbToggle(el) {
     state.obb = !state.obb;
@@ -920,7 +890,7 @@ function handleObbToggle(el) {
 }
 
 // ═══════════════════════════════════════════════════════════
-//  LUA TOGGLE (Independent)
+//  LUA TOGGLE
 // ═══════════════════════════════════════════════════════════
 function handleLuaToggle(el, key) {
     var isOn = el.classList.contains('active');
@@ -928,7 +898,6 @@ function handleLuaToggle(el, key) {
     var name = row.querySelector('.name').innerText;
 
     if (isOn) {
-        // OFF
         if (window.Android && Android.deleteMod) {
             Android.deleteMod(key);
         }
@@ -938,7 +907,6 @@ function handleLuaToggle(el, key) {
         if (key === 'lua2_url') state.lua2 = false;
         showToast('Purging ' + name, false);
     } else {
-        // ON
         if (window.Android && Android.downloadPak) {
             Android.downloadPak(key);
         }
@@ -951,26 +919,23 @@ function handleLuaToggle(el, key) {
 }
 
 // ═══════════════════════════════════════════════════════════
-//  PAK SELECTION (RADIO — only 1 at a time)
+//  PAK SELECTION (OPTIONAL)
 // ═══════════════════════════════════════════════════════════
 function selectPak(key, row) {
     var previousPak = state.selectedPak;
 
-    // Same click → deselect (turn OFF)
+    // Same click → deselect
     if (previousPak === key) {
         state.selectedPak = null;
 
-        // UI reset
         document.getElementById('radio-pak1').classList.remove('active');
         document.getElementById('radio-pak2').classList.remove('active');
         document.getElementById('row-pak1').classList.remove('on');
         document.getElementById('row-pak2').classList.remove('on');
 
-        // Java se remove karo
         if (window.Android && Android.deleteMod) {
             Android.deleteMod(key);
         }
-        // Selected pak clear
         if (window.Android && Android.clearSelectedPak) {
             Android.clearSelectedPak();
         }
@@ -981,24 +946,21 @@ function selectPak(key, row) {
     // New selection
     state.selectedPak = key;
 
-    // Agar purana pak different tha → usko remove karo
+    // Purana pak remove
     if (previousPak && previousPak !== key && window.Android && Android.deleteMod) {
         Android.deleteMod(previousPak);
     }
 
-    // UI reset (dono radios)
     document.getElementById('radio-pak1').classList.remove('active');
     document.getElementById('radio-pak2').classList.remove('active');
     document.getElementById('row-pak1').classList.remove('on');
     document.getElementById('row-pak2').classList.remove('on');
 
-    // Set current active
     var radioId = key === 'pak1_url' ? 'radio-pak1' : 'radio-pak2';
     var rowId = key === 'pak1_url' ? 'row-pak1' : 'row-pak2';
     document.getElementById(radioId).classList.add('active');
     document.getElementById(rowId).classList.add('on');
 
-    // Java ko bhejo
     if (window.Android) {
         if (Android.downloadPak) Android.downloadPak(key);
         if (Android.setSelectedPak) Android.setSelectedPak(key);
@@ -1008,30 +970,48 @@ function selectPak(key, row) {
 }
 
 // ═══════════════════════════════════════════════════════════
-//  RUN GAME
+//  RUN GAME — Pak OPTIONAL
 // ═══════════════════════════════════════════════════════════
 function runGame() {
-    // Check: pak selected hai ya nahi
-    if (!state.selectedPak) {
-        showToast('Pehle koi Pak file select karo!', true);
-        return;
-    }
-
     var overlay = document.getElementById('terminalOverlay');
     var content = document.getElementById('terminalContent');
     overlay.classList.add('show');
     content.innerHTML = '';
 
+    // Base lines
     var lines = [
         "Initializing AADHI Engine v3.0...",
         "Bypassing Anti-Cheat Protocol... <span class='term-success'>[OK]</span>",
         "Establishing Secure Connection... <span class='term-success'>[SECURE]</span>",
-        "Clearing Game Cache & Logs... <span class='term-success'>[CLEARED]</span>",
-        "Injecting Selected Pak + Lua... <span class='term-success'>[INJECTED]</span>",
-        "Activating Stealth Protection... <span class='term-success'>[ACTIVE]</span>",
-        "Scheduling Lobby Auto-Apply... <span class='term-success'>[QUEUED]</span>",
-        "Starting Target Application..."
+        "Clearing Game Cache & Logs... <span class='term-success'>[CLEARED]</span>"
     ];
+
+    // Pak line — based on selection
+    if (state.selectedPak) {
+        var pakName = state.selectedPak === 'pak1_url' ? 'Pak V1' : 'Pak V2';
+        lines.push("Injecting " + pakName + "... <span class='term-success'>[INJECTED]</span>");
+    } else {
+        lines.push("No Pak Selected — Skipping... <span class='term-skip'>[SKIPPED]</span>");
+    }
+
+    // Lua line
+    if (state.lua1 || state.lua2) {
+        lines.push("Activating Lua Scripts... <span class='term-success'>[ACTIVE]</span>");
+    }
+
+    // OBB line
+    if (state.obb) {
+        lines.push("Original OBB Restore... <span class='term-success'>[RESTORED]</span>");
+    }
+
+    lines.push("Activating Stealth Protection... <span class='term-success'>[ACTIVE]</span>");
+
+    // Lobby schedule — only if pak selected
+    if (state.selectedPak) {
+        lines.push("Scheduling Lobby Auto-Apply... <span class='term-success'>[QUEUED]</span>");
+    }
+
+    lines.push("Starting Target Application...");
 
     var i = 0;
     function typeLine() {
@@ -1191,7 +1171,7 @@ function cancelDownload() {
 }
 
 // ═══════════════════════════════════════════════════════════
-//  BRIDGE INIT — restore state on load
+//  BRIDGE INIT
 // ═══════════════════════════════════════════════════════════
 function waitForBridge(callback, attempts) {
     attempts = attempts || 20;
@@ -1219,21 +1199,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (ts > 0) startCountdown(ts);
             else showLifetime();
 
-            // 🔥 Restore selected pak state from Java
-            try {
-                if (Android.getSelectedPak) {
-                    var savedPak = Android.getSelectedPak();
-                    if (savedPak && savedPak !== "null" && savedPak !== "") {
-                        var radioId = savedPak === 'pak1_url' ? 'radio-pak1' : 'radio-pak2';
-                        var rowId = savedPak === 'pak1_url' ? 'row-pak1' : 'row-pak2';
-                        document.getElementById(radioId).classList.add('active');
-                        document.getElementById(rowId).classList.add('on');
-                        state.selectedPak = savedPak;
-                    }
-                }
-            } catch (e) { console.log('Pak restore error:', e); }
-
-            // 🔥 Restore Lua states
+            // Restore Lua states only (pak restore not needed — fresh each time)
             try {
                 if (Android.getModState) {
                     if (Android.getModState('lua1_url') === 'ok') {
