@@ -8,188 +8,123 @@
     <style>
         * { margin:0; padding:0; box-sizing:border-box; }
         
-        /* 🔥 TOUCH ISSUE FIXED: min-height 100vh hata diya gaya hai! Ab ye sirf utni jagah lega jitni zaroorat hai 🔥 */
-        html, body {
+        body {
             background: transparent !important;
-            width: max-content; 
-            height: max-content; 
-            margin: 0; padding: 0;
+            margin: 0; padding: 10px;
             user-select: none; -webkit-tap-highlight-color: transparent;
             font-family: 'Rajdhani', sans-serif;
             overflow: hidden;
         }
 
-        /* 🔥 MAIN WINDOW (OPEN STATE) 🔥 */
+        /* MAIN WINDOW (OPEN) */
         .floating-window {
-            width: 330px; 
+            width: 320px;
             background: rgba(10, 14, 23, 0.95); 
             backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
             border-radius: 24px;
             padding: 16px 20px 20px;
             border: 1px solid rgba(0, 255, 204, 0.4);
             border-top: 2px solid rgba(0, 255, 204, 0.8);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.8);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
             position: relative;
         }
 
-        /* 🔥 MINI MODE (TRANSPARENT TEXT ONLY) 🔥 */
+        /* MINI MODE (TRANSPARENT TEXT ONLY) */
         .floating-window.mini {
-            width: max-content;
+            width: auto;
             background: transparent;
             backdrop-filter: none; -webkit-backdrop-filter: none;
             border: none;
             box-shadow: none;
-            /* Yahan 50px padding isiliye di hai taaki Java ka drag system text click ko block na kare! */
-            padding: 50px 10px 5px 10px; 
+            padding: 5px;
         }
 
-        /* Show/Hide logic */
         #mainControls { display: block; }
         .floating-window.mini #mainControls { display: none; }
 
-        #miniControls { display: none; text-align: center; cursor: pointer; }
+        #miniControls { display: none; }
         .floating-window.mini #miniControls { display: block; }
 
-        /* 🔥 SIRF TEXT DIKHEGA HIDE HONE PAR 🔥 */
+        /* 🔥 HIDE HONE PAR SIRF YEH TEXT DIKHEGA (No Box) 🔥 */
         .mini-text {
             font-family: 'Orbitron', sans-serif;
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 900;
-            letter-spacing: 2px;
             color: #00ffcc;
-            /* Text ke piche black stroke/shadow taaki game ke upar saaf dikhe */
-            text-shadow: 1px 1px 2px #000, -1px -1px 2px #000, 1px -1px 2px #000, -1px 1px 2px #000, 0 0 12px rgba(0,255,204,0.9);
+            /* Text ke piche heavy stroke taaki game background par padha ja sake */
+            text-shadow: 2px 2px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 0 0 10px rgba(0,255,204,0.8);
             white-space: nowrap;
+            margin-top: 10px;
+            margin-left: 5px;
             animation: pulseGlow 2s infinite;
         }
 
-        /* DRAG HANDLE */
-        .drag-handle {
-            position: absolute; top: 0; left: 0; right: 0; height: 45px;
-            cursor: grab; border-radius: 24px 24px 0 0; z-index: 10;
-        }
-        .drag-bar {
-            width: 40px; height: 4px; background: rgba(255, 255, 255, 0.3);
-            border-radius: 10px; margin: 8px auto 0;
-        }
-
         /* HEADER */
-        .header {
-            display: flex; align-items: center; justify-content: center;
-            gap: 10px; padding-top: 10px; padding-bottom: 12px; position: relative; z-index: 5;
-        }
-        .header .status-dot {
-            width: 10px; height: 10px; border-radius: 50%;
-            background: #00ffcc; box-shadow: 0 0 12px #00ffcc;
-            animation: pulse-dot 2s infinite; transition: 0.3s;
-        }
+        .header { display: flex; align-items: center; justify-content: center; gap: 10px; padding-bottom: 15px; }
+        .header .status-dot { width: 10px; height: 10px; border-radius: 50%; background: #00ffcc; box-shadow: 0 0 12px #00ffcc; animation: pulse-dot 2s infinite; }
         .header .status-dot.off { background: #ff3366; box-shadow: 0 0 10px rgba(255,51,102,0.6); animation: none; }
-        
         .header .brand { display: flex; flex-direction: column; align-items: center; line-height: 1; }
-        .header .brand .title {
-            font-family: 'Orbitron', sans-serif; font-size: 18px; font-weight: 900; letter-spacing: 2px;
-            color: #fff; text-shadow: 0 0 10px rgba(0,255,204,0.4);
-        }
+        .header .brand .title { font-family: 'Orbitron', sans-serif; font-size: 18px; font-weight: 900; letter-spacing: 2px; color: #fff; }
         .header .brand .title span { color: #00ffcc; }
         .header .brand .sub { font-size: 10px; color: #94a3b8; letter-spacing: 3px; font-weight: 700; margin-top: 4px; }
-        
         .divider { width: 100%; height: 1px; background: linear-gradient(90deg, transparent, rgba(0,255,204,0.3), transparent); margin-bottom: 15px; }
 
-        /* PAK STATUS BOX */
-        .pak-status {
-            background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 14px; padding: 12px 15px; display: flex; align-items: center; justify-content: space-between;
-            margin-bottom: 15px; transition: 0.3s;
-        }
-        .pak-status.active { border-color: rgba(0,255,204,0.5); box-shadow: inset 0 0 15px rgba(0,255,204,0.1); }
+        /* PAK STATUS */
+        .pak-status { background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 12px 15px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; }
+        .pak-status.active { border-color: rgba(0,255,204,0.5); }
         .pak-status .info { display: flex; align-items: center; gap: 10px; }
-        .pak-status .info .icon { font-size: 16px; filter: grayscale(100%); opacity: 0.5; transition: 0.3s; }
-        .pak-status.active .info .icon { filter: grayscale(0%); opacity: 1; text-shadow: 0 0 10px rgba(0,255,204,0.5); }
-        .pak-status .info .text { font-size: 12px; font-weight: 700; color: #94a3b8; letter-spacing: 1px; text-transform: uppercase; }
+        .pak-status .info .icon { font-size: 16px; opacity: 0.5; }
+        .pak-status.active .info .icon { opacity: 1; }
+        .pak-status .info .text { font-size: 12px; font-weight: 700; color: #94a3b8; letter-spacing: 1px; }
         .pak-status.active .info .text { color: #00ffcc; }
         .pak-status .badge { font-size: 10px; font-weight: 800; color: #64748b; background: rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 8px; }
-        .pak-status.active .badge { color: #000; background: #00ffcc; box-shadow: 0 0 10px rgba(0,255,204,0.4); }
+        .pak-status.active .badge { color: #000; background: #00ffcc; }
 
         /* ACTION BUTTONS */
         .action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
-        .btn-apply {
-            background: linear-gradient(145deg, rgba(255,255,255,0.08), rgba(0,0,0,0.5));
-            border: 1px solid rgba(255,255,255,0.15); border-radius: 14px;
-            padding: 12px 5px; text-align: center; cursor: pointer; transition: all 0.3s;
-            display: flex; flex-direction: column; align-items: center; gap: 5px;
-        }
+        .btn-apply { background: linear-gradient(145deg, rgba(255,255,255,0.08), rgba(0,0,0,0.5)); border: 1px solid rgba(255,255,255,0.15); border-radius: 14px; padding: 12px 5px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 5px; }
         .btn-apply .em { font-size: 18px; }
-        .btn-apply .txt { font-size: 11px; font-weight: 700; color: #cbd5e1; text-transform: uppercase; letter-spacing: 1px; }
-        
-        .btn-apply:not(.disabled):hover { background: rgba(0,255,204,0.15); border-color: rgba(0,255,204,0.5); }
-        .btn-apply:not(.disabled):active { transform: scale(0.95); }
-        .btn-apply.applying { border-color: #00ffcc; box-shadow: 0 0 15px rgba(0,255,204,0.4); animation: pulseGlow 1s infinite; }
-        .btn-apply.applying .txt { color: #00ffcc; }
-        .btn-apply.disabled { opacity: 0.3; pointer-events: none; filter: grayscale(100%); }
+        .btn-apply .txt { font-size: 11px; font-weight: 700; color: #cbd5e1; }
+        .btn-apply.disabled { opacity: 0.3; }
 
         @keyframes pulseGlow { 0%,100% { filter: brightness(1); } 50% { filter: brightness(1.3); } }
         @keyframes pulse-dot { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(0.8); opacity: 0.6; } }
 
-        /* DNS TOGGLE SWITCH */
-        .dns-card {
-            background: rgba(0,0,0,0.5); border-radius: 16px; padding: 14px 16px;
-            border: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: space-between;
-            margin-bottom: 15px; transition: 0.3s;
-        }
-        .dns-card.active { border-color: rgba(0,119,255,0.5); box-shadow: inset 0 0 15px rgba(0,119,255,0.15); }
-        
+        /* DNS TOGGLE */
+        .dns-card { background: rgba(0,0,0,0.5); border-radius: 16px; padding: 14px 16px; border: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; }
+        .dns-card.active { border-color: rgba(0,119,255,0.5); }
         .dns-info { display: flex; flex-direction: column; gap: 2px; }
-        .dns-info .title { font-size: 13px; font-weight: 700; color: #fff; letter-spacing: 1px; }
-        .dns-info .sub { font-size: 10px; color: #94a3b8; font-weight: 600; text-transform: uppercase; transition: 0.3s; }
+        .dns-info .title { font-size: 13px; font-weight: 700; color: #fff; }
+        .dns-info .sub { font-size: 10px; color: #94a3b8; font-weight: 600; text-transform: uppercase; }
         .dns-card.active .dns-info .sub { color: #0077ff; }
-
         .switch { position: relative; display: inline-block; width: 44px; height: 24px; }
         .switch input { opacity: 0; width: 0; height: 0; }
-        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(255,255,255,0.2); transition: 0.4s; border-radius: 34px; border: 1px solid rgba(255,255,255,0.1); }
-        .slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px; background-color: #cbd5e1; transition: 0.4s; border-radius: 50%; }
-        input:checked + .slider { background-color: rgba(0,119,255,0.3); border-color: #0077ff; box-shadow: 0 0 15px rgba(0,119,255,0.5); }
-        input:checked + .slider:before { transform: translateX(20px); background-color: #fff; box-shadow: 0 0 10px #fff; }
+        .slider { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(255,255,255,0.2); border-radius: 34px; border: 1px solid rgba(255,255,255,0.1); }
+        .slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px; background-color: #cbd5e1; border-radius: 50%; transition: 0.4s; }
+        input:checked + .slider { background-color: rgba(0,119,255,0.3); border-color: #0077ff; }
+        input:checked + .slider:before { transform: translateX(20px); background-color: #fff; }
 
         /* BOTTOM CONTROLS */
         .bottom-controls { display: flex; gap: 10px; }
-        .btn-bottom {
-            flex: 1; padding: 12px 0; border-radius: 12px; font-family: 'Orbitron', sans-serif;
-            font-size: 12px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase;
-            text-align: center; cursor: pointer; transition: 0.2s; border: none; color: #fff;
-        }
-        .btn-bottom:active { transform: scale(0.95); }
-        .btn-hide { background: linear-gradient(90deg, rgba(51,65,85,0.9), rgba(30,41,59,0.9)); box-shadow: 0 5px 15px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.2); }
-        .btn-close { background: linear-gradient(90deg, rgba(255,0,85,0.9), rgba(204,0,68,0.9)); box-shadow: 0 5px 15px rgba(255,0,85,0.4); border: 1px solid rgba(255,0,85,0.5); }
+        .btn-bottom { flex: 1; padding: 12px 0; border-radius: 12px; font-family: 'Orbitron', sans-serif; font-size: 12px; font-weight: 900; color: #fff; text-align: center; border: none; }
+        .btn-hide { background: linear-gradient(90deg, rgba(51,65,85,0.9), rgba(30,41,59,0.9)); border: 1px solid rgba(255,255,255,0.2); }
+        .btn-close { background: linear-gradient(90deg, rgba(255,0,85,0.9), rgba(204,0,68,0.9)); border: 1px solid rgba(255,0,85,0.5); }
 
-        /* TOAST NOTIFICATION */
-        .float-toast {
-            position: absolute; top: -45px; left: 50%; transform: translateX(-50%) translateY(10px);
-            background: rgba(0,0,0,0.95); border: 1px solid #00ffcc; border-radius: 12px;
-            padding: 8px 18px; font-size: 11px; font-weight: 700; color: #00ffcc; letter-spacing: 1px;
-            white-space: nowrap; opacity: 0; pointer-events: none; transition: 0.3s; z-index: 100;
-            box-shadow: 0 5px 15px rgba(0,255,204,0.3); text-transform: uppercase;
-        }
+        /* TOAST */
+        .float-toast { position: absolute; top: -45px; left: 50%; transform: translateX(-50%) translateY(10px); background: rgba(0,0,0,0.95); border: 1px solid #00ffcc; border-radius: 12px; padding: 8px 18px; font-size: 11px; font-weight: 700; color: #00ffcc; opacity: 0; transition: 0.3s; z-index: 100; text-transform: uppercase; }
         .float-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
     </style>
 </head>
 <body>
     <div class="floating-window" id="floatingWindow">
 
-        <!-- 🔥 MINI MODE CONTROLS (Only visible when Minimized) 🔥 -->
-        <div id="miniControls" onclick="expandWindow()">
-            <!-- Sirf ek glowing text jo click karne par open ho jayega -->
+        <!-- MINI MODE TEXT -->
+        <div id="miniControls">
             <div class="mini-text">AADHI GFX TOOL</div>
         </div>
 
-        <!-- 🔥 MAIN CONTROLS (Hidden when minimized) 🔥 -->
+        <!-- MAIN MENU -->
         <div id="mainControls">
-            
-            <!-- DRAG HANDLE (Java isko hi drag karta hai) -->
-            <div class="drag-handle" id="dragHandle">
-                <div class="drag-bar"></div>
-            </div>
-
-            <!-- HEADER -->
             <div class="header">
                 <span class="status-dot" id="headerDot"></span>
                 <div class="brand">
@@ -200,7 +135,6 @@
             
             <div class="divider"></div>
 
-            <!-- PAK STATUS -->
             <div class="pak-status" id="pakStatus">
                 <div class="info">
                     <span class="icon">🚀</span>
@@ -209,19 +143,15 @@
                 <span class="badge" id="pakBadge">NONE</span>
             </div>
 
-            <!-- APPLY BUTTONS -->
             <div class="action-grid">
                 <div class="btn-apply disabled" id="btnLobby">
-                    <span class="em">🎮</span>
-                    <span class="txt">LOBBY APPLY</span>
+                    <span class="em">🎮</span><span class="txt">LOBBY APPLY</span>
                 </div>
                 <div class="btn-apply disabled" id="btnInGame">
-                    <span class="em">⚔️</span>
-                    <span class="txt">IN-GAME APPLY</span>
+                    <span class="em">⚔️</span><span class="txt">IN-GAME APPLY</span>
                 </div>
             </div>
 
-            <!-- DNS TOGGLE -->
             <div class="dns-card" id="dnsCard">
                 <div class="dns-info">
                     <span class="title">ANTI-BAN DNS</span>
@@ -233,153 +163,84 @@
                 </label>
             </div>
 
-            <!-- BOTTOM CONTROLS -->
             <div class="bottom-controls">
-                <div class="btn-bottom btn-hide" id="btnHide">MINIMIZE</div>
+                <div class="btn-bottom btn-hide" id="btnHide">HIDE</div>
                 <div class="btn-bottom btn-close" id="btnClose">CLOSE</div>
             </div>
         </div>
 
-        <!-- TOAST -->
         <div class="float-toast" id="floatToast">READY</div>
     </div>
 
     <script>
-        var headerDot = document.getElementById('headerDot');
-        var dnsCard = document.getElementById('dnsCard');
-        var dnsSubtitle = document.getElementById('dnsSubtitle');
-        var dnsToggle = document.getElementById('dnsToggle');
-        var pakStatus = document.getElementById('pakStatus');
-        var pakStatusText = document.getElementById('pakStatusText');
-        var pakBadge = document.getElementById('pakBadge');
-        var btnLobby = document.getElementById('btnLobby');
-        var btnInGame = document.getElementById('btnInGame');
-        var btnHide = document.getElementById('btnHide');
-        var btnClose = document.getElementById('btnClose');
-        var floatToast = document.getElementById('floatToast');
         var floatingWindow = document.getElementById('floatingWindow');
-
-        var isProtected = false;
-        var currentPak = null;
-
-        function showFloatToast(msg, isError) {
-            floatToast.textContent = msg;
-            floatToast.style.color = isError ? '#ff3366' : '#00ffcc';
-            floatToast.style.borderColor = isError ? 'rgba(255,51,102,0.5)' : 'rgba(0,255,204,0.5)';
-            floatToast.classList.add('show');
-            clearTimeout(floatToast._t);
-            floatToast._t = setTimeout(function() {
-                floatToast.classList.remove('show');
-            }, 2500);
-        }
-
-        // 🔥 EXPAND WINDOW (OPEN MAIN MENU) 🔥
+        
+        // Java se command bhej kar touch issue thik karne ki ninja technique
         function expandWindow() {
             floatingWindow.classList.remove('mini');
+            if(window.Android && Android.resizeWindow) {
+                Android.resizeWindow(350, 480); // Open hone par full size
+            }
         }
 
-        // 🔥 MINIMIZE WINDOW (SHOW TEXT ONLY) 🔥
-        btnHide.addEventListener('click', function(e) {
+        document.getElementById('btnHide').addEventListener('click', function(e) {
             e.stopPropagation();
             floatingWindow.classList.add('mini'); 
+            if(window.Android && Android.resizeWindow) {
+                Android.resizeWindow(160, 50); // Hide hone par WebView ekdum chota ho jayega (Touch Block Fix)
+            }
         });
 
-        window.setProtectionState = function(active) {
-            isProtected = active;
-            dnsToggle.checked = active; 
-            if (active) {
-                headerDot.className = 'status-dot';
-                dnsCard.classList.add('active');
-                dnsSubtitle.textContent = 'SECURE DNS RUNNING';
-            } else {
-                headerDot.className = 'status-dot off';
-                dnsCard.classList.remove('active');
-                dnsSubtitle.textContent = 'PROTECTION DISABLED';
-            }
-        };
-
+        // Pak state
         window.setPakState = function(pakKey) {
+            var btnLobby = document.getElementById('btnLobby'), btnInGame = document.getElementById('btnInGame');
             if (!pakKey || pakKey === "null" || pakKey === "") {
-                currentPak = null;
-                pakStatus.classList.remove('active');
-                pakStatusText.textContent = 'NO PAK SELECTED';
-                pakBadge.textContent = 'NONE';
-                btnLobby.classList.add('disabled');
-                btnInGame.classList.add('disabled');
+                document.getElementById('pakStatus').classList.remove('active');
+                document.getElementById('pakStatusText').textContent = 'NO PAK SELECTED';
+                document.getElementById('pakBadge').textContent = 'NONE';
+                btnLobby.classList.add('disabled'); btnInGame.classList.add('disabled');
             } else {
-                currentPak = pakKey;
-                var pakName = pakKey.toUpperCase().replace('_URL', '');
-                pakStatus.classList.add('active');
-                pakStatusText.textContent = pakName + ' READY';
-                pakBadge.textContent = 'ACTIVE';
-                btnLobby.classList.remove('disabled');
-                btnInGame.classList.remove('disabled');
+                document.getElementById('pakStatus').classList.add('active');
+                document.getElementById('pakStatusText').textContent = pakKey.toUpperCase().replace('_URL', '') + ' READY';
+                document.getElementById('pakBadge').textContent = 'ACTIVE';
+                btnLobby.classList.remove('disabled'); btnInGame.classList.remove('disabled');
             }
         };
 
-        dnsToggle.addEventListener('change', function(e) {
-            var targetState = e.target.checked;
-            if (window.Android && window.Android.onProtectionToggle) {
-                window.Android.onProtectionToggle(targetState);
+        // DNS state
+        window.setProtectionState = function(active) {
+            document.getElementById('dnsToggle').checked = active; 
+            if (active) {
+                document.getElementById('headerDot').className = 'status-dot';
+                document.getElementById('dnsCard').classList.add('active');
+                document.getElementById('dnsSubtitle').textContent = 'SECURE DNS RUNNING';
+            } else {
+                document.getElementById('headerDot').className = 'status-dot off';
+                document.getElementById('dnsCard').classList.remove('active');
+                document.getElementById('dnsSubtitle').textContent = 'PROTECTION DISABLED';
             }
-            setProtectionState(targetState);
+        };
+
+        document.getElementById('dnsToggle').addEventListener('change', function(e) {
+            if (window.Android && window.Android.onProtectionToggle) window.Android.onProtectionToggle(e.target.checked);
+            setProtectionState(e.target.checked);
         });
 
-        btnLobby.addEventListener('click', function(e) {
-            e.stopPropagation();
-            if (!currentPak || btnLobby.classList.contains('disabled')) return;
-            if (window.Android && Android.reapplyPak) {
-                Android.reapplyPak("lobby");
-                btnLobby.classList.add('applying');
-                showFloatToast('APPLYING LOBBY...', false);
-                setTimeout(function() {
-                    btnLobby.classList.remove('applying');
-                    showFloatToast('LOBBY APPLIED ✓', false);
-                }, 2500);
-            }
+        document.getElementById('btnLobby').addEventListener('click', function(e) {
+            if (!this.classList.contains('disabled') && window.Android && Android.reapplyPak) Android.reapplyPak("lobby");
         });
 
-        btnInGame.addEventListener('click', function(e) {
-            e.stopPropagation();
-            if (!currentPak || btnInGame.classList.contains('disabled')) return;
-            if (window.Android && Android.reapplyPak) {
-                Android.reapplyPak("ingame");
-                btnInGame.classList.add('applying');
-                showFloatToast('APPLYING IN-GAME...', false);
-                setTimeout(function() {
-                    btnInGame.classList.remove('applying');
-                    showFloatToast('IN-GAME APPLIED ✓', false);
-                }, 2500);
-            }
+        document.getElementById('btnInGame').addEventListener('click', function(e) {
+            if (!this.classList.contains('disabled') && window.Android && Android.reapplyPak) Android.reapplyPak("ingame");
         });
 
-        btnClose.addEventListener('click', function(e) {
-            e.stopPropagation();
-            if (window.Android && window.Android.onClose) {
-                window.Android.onClose();
-            }
+        document.getElementById('btnClose').addEventListener('click', function(e) {
+            if (window.Android && window.Android.onClose) window.Android.onClose();
         });
-
-        setProtectionState(false);
-        setPakState("");
 
         window.addEventListener('load', function() {
-            setTimeout(function() {
-                try {
-                    if (window.Android && Android.getSelectedPak) {
-                        setPakState(Android.getSelectedPak());
-                    }
-                } catch (e) {}
-            }, 300);
-
-            setTimeout(function() {
-                try {
-                    if (window.Android && Android.getVpnState) {
-                        var v = Android.getVpnState();
-                        setProtectionState(v === 'true' || v === true);
-                    }
-                } catch (e) {}
-            }, 500);
+            setTimeout(function() { if (window.Android && Android.getSelectedPak) setPakState(Android.getSelectedPak()); }, 300);
+            setTimeout(function() { if (window.Android && Android.getVpnState) setProtectionState(Android.getVpnState() === 'true'); }, 500);
         });
     </script>
 </body>
