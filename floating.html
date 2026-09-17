@@ -5,213 +5,279 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Floating</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin:0; padding:0; box-sizing:border-box; }
         body {
-            background: transparent !important;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
-            font-family: 'Segoe UI', Arial, sans-serif;
-            touch-action: none;
+            background:transparent !important;
+            display:flex; align-items:center; justify-content:center;
+            min-height:100vh;
+            user-select:none; -webkit-tap-highlight-color:transparent;
+            font-family:'Segoe UI', Arial, sans-serif;
+            touch-action:none;
         }
         .floating-window {
-            width: 340px;
-            max-width: 92vw;
-            background: #0A0E17;
-            border-radius: 28px;
-            padding: 16px 18px 18px;
-            border: 2px solid #8B5CF6;
-            box-shadow: 0 0 35px rgba(139, 92, 246, 0.3);
-            position: relative;
+            width:340px; max-width:92vw;
+            background:#0A0E17;
+            border-radius:28px;
+            padding:16px 18px 18px;
+            border:2px solid #8B5CF6;
+            box-shadow:0 0 35px rgba(139,92,246,0.3);
+            position:relative;
         }
+
+        /* HEADER */
         .header {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding-bottom: 4px;
+            display:flex; align-items:center; justify-content:center;
+            gap:8px; padding-bottom:4px;
         }
-        .header .brand {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            line-height: 1.1;
-        }
+        .header .brand { display:flex; flex-direction:column; align-items:center; line-height:1.1; }
         .header .brand .title {
-            font-size: 17px;
-            font-weight: 800;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            background: linear-gradient(135deg, #A78BFA, #7C3AED);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size:17px; font-weight:800; letter-spacing:1.5px;
+            text-transform:uppercase;
+            background:linear-gradient(135deg, #A78BFA, #7C3AED);
+            -webkit-background-clip:text; -webkit-text-fill-color:transparent;
         }
         .header .brand .sub {
-            font-size: 9px;
-            color: #64748B;
-            letter-spacing: 2.5px;
-            font-weight: 600;
-            margin-top: 2px;
+            font-size:9px; color:#64748B; letter-spacing:2.5px;
+            font-weight:600; margin-top:2px;
         }
         .divider {
-            width: 90%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #8B5CF6, transparent);
-            margin: 6px auto 14px auto;
-            border-radius: 4px;
-            box-shadow: 0 0 10px rgba(139, 92, 246, 0.4);
+            width:90%; height:2px;
+            background:linear-gradient(90deg, transparent, #8B5CF6, transparent);
+            margin:6px auto 14px auto; border-radius:4px;
+            box-shadow:0 0 10px rgba(139,92,246,0.4);
         }
         .header .status-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: #22D3A7;
-            box-shadow: 0 0 14px #22D3A7;
-            flex-shrink: 0;
-            animation: pulse-dot 2s ease-in-out infinite;
-            transition: all 0.3s;
+            width:10px; height:10px; border-radius:50%;
+            background:#22D3A7; box-shadow:0 0 14px #22D3A7;
+            flex-shrink:0; animation:pulse-dot 2s ease-in-out infinite;
+            transition:all 0.3s;
         }
         .header .status-dot.off {
-            animation: none;
-            background: #EF4444;
-            box-shadow: 0 0 8px rgba(239, 68, 68, 0.4);
+            animation:none; background:#EF4444;
+            box-shadow:0 0 8px rgba(239,68,68,0.4);
         }
         @keyframes pulse-dot {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(0.85); }
+            0%,100% { opacity:1; transform:scale(1); }
+            50% { opacity:0.5; transform:scale(0.85); }
         }
+
+        /* PAK STATUS BAR */
+        .pak-status {
+            display:flex; align-items:center; justify-content:space-between;
+            background:#111827;
+            border-radius:12px;
+            padding:10px 14px;
+            margin-bottom:12px;
+            border:1.5px solid #374151;
+            transition:all 0.3s;
+        }
+        .pak-status.active {
+            border-color:#F59E0B;
+            box-shadow:0 0 15px rgba(245,158,11,0.15);
+        }
+        .pak-status .info {
+            display:flex; align-items:center; gap:8px;
+        }
+        .pak-status .info .icon {
+            font-size:14px; color:#64748B;
+            transition:color 0.3s;
+        }
+        .pak-status.active .info .icon { color:#F59E0B; }
+        .pak-status .info .text {
+            font-size:11px; font-weight:700; letter-spacing:0.8px;
+            color:#64748B; text-transform:uppercase;
+        }
+        .pak-status.active .info .text { color:#E2E8F0; }
+        .pak-status .badge {
+            font-size:10px; font-weight:800; color:#64748B;
+            background:rgba(100,116,139,0.12);
+            padding:3px 10px; border-radius:20px;
+            border:1px solid rgba(100,116,139,0.3);
+            text-transform:uppercase;
+        }
+        .pak-status.active .badge {
+            color:#F59E0B;
+            background:rgba(245,158,11,0.12);
+            border-color:rgba(245,158,11,0.3);
+        }
+
+        /* PAK APPLY BUTTONS */
+        .pak-actions {
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:10px;
+            margin-bottom:12px;
+        }
+        .btn-apply {
+            padding:12px 6px;
+            border-radius:12px;
+            font-size:11px;
+            font-weight:800;
+            letter-spacing:1px;
+            text-transform:uppercase;
+            text-align:center;
+            cursor:pointer;
+            transition:all 0.2s ease;
+            border:1.5px solid;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            gap:4px;
+        }
+        .btn-apply:active { transform:scale(0.95); }
+        .btn-apply .em {
+            font-size:16px;
+            line-height:1;
+        }
+        .btn-apply.lobby {
+            background:#1F1408;
+            border-color:#F59E0B;
+            color:#FBBF24;
+        }
+        .btn-apply.lobby:active {
+            box-shadow:0 0 20px rgba(245,158,11,0.4);
+        }
+        .btn-apply.ingame {
+            background:#0F1420;
+            border-color:#3B82F6;
+            color:#60A5FA;
+        }
+        .btn-apply.ingame:active {
+            box-shadow:0 0 20px rgba(59,130,246,0.4);
+        }
+        .btn-apply.disabled {
+            opacity:0.35;
+            pointer-events:none;
+        }
+        .btn-apply.applying {
+            animation:applyPulse 1s ease-in-out infinite;
+        }
+        @keyframes applyPulse {
+            0%,100% { opacity:1; }
+            50% { opacity:0.5; }
+        }
+
+        /* DNS CARD */
         .dns-card {
-            background: #111827;
-            border-radius: 16px;
-            padding: 14px 16px;
-            border: 1.5px solid #22D3A7;
-            box-shadow: 0 0 20px rgba(34, 211, 167, 0.1);
-            margin-bottom: 12px;
-            transition: all 0.3s;
+            background:#111827;
+            border-radius:16px;
+            padding:14px 16px;
+            border:1.5px solid #22D3A7;
+            box-shadow:0 0 20px rgba(34,211,167,0.1);
+            margin-bottom:12px;
+            transition:all 0.3s;
         }
-        .dns-card.off {
-            border-color: #374151;
-            box-shadow: none;
-        }
+        .dns-card.off { border-color:#374151; box-shadow:none; }
         .dns-card .row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            display:flex; align-items:center; justify-content:space-between;
         }
-        .dns-card .label-group {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
+        .dns-card .label-group { display:flex; align-items:center; gap:6px; }
         .dns-card .label-group .dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #22D3A7;
-            box-shadow: 0 0 10px #22D3A7;
-            transition: all 0.3s;
+            width:8px; height:8px; border-radius:50%;
+            background:#22D3A7; box-shadow:0 0 10px #22D3A7;
+            transition:all 0.3s;
         }
         .dns-card .label-group .dot.off {
-            background: #EF4444;
-            box-shadow: none;
+            background:#EF4444; box-shadow:none;
         }
         .dns-card .label-group .label {
-            font-size: 13px;
-            font-weight: 700;
-            letter-spacing: 0.8px;
-            color: #E2E8F0;
+            font-size:13px; font-weight:700; letter-spacing:0.8px;
+            color:#E2E8F0;
         }
         .dns-card .status-badge {
-            font-size: 11px;
-            font-weight: 800;
-            color: #22D3A7;
-            background: rgba(34, 211, 167, 0.12);
-            padding: 3px 10px;
-            border-radius: 20px;
-            border: 1px solid rgba(34, 211, 167, 0.3);
-            transition: all 0.3s;
+            font-size:11px; font-weight:800; color:#22D3A7;
+            background:rgba(34,211,167,0.12);
+            padding:3px 10px; border-radius:20px;
+            border:1px solid rgba(34,211,167,0.3);
+            transition:all 0.3s;
         }
         .dns-card .status-badge.off {
-            color: #EF4444;
-            border-color: rgba(239, 68, 68, 0.3);
-            background: rgba(239, 68, 68, 0.12);
+            color:#EF4444;
+            border-color:rgba(239,68,68,0.3);
+            background:rgba(239,68,68,0.12);
         }
         .dns-card .subtitle {
-            font-size: 12px;
-            color: #94A3B8;
-            margin-top: 5px;
-            transition: color 0.3s;
+            font-size:12px; color:#94A3B8;
+            margin-top:5px; transition:color 0.3s;
         }
-        .dns-card .subtitle.off {
-            color: #64748B;
-        }
+        .dns-card .subtitle.off { color:#64748B; }
         .btn-toggle {
-            width: 100%;
-            margin-top: 12px;
-            padding: 10px 0;
-            background: #1A0A0A;
-            border: 1.5px solid #EF4444;
-            border-radius: 12px;
-            color: #EF4444;
-            font-size: 14px;
-            font-weight: 800;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-align: center;
+            width:100%; margin-top:12px;
+            padding:10px 0;
+            background:#1A0A0A;
+            border:1.5px solid #EF4444;
+            border-radius:12px;
+            color:#EF4444; font-size:14px; font-weight:800;
+            letter-spacing:1.5px; text-transform:uppercase;
+            cursor:pointer; transition:all 0.2s ease;
+            text-align:center;
         }
-        .btn-toggle:active { transform: scale(0.97); }
+        .btn-toggle:active { transform:scale(0.97); }
         .btn-toggle.start {
-            border-color: #22D3A7;
-            color: #22D3A7;
-            background: #06241B;
-            box-shadow: 0 0 15px rgba(34, 211, 167, 0.2);
+            border-color:#22D3A7;
+            color:#22D3A7;
+            background:#06241B;
+            box-shadow:0 0 15px rgba(34,211,167,0.2);
         }
-        .bottom-controls {
-            display: flex;
-            gap: 10px;
-        }
+
+        /* BOTTOM CONTROLS */
+        .bottom-controls { display:flex; gap:10px; }
         .bottom-controls .btn {
-            flex: 1;
-            padding: 10px 0;
-            border-radius: 12px;
-            font-size: 13px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
+            flex:1; padding:10px 0;
+            border-radius:12px; font-size:13px;
+            font-weight:700; letter-spacing:1px;
+            text-transform:uppercase; text-align:center;
+            cursor:pointer; transition:all 0.2s ease;
         }
-        .bottom-controls .btn:active { transform: scale(0.96); }
+        .bottom-controls .btn:active { transform:scale(0.96); }
         .btn-hide {
-            background: #15102A;
-            border: 1.5px solid #8B5CF6;
-            color: #C4B5FD;
+            background:#15102A;
+            border:1.5px solid #8B5CF6;
+            color:#C4B5FD;
         }
         .btn-close {
-            background: #1A0A0A;
-            border: 1.5px solid #EF4444;
-            color: #FCA5A5;
+            background:#1A0A0A;
+            border:1.5px solid #EF4444;
+            color:#FCA5A5;
         }
+
+        /* DRAG HANDLE */
         .drag-handle {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 48px;
-            cursor: grab;
-            border-radius: 28px 28px 0 0;
+            position:absolute; top:0; left:0; right:0;
+            height:48px; cursor:grab;
+            border-radius:28px 28px 0 0;
+        }
+
+        /* TOAST */
+        .float-toast {
+            position:absolute;
+            top:-50px; left:50%;
+            transform:translateX(-50%) translateY(10px);
+            background:rgba(10,14,23,0.98);
+            border:1px solid rgba(0,255,200,0.4);
+            border-radius:10px;
+            padding:8px 16px;
+            font-size:11px;
+            font-weight:700;
+            color:#00FFC8;
+            letter-spacing:0.5px;
+            white-space:nowrap;
+            opacity:0;
+            transition:0.3s;
+            pointer-events:none;
+            z-index:100;
+        }
+        .float-toast.show {
+            opacity:1;
+            transform:translateX(-50%) translateY(0);
         }
     </style>
 </head>
 <body>
     <div class="floating-window" id="floatingWindow">
         <div class="drag-handle" id="dragHandle"></div>
+
+        <!-- HEADER -->
         <div class="header">
             <span class="status-dot" id="headerDot"></span>
             <div class="brand">
@@ -220,6 +286,29 @@
             </div>
         </div>
         <div class="divider"></div>
+
+        <!-- PAK STATUS -->
+        <div class="pak-status" id="pakStatus">
+            <div class="info">
+                <span class="icon">📦</span>
+                <span class="text" id="pakStatusText">No Pak Selected</span>
+            </div>
+            <span class="badge" id="pakBadge">NONE</span>
+        </div>
+
+        <!-- PAK APPLY BUTTONS -->
+        <div class="pak-actions">
+            <div class="btn-apply lobby disabled" id="btnLobby">
+                <span class="em">🎮</span>
+                <span>Lobby Apply</span>
+            </div>
+            <div class="btn-apply ingame disabled" id="btnInGame">
+                <span class="em">⚔️</span>
+                <span>In-Game Apply</span>
+            </div>
+        </div>
+
+        <!-- DNS PROTECTION -->
         <div class="dns-card" id="dnsCard">
             <div class="row">
                 <div class="label-group">
@@ -231,13 +320,21 @@
             <div class="subtitle" id="dnsSubtitle">Secure DNS Running</div>
             <div class="btn-toggle" id="btnToggle">STOP</div>
         </div>
+
+        <!-- BOTTOM CONTROLS -->
         <div class="bottom-controls">
             <div class="btn btn-hide" id="btnHide">HIDE</div>
             <div class="btn btn-close" id="btnClose">CLOSE</div>
         </div>
+
+        <!-- TOAST -->
+        <div class="float-toast" id="floatToast">Ready</div>
     </div>
 
     <script>
+        // ═══════════════════════════════════════════════════════
+        //  ELEMENTS
+        // ═══════════════════════════════════════════════════════
         var headerDot = document.getElementById('headerDot');
         var dnsDot = document.getElementById('dnsDot');
         var statusBadge = document.getElementById('statusBadge');
@@ -246,9 +343,33 @@
         var btnToggle = document.getElementById('btnToggle');
         var btnHide = document.getElementById('btnHide');
         var btnClose = document.getElementById('btnClose');
+        var pakStatus = document.getElementById('pakStatus');
+        var pakStatusText = document.getElementById('pakStatusText');
+        var pakBadge = document.getElementById('pakBadge');
+        var btnLobby = document.getElementById('btnLobby');
+        var btnInGame = document.getElementById('btnInGame');
+        var floatToast = document.getElementById('floatToast');
 
         var isProtected = false;
+        var currentPak = null;
 
+        // ═══════════════════════════════════════════════════════
+        //  TOAST
+        // ═══════════════════════════════════════════════════════
+        function showFloatToast(msg, isError) {
+            floatToast.textContent = msg;
+            floatToast.style.color = isError ? '#EF4444' : '#00FFC8';
+            floatToast.style.borderColor = isError ? 'rgba(239,68,68,0.4)' : 'rgba(0,255,200,0.4)';
+            floatToast.classList.add('show');
+            clearTimeout(floatToast._t);
+            floatToast._t = setTimeout(function() {
+                floatToast.classList.remove('show');
+            }, 2200);
+        }
+
+        // ═══════════════════════════════════════════════════════
+        //  DNS / PROTECTION STATE
+        // ═══════════════════════════════════════════════════════
         window.setProtectionState = function(active) {
             isProtected = active;
             if (active) {
@@ -274,6 +395,34 @@
             }
         };
 
+        // ═══════════════════════════════════════════════════════
+        //  PAK STATE (Java se aata hai)
+        // ═══════════════════════════════════════════════════════
+        window.setPakState = function(pakKey) {
+            // pakKey: "pak1_url", "pak2_url", ya "" (none)
+            if (!pakKey || pakKey === "null" || pakKey === "") {
+                currentPak = null;
+                pakStatus.classList.remove('active');
+                pakStatusText.textContent = 'No Pak Selected';
+                pakBadge.textContent = 'NONE';
+                btnLobby.classList.add('disabled');
+                btnInGame.classList.add('disabled');
+            } else {
+                currentPak = pakKey;
+                var pakName = pakKey === 'pak1_url' ? 'Pak V1' : 'Pak V2';
+                pakStatus.classList.add('active');
+                pakStatusText.textContent = pakName + ' Active';
+                pakBadge.textContent = pakKey === 'pak1_url' ? 'V1' : 'V2';
+                btnLobby.classList.remove('disabled');
+                btnInGame.classList.remove('disabled');
+            }
+        };
+
+        // ═══════════════════════════════════════════════════════
+        //  BUTTON ACTIONS
+        // ═══════════════════════════════════════════════════════
+
+        // DNS Toggle
         btnToggle.addEventListener('click', function(e) {
             e.stopPropagation();
             var targetState = !isProtected;
@@ -282,6 +431,41 @@
             }
         });
 
+        // LOBBY APPLY
+        btnLobby.addEventListener('click', function(e) {
+            e.stopPropagation();
+            if (!currentPak) return;
+            if (window.Android && Android.reapplyPak) {
+                Android.reapplyPak("lobby");
+                btnLobby.classList.add('applying');
+                showFloatToast('Applying in Lobby...', false);
+                setTimeout(function() {
+                    btnLobby.classList.remove('applying');
+                    showFloatToast('Lobby Applied ✓', false);
+                }, 2500);
+            } else {
+                showFloatToast('Bridge unavailable', true);
+            }
+        });
+
+        // IN-GAME APPLY
+        btnInGame.addEventListener('click', function(e) {
+            e.stopPropagation();
+            if (!currentPak) return;
+            if (window.Android && Android.reapplyPak) {
+                Android.reapplyPak("ingame");
+                btnInGame.classList.add('applying');
+                showFloatToast('Applying In-Game...', false);
+                setTimeout(function() {
+                    btnInGame.classList.remove('applying');
+                    showFloatToast('In-Game Applied ✓', false);
+                }, 2500);
+            } else {
+                showFloatToast('Bridge unavailable', true);
+            }
+        });
+
+        // HIDE
         btnHide.addEventListener('click', function(e) {
             e.stopPropagation();
             if (window.Android && window.Android.onHide) {
@@ -289,6 +473,7 @@
             }
         });
 
+        // CLOSE
         btnClose.addEventListener('click', function(e) {
             e.stopPropagation();
             if (window.Android && window.Android.onClose) {
@@ -296,8 +481,33 @@
             }
         });
 
-        // Initialize default UI to OFF until confirmed by Service
+        // ═══════════════════════════════════════════════════════
+        //  INIT — Java se state poocho
+        // ═══════════════════════════════════════════════════════
         setProtectionState(false);
+        setPakState("");
+
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                // Pak state from Java
+                try {
+                    if (window.Android && Android.getSelectedPak) {
+                        var pak = Android.getSelectedPak();
+                        setPakState(pak);
+                    }
+                } catch (e) {}
+            }, 300);
+
+            // DNS state from Java
+            setTimeout(function() {
+                try {
+                    if (window.Android && Android.getVpnState) {
+                        var v = Android.getVpnState();
+                        setProtectionState(v === 'true' || v === true);
+                    }
+                } catch (e) {}
+            }, 500);
+        });
     </script>
 </body>
 </html>
